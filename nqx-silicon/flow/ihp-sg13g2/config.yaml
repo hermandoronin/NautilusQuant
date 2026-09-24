@@ -90,3 +90,8 @@ DRT_ANTENNA_REPAIR_ITERS: 10
 # (the foundry deck) is the sign-off DRC.
 MAGIC_EXT_UNIQUE: notopports
 PRIMARY_GDSII_STREAMOUT_TOOL: klayout
+
+# Metal/active fill: the PDK's fill macros run in KLayout's hierarchical
+# (deep) mode. The stock script flattens the die and was killed above 12 GB
+# on a 16 GB machine; see scripts/filler_deep.py.
+KLAYOUT_FILLER_SCRIPT: dir::scripts/filler_deep.py
