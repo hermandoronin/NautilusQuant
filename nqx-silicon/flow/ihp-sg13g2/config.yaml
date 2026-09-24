@@ -38,11 +38,17 @@ TIMING_VIOLATION_CORNERS: ["*"]
 MAX_SLEW_VIOLATION_CORNERS: ["*"]
 MAX_CAP_VIOLATION_CORNERS: ["*"]
 
-# Floorplan: 2.0 mm x 2.0 mm die, pad ring 140 um seal/bond zone + 180 um pads
+# Floorplan: 2.0 mm x 2.0 mm die, pad ring 140 um seal/bond zone + 180 um pads.
+# The core (1.04 mm square) is deliberately smaller than the space inside the
+# pad ring. IHP's density rules MxFil.h need >= 25 % Metal2..5 (drawn + fill)
+# in every 800 x 800 um window; the routed standard-cell area leaves too few
+# gaps for Metal2 fill, so every window must also contain some empty, fully
+# fillable area. With the core at 400..1600 um the four central windows held
+# only routed cells and Metal2 reached 22 % at best.
 FP_SIZING: absolute
 DIE_AREA: [0, 0, 2000, 2000]
-CORE_AREA: [400, 400, 1600, 1600]
-PL_TARGET_DENSITY_PCT: 45
+CORE_AREA: [480, 480, 1520, 1520]
+PL_TARGET_DENSITY_PCT: 72
 
 # Routing: the 2R2W vector register makes Metal2 pin access dense. Reserve
 # part of Metal2/Metal3 during global routing so detailed routing converges.
@@ -83,7 +89,11 @@ PAD_WEST:  [in_bus7_pad, in_bus6_pad, in_bus5_pad, in_bus4_pad,
 
 # Antenna repair
 DIODE_ON_PORTS: none
-RUN_HEURISTIC_DIODE_INSERTION: true
+# No heuristic diodes: in run full3 they added 47 343 diode cells (+0.26 mm2,
+# utilization 55 % -> 73 %) while only 5 nets needed repair after routing.
+# Antennas are repaired after global and detailed routing and signed off by
+# OpenROAD's check and KLayout's antenna deck.
+RUN_HEURISTIC_DIODE_INSERTION: false
 DRT_ANTENNA_REPAIR_ITERS: 10
 
 # Magic DRC flags false positives inside the foundry I/O cells; KLayout
@@ -95,3 +105,8 @@ PRIMARY_GDSII_STREAMOUT_TOOL: klayout
 # (deep) mode. The stock script flattens the die and was killed above 12 GB
 # on a 16 GB machine; see scripts/filler_deep.py.
 KLAYOUT_FILLER_SCRIPT: dir::scripts/filler_deep.py
+# Filler-to-filler distance for Metal2,3,4,5 (PDK defaults 1.5, 2, 2, 2 um;
+# minimum 0.42 um). Tighter on Metal2-4 to meet MxFil.h in the core, Metal5
+# at the default to stay under the 60 % maximum (M5.k).
+KLAYOUT_FILLER_DEFINES:
+  metal_fill_distance: "0.42,1.0,1.0,2.0"
