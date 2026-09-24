@@ -4,7 +4,8 @@ Drop-in replacement for the PDK's libs.tech/klayout/tech/scripts/filler.py,
 with the same arguments:
 
     klayout -b -zz -r filler_deep.py -rd output_file=<out.gds> [-rd no_activ]
-            [-rd no_metal] [-rd no_topmetal] [-rd threads=N] <in.gds>
+            [-rd no_metal] [-rd no_topmetal] [-rd threads=N]
+            [-rd metal_fill_distance=D] <in.gds>
 
 It runs the PDK's own fill macros (sg13g2_filler_{ActGatP,Metal,TopMetal}.lym)
 unchanged except for two engine directives prepended at run time: `deep` and
@@ -13,11 +14,18 @@ on this 2 x 2 mm chip that needed more than 12 GB and was killed on a 16 GB
 machine, while deep mode peaks at about 2 GB. The fill rules, patterns and
 exclusions are the foundry's; the result is checked by the flow's density
 and DRC steps like any other fill.
+
+metal_fill_distance sets the Metal2..Metal5 filler-to-filler distance, the
+parameter the PDK macro exposes in its interactive dialog (defaults 1.5 um
+for Metal2 and 2.0 um for Metal3-5; the macro and rule MxFil.b allow down
+to 0.42 um). Batch mode has no dialog, so the value is substituted into the
+macro's defaults. Metal1 keeps the PDK default.
 """
 # pylint: disable=import-error,undefined-variable
 
 import os
 import pathlib
+import re
 import sys
 import time
 
@@ -34,6 +42,11 @@ try:
 except NameError:
     n_threads = os.cpu_count() or 1
 
+try:
+    fill_distance = max(0.42, float(metal_fill_distance))
+except NameError:
+    fill_distance = None
+
 macros = pathlib.Path(os.environ["PDK_ROOT"]) / os.environ["PDK"] / "libs.tech/klayout/tech/macros"
 for flag, area in (("no_activ", "ActGatP"), ("no_metal", "Metal"), ("no_topmetal", "TopMetal")):
     if flag in globals():
@@ -42,7 +55,14 @@ for flag, area in (("no_activ", "ActGatP"), ("no_metal", "Metal"), ("no_topmetal
     print(f"Start filling {area} (deep mode, {n_threads} threads)", flush=True)
     t0 = time.time()
     macro = pya.Macro(str(macros / f"sg13g2_filler_{area}.lym"))
-    macro.text = f"deep\nthreads({n_threads})\n" + macro.text
+    text = macro.text
+    if area == "Metal" and fill_distance is not None:
+        text, n = re.subn(r"('distance_m[2-5]'\s*=>\s*)[0-9.]+", rf"\g<1>{fill_distance}", text)
+        if n != 4:
+            print(f"Expected 4 Metal2-5 distance defaults in the PDK macro, found {n}")
+            sys.exit(1)
+        print(f"Metal2-5 filler distance: {fill_distance} um")
+    macro.text = f"deep\nthreads({n_threads})\n" + text
     macro.run()
     print(f"Done filling {area} in {time.time() - t0:.0f} s", flush=True)
 
