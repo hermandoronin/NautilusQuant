@@ -88,10 +88,11 @@ def main() -> None:
     gds = final / "gds" / f"{args.top}.gds"
     with open(gds, "rb") as src, gzip.open(out / f"{args.top}.gds.gz", "wb", compresslevel=9) as dst:
         shutil.copyfileobj(src, dst)
-    for sub, ext in [("nl", "nl.v"), ("pnl", "pnl.v"), ("sdc", "sdc"), ("spef/nom", "nom.spef")]:
-        for f in (final / sub.split("/")[0]).rglob(f"{args.top}*{ext}") if (final / sub.split("/")[0]).exists() else []:
-            if ext == "nom.spef" or f.suffix in (".v", ".sdc"):
-                shutil.copy(f, out / f.name)
+    # Netlists (logical and powered) and the constraints; LibreLane saves them
+    # as final/<view>/<top>.<view>.<ext>.
+    for view in ("nl", "pnl", "sdc"):
+        for f in sorted((final / view).glob(f"{args.top}.*")):
+            shutil.copy(f, out / f.name)
     metrics = json.loads((final / "metrics.json").read_text())
     (out / "metrics.json").write_text(json.dumps(metrics, indent=1, sort_keys=True))
 
@@ -108,6 +109,7 @@ def main() -> None:
         "*-openroad-stapostpnr/*/power.rpt",
         "*-openroad-irdropreport/*.rpt",
         "*-openroad-checkantennas*/reports/*",
+        "*-misc-reportmanufacturability/*.rpt",
     ]:
         for f in sorted(args.run.glob(pattern)):
             if f.is_file() and f.stat().st_size < 20 * 1024 * 1024:
