@@ -20,6 +20,9 @@ set_timing_derate -early [expr {1 - $::env(TIME_DERATING_CONSTRAINT) / 100.0}]
 set_timing_derate -late  [expr {1 + $::env(TIME_DERATING_CONSTRAINT) / 100.0}]
 
 set_max_fanout $::env(MAX_FANOUT_CONSTRAINT) [current_design]
+# Tighter than the library limit (2.507 ns at the slow corner): weakly driven
+# high-fanout nets are both slow and the first to fail at 1.08 V/125 C.
+set_max_transition 1.5 [current_design]
 
 set async_in  [get_ports {rst_n_PAD in_req_PAD out_ack_PAD in_bus_PAD[*]}]
 set async_out [get_ports {in_ack_PAD out_req_PAD out_bus_PAD[*] busy_PAD}]

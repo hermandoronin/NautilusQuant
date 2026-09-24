@@ -28,6 +28,16 @@ CLOCK_PERIOD: 20
 PNR_SDC_FILE: dir::chip_top.sdc
 SIGNOFF_SDC_FILE: dir::chip_top.sdc
 
+# Timing sign-off at every corner (slow 1.08 V/125 C, typ, fast 1.32 V/-40 C).
+# The resizer's placement-based parasitic estimate missed the slow corner
+# (no setup violation reported, -2.5 ns after routing), so design repair
+# and timing repair also run on global-routing parasitics.
+RUN_POST_GRT_DESIGN_REPAIR: true
+RUN_POST_GRT_RESIZER_TIMING: true
+TIMING_VIOLATION_CORNERS: ["*"]
+MAX_SLEW_VIOLATION_CORNERS: ["*"]
+MAX_CAP_VIOLATION_CORNERS: ["*"]
+
 # Floorplan: 2.0 mm x 2.0 mm die, pad ring 140 um seal/bond zone + 180 um pads
 FP_SIZING: absolute
 DIE_AREA: [0, 0, 2000, 2000]
