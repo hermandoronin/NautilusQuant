@@ -1,0 +1,6 @@
+<testsuites name="results">
+  <testsuite name="all" package="all">
+    <property name="random_seed" value="1790239445" />
+    <testcase name="cordic_matches_model" classname="test_cordic" file="/home/user/NautilusQuant/nqx-silicon/verif/cocotb/test_cordic.py" lineno="51" time="13.92690396308899" sim_time_ns="47260.0" ratio_time="3393.431887320757" />
+  </testsuite>
+</testsuites>

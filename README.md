@@ -14,6 +14,7 @@
 **[TL;DR](#tldr)** ·
 **[How it works](#how-it-works)** ·
 **[NQX-Core](#nqx-core--pre-silicon-emulator-and-chip-development-kit)** ·
+**[NQX-S1 silicon](#nqx-s1--silicon-test-chip)** ·
 **[Results](#results)** ·
 **[What is not true yet](#what-is-not-true-yet)** ·
 **[Maritime](#industrial-applications--shipboard-edge-ai)** ·
@@ -32,6 +33,8 @@ Rotation-based KV-cache quantization ([TurboQuant](https://arxiv.org/abs/2504.19
 **What is *not* established:** that the golden angle gives *better reconstruction quality* than a random matrix. The repo's own head-to-head says it does not — φ is **7.9 % worse in RMSE** ([`bench/phi_vs_random.md`](nqx-core/bench/phi_vs_random.md)). See [Results](#results).
 
 **v0.1.0** ships an upstream-faithful reference implementation (this repo) plus **NQX-Core** — a pre-silicon emulator and chip development kit at [`nqx-core/`](nqx-core/): 24-opcode ISA, cycle-accurate NumPy emulator, SystemVerilog RTL *skeleton* (placeholder datapath, see [E2](#roadmap)), Yosys + OpenLane configuration, ASIC floorplan and timing notes, FastAPI server, demo runner with side-by-side TurboQuant comparison, **247 tests (246 pass, 1 skip)**.
+
+**NQX-S1** at [`nqx-silicon/`](nqx-silicon/) turns the algorithm into a manufacturable test chip. It has a bit-accurate model, verified fixed-point RTL, formal proofs, a full-chip layout for IHP SG13G2 with pad ring and seal ring, a port to wafer.space GF180MCU, golden test vectors, and a 12-part specification package for ordering. The rotation needs **no ROM at all**: two 32-bit phase increments and a CORDIC regenerate every golden angle.
 
 ---
 
@@ -169,6 +172,24 @@ python demos/run_demo.py                   # TurboQuant vs NQX side-by-side
 
 ---
 
+## NQX-S1 — silicon test chip
+
+> Lives at [`nqx-silicon/`](nqx-silicon/). Russian overview: [`nqx-silicon/README.ru.md`](nqx-silicon/README.ru.md).
+
+| | |
+|---|---|
+| Function | 128 × int16 → 70-byte packet (golden-angle Givens → polar → 3+1 bit), and back |
+| Rotation state | 3 × 32-bit phase-increment registers (`0x61C88647`, `0x9E3779B9`, `0`); no angle ROM |
+| Datapath | Pipelined 18-stage CORDIC (shift-and-add), 128 × 24-bit vector register, exact integer quantizer |
+| Interface | 8-bit in / 8-bit out, asynchronous 4-phase handshake, any MCU |
+| Verification | Bit-exact vs the Python model at core, pin and gate level; SymbiYosys proofs; golden vectors for silicon |
+| Processes | IHP SG13G2 130 nm (full chip GDSII); wafer.space GF180MCU (template port, CI build + precheck) |
+| Findings | Layer 3 of the reference rotation is an identity; the S1 quantizer halves reconstruction error ([details](nqx-silicon/spec/11_algorithm_findings.md)) |
+
+Specification package: [`nqx-silicon/spec/`](nqx-silicon/spec/). How to order: [`08_tapeout_package.md`](nqx-silicon/spec/08_tapeout_package.md).
+
+---
+
 ## Results
 
 Two kinds of number live in this table and they are labelled as such:
@@ -289,10 +310,10 @@ These are the properties the design *has*. Running a real condition-monitoring L
 | Stage | What | Status | Notes |
 |---|---|---|---|
 | **E1** | Software emulator + 24-opcode ISA + assembler | ✅ shipped | `nqx-core/nqx/`, 247 tests |
-| **E2** | RTL skeleton (Verilator + Yosys + OpenLane2 + SymbiYosys) | 🚧 skeleton — placeholder datapath | Module hierarchy, interfaces and build flow exist; `polar_unit.sv` / `quant_unit.sv` arithmetic is a placeholder |
+| **E2** | RTL skeleton (Verilator + Yosys + OpenLane2 + SymbiYosys) | ✅ superseded by NQX-S1 | The `nqx-core/rtl/` skeleton stays for history; the implemented, verified RTL is [`nqx-silicon/rtl/`](nqx-silicon/rtl/) |
 | **E3** | FPGA bring-up (Alveo U280 / V80 / AWS F1) | ⏳ not started | needs E2 datapath first |
 | **E4** | LLM stack integration (HF Cache / vLLM / Triton kernel) | ⏳ not started | needs a rented GPU |
-| **E5** | Skywater 130 nm tape-out via Efabless Open MPW | ⏳ planned | $0 sponsored slots / $10K commercial |
+| **E5** | MPW tape-out of a test chip | 🚧 GDSII ready, not ordered | NQX-S1: IHP SG13G2 full chip; wafer.space GF180MCU port. Efabless closed in 2025; options and prices in [`08_tapeout_package.md`](nqx-silicon/spec/08_tapeout_package.md) |
 | **E6** | Commercial ASIC TSMC 12 / 7 nm | 🔮 future | $1.5–5 M depending on node |
 
 ---

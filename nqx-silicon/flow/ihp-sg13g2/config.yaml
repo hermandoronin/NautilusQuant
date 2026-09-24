@@ -1,0 +1,77 @@
+# NQX-S1 full chip on IHP SG13G2 (130 nm BiCMOS, Frankfurt (Oder)).
+# LibreLane "Chip" flow: pad ring, core P&R, seal ring, metal fill, sign-off.
+meta:
+  version: 3
+  flow: Chip
+
+DESIGN_NAME: chip_top
+VERILOG_FILES:
+  - dir::chip_top.sv
+  - dir::../../rtl/nqx_s1_cordic.sv
+  - dir::../../rtl/nqx_s1_cordic_iter.sv
+  - dir::../../rtl/nqx_s1_rcode.sv
+  - dir::../../rtl/nqx_s1_rsign.sv
+  - dir::../../rtl/nqx_s1_tcode.sv
+  - dir::../../rtl/nqx_s1_qdec.sv
+  - dir::../../rtl/nqx_s1_div28.sv
+  - dir::../../rtl/nqx_s1_rf.sv
+  - dir::../../rtl/nqx_s1_core.sv
+  - dir::../../rtl/nqx_s1_hsio.sv
+  - dir::../../rtl/nqx_s1_top.sv
+VERILOG_INCLUDE_DIRS:
+  - dir::../../rtl
+
+# Clock: 50 MHz
+CLOCK_PORT: clk_PAD
+CLOCK_NET: clk_pad/p2c
+CLOCK_PERIOD: 20
+PNR_SDC_FILE: dir::chip_top.sdc
+SIGNOFF_SDC_FILE: dir::chip_top.sdc
+
+# Floorplan: 2.0 mm x 2.0 mm die, pad ring 140 um seal/bond zone + 180 um pads
+FP_SIZING: absolute
+DIE_AREA: [0, 0, 2000, 2000]
+CORE_AREA: [400, 400, 1600, 1600]
+PL_TARGET_DENSITY_PCT: 55
+
+# Bond pads (70 x 70 um, generated from the IHP SG13_dev bondpad PCell)
+EXTRA_LEFS:
+  - dir::macros/bondpad_70x70.lef
+EXTRA_GDS_FILES:
+  - dir::macros/bondpad_70x70.gds
+
+# Power: core 1.2 V (VDD/VSS), I/O 3.3 V (IOVDD/IOVSS)
+VDD_NETS: [VDD, IOVDD]
+GND_NETS: [VSS, IOVSS]
+PDN_MACRO_CONNECTIONS:
+  - ".*_pad.* VDD VSS vdd vss"
+  - ".*_pad.* IOVDD IOVSS iovdd iovss"
+PDN_CFG: dir::pdn_cfg.tcl
+PDN_CORE_RING: true
+PDN_CORE_RING_VWIDTH: 10
+PDN_CORE_RING_HWIDTH: 10
+PDN_CORE_RING_CONNECT_TO_PADS: true
+IGNORE_DISCONNECTED_MODULES:
+  - sg13g2_IOPadVdd
+  - sg13g2_IOPadVss
+  - sg13g2_IOPadIOVdd
+  - sg13g2_IOPadIOVss
+
+# Pad ring, counter-clockwise from the south-west corner
+PAD_SOUTH: [vdd_pad0, vss_pad0, clk_pad, rst_n_pad, busy_pad, iovdd_pad0, iovss_pad0]
+PAD_EAST:  [out_bus0_pad, out_bus1_pad, out_bus2_pad, out_bus3_pad,
+            out_bus4_pad, out_bus5_pad, out_bus6_pad, out_bus7_pad]
+PAD_NORTH: [iovss_pad1, iovdd_pad1, out_ack_pad, out_req_pad, in_ack_pad, in_req_pad,
+            vss_pad1, vdd_pad1]
+PAD_WEST:  [in_bus7_pad, in_bus6_pad, in_bus5_pad, in_bus4_pad,
+            in_bus3_pad, in_bus2_pad, in_bus1_pad, in_bus0_pad]
+
+# Antenna repair
+DIODE_ON_PORTS: none
+RUN_HEURISTIC_DIODE_INSERTION: true
+DRT_ANTENNA_REPAIR_ITERS: 10
+
+# Magic DRC flags false positives inside the foundry I/O cells; KLayout
+# (the foundry deck) is the sign-off DRC.
+MAGIC_EXT_UNIQUE: notopports
+PRIMARY_GDSII_STREAMOUT_TOOL: klayout

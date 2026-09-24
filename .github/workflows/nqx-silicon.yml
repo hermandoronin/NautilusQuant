@@ -1,0 +1,125 @@
+name: nqx-silicon
+
+on:
+  push:
+    paths:
+      - "nqx-silicon/**"
+      - ".github/workflows/nqx-silicon.yml"
+  pull_request:
+    paths:
+      - "nqx-silicon/**"
+      - ".github/workflows/nqx-silicon.yml"
+  workflow_dispatch:
+    inputs:
+      gds:
+        description: "Also build the GDSII (IHP SG13G2 and wafer.space GF180MCU)"
+        type: boolean
+        default: true
+
+jobs:
+  model:
+    name: bit-accurate model
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install numpy pytest
+      - name: generated RTL headers are up to date
+        run: cd nqx-silicon && python tools/gen_params.py --check
+      - name: model unit tests
+        run: cd nqx-silicon && python -m pytest model/tests -q
+
+  rtl:
+    name: RTL lint, formal, cocotb, golden vectors
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - uses: YosysHQ/setup-oss-cad-suite@v3
+      - name: python packages
+        run: $pythonLocation/bin/python -m pip install numpy pytest "cocotb==2.0.1"
+      - name: verilator lint (-Wall)
+        run: cd nqx-silicon && make lint
+      - name: yosys elaboration check
+        run: cd nqx-silicon && make yosys-check
+      - name: formal proofs (SymbiYosys)
+        run: cd nqx-silicon && make formal
+      - name: cocotb regression (Icarus)
+        run: cd nqx-silicon && $pythonLocation/bin/python -m pytest verif/test_rtl.py -q
+      - name: golden vectors are current and self-consistent
+        run: |
+          cd nqx-silicon
+          $pythonLocation/bin/python tools/gen_vectors.py --out /tmp/vectors > /dev/null
+          diff -r vectors /tmp/vectors
+          PYTHONPATH=host:model $pythonLocation/bin/python host/run_all_vectors.py
+
+  gds-ihp:
+    name: GDSII - IHP SG13G2 chip
+    if: github.event_name == 'workflow_dispatch' && inputs.gds
+    needs: [model, rtl]
+    runs-on: ubuntu-24.04
+    timeout-minutes: 350
+    steps:
+      - uses: actions/checkout@v4
+      - uses: cachix/install-nix-action@v31
+        with:
+          extra_nix_config: |
+            extra-substituters = https://nix-cache.fossi-foundation.org
+            extra-trusted-public-keys = nix-cache.fossi-foundation.org:3+K59iFwXqKsL7BNu6Guy0v+uTlwsxYQxjspXzqLYQs=
+      - name: LibreLane chip flow
+        run: |
+          cd nqx-silicon/flow/ihp-sg13g2
+          nix-shell ../wafer-space-gf180/shell.nix --run "make gds"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: nqx-s1-ihp-sg13g2
+          path: |
+            nqx-silicon/flow/ihp-sg13g2/final
+            nqx-silicon/flow/ihp-sg13g2/runs/*/flow.log
+            nqx-silicon/flow/ihp-sg13g2/runs/*/*.log
+            nqx-silicon/flow/ihp-sg13g2/runs/*/final/metrics.*
+
+  gds-gf180:
+    name: GDSII - wafer.space GF180MCU chip (${{ matrix.slot }})
+    if: github.event_name == 'workflow_dispatch' && inputs.gds
+    needs: [model, rtl]
+    runs-on: ubuntu-24.04
+    timeout-minutes: 350
+    strategy:
+      fail-fast: false
+      matrix:
+        slot: [0p5x0p5, 0p5x1]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: cachix/install-nix-action@v31
+        with:
+          extra_nix_config: |
+            extra-substituters = https://nix-cache.fossi-foundation.org
+            extra-trusted-public-keys = nix-cache.fossi-foundation.org:3+K59iFwXqKsL7BNu6Guy0v+uTlwsxYQxjspXzqLYQs=
+      - name: LibreLane chip flow
+        run: |
+          cd nqx-silicon/flow/wafer-space-gf180
+          nix-shell --run "make librelane SLOT=${{ matrix.slot }}"
+      - name: chip-level simulation with the PDK pad models (RTL and gate level)
+        run: |
+          cd nqx-silicon/flow/wafer-space-gf180
+          nix-shell --run "make sim SLOT=${{ matrix.slot }} && make sim-gl SLOT=${{ matrix.slot }}"
+      - name: wafer.space precheck (its own PDK pin and tool shell)
+        run: |
+          cd nqx-silicon/flow/wafer-space-gf180
+          git clone --depth 1 https://github.com/wafer-space/gf180mcu-precheck precheck
+          cd precheck
+          nix-shell --run "make clone-pdk && PDK_ROOT=gf180mcu PDK=gf180mcuD python3 precheck.py --input ../final/gds/chip_top.gds --slot ${{ matrix.slot }} --output ../final/chip_top_precheck.oas"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: nqx-s1-wafer-space-gf180-${{ matrix.slot }}
+          path: |
+            nqx-silicon/flow/wafer-space-gf180/final
+            nqx-silicon/flow/wafer-space-gf180/librelane/runs/*/flow.log
+            nqx-silicon/flow/wafer-space-gf180/librelane/runs/*/*.log

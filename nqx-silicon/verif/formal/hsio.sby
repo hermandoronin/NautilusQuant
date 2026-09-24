@@ -1,0 +1,22 @@
+[tasks]
+prove
+cover
+
+[options]
+prove: mode prove
+prove: depth 24
+cover: mode cover
+cover: depth 40
+multiclock off
+
+[engines]
+smtbmc yices
+
+[script]
+read_verilog -sv -formal nqx_s1_hsio.sv
+read_verilog -sv -formal hsio_props.sv
+prep -top hsio_props
+
+[files]
+../../rtl/nqx_s1_hsio.sv
+hsio_props.sv

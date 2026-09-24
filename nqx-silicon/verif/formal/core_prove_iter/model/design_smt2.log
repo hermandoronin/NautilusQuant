@@ -1,0 +1,315 @@
+
+ /----------------------------------------------------------------------------\
+ |  yosys -- Yosys Open SYnthesis Suite                                       |
+ |  Copyright (C) 2012 - 2026  Claire Xenia Wolf <claire@yosyshq.com>         |
+ |  Distributed under an ISC-like license, type "license" to see terms        |
+ \----------------------------------------------------------------------------/
+ Yosys 0.69+post (git sha1 v0.69, Release, GNU /nix/store/z4c6k0mrlkwl3s4w9ysxc8vq1wylm3ms-gcc-wrapper-15.3.0/bin/g++ 15.3.0)
+
+-- Executing script file `design_smt2.ys' --
+
+1. Executing RTLIL frontend.
+Input filename: design_prep.il
+
+2. Executing HIERARCHY pass (managing design hierarchy).
+Attribute `top' found on module `core_props'. Setting top module to core_props.
+
+2.1. Analyzing design hierarchy..
+Top module:  \core_props
+Used module:     \nqx_s1_core
+Used module:         $paramod\nqx_s1_cordic_iter\TAG_W=s32'00000000000000000000000000001110
+Used module:         \nqx_s1_div28
+Used module:         \nqx_s1_qdec
+Used module:         \nqx_s1_rcode
+Used module:         \nqx_s1_rf
+Used module:         \nqx_s1_rsign
+Used module:         \nqx_s1_tcode
+
+2.2. Analyzing design hierarchy..
+Top module:  \core_props
+Used module:     \nqx_s1_core
+Used module:         $paramod\nqx_s1_cordic_iter\TAG_W=s32'00000000000000000000000000001110
+Used module:         \nqx_s1_div28
+Used module:         \nqx_s1_qdec
+Used module:         \nqx_s1_rcode
+Used module:         \nqx_s1_rf
+Used module:         \nqx_s1_rsign
+Used module:         \nqx_s1_tcode
+Removed 0 unused modules.
+Module core_props directly or indirectly contains formal properties -> setting "keep" attribute.
+
+3. Executing FORMALFF pass.
+
+4. Executing DFFUNMAP pass (unmap clock enable and synchronous reset from FFs).
+
+5. Printing statistics.
+
+=== $paramod\nqx_s1_cordic_iter\TAG_W=s32'00000000000000000000000000001110 ===
+
+        +----------Local Count, excluding submodules.
+        | 
+      140 wires
+     2030 wire bits
+       59 public wires
+      846 public wire bits
+       16 ports
+      172 port bits
+      125 cells
+        6   $add
+        1   $and
+       14   $anyinit
+        1   $assume
+        1   $eq
+        2   $gt
+        2   $logic_and
+        2   $logic_not
+        2   $logic_or
+        2   $lt
+        1   $mem_v2
+        2   $mul
+       74   $mux
+        2   $neg
+        3   $not
+        3   $or
+        2   $sshr
+        3   $sub
+        2   $xor
+
+=== core_props ===
+
+        +----------Local Count, excluding submodules.
+        | 
+       35 wires
+       63 wire bits
+       16 public wires
+       44 public wire bits
+        4 ports
+       11 port bits
+       31 cells
+        6   $anyinit
+        2   $assert
+        2   $assume
+        2   $eq
+        6   $ff
+        5   $logic_and
+        2   $logic_not
+        5   $mux
+        1   $not
+        1 submodules
+        1   nqx_s1_core
+
+=== nqx_s1_core ===
+
+        +----------Local Count, excluding submodules.
+        | 
+      523 wires
+     5422 wire bits
+      151 public wires
+     2173 public wire bits
+        9 ports
+       23 port bits
+      486 cells
+       15   $add
+       39   $anyinit
+        1   $assume
+       71   $eq
+        6   $gt
+       13   $logic_and
+       12   $logic_not
+       12   $logic_or
+        2   $lt
+      266   $mux
+        1   $ne
+        1   $neg
+        2   $not
+       23   $pmux
+        3   $reduce_bool
+       12   $reduce_or
+        2   $shiftx
+        5   $sub
+        7 submodules
+        1   $paramod\nqx_s1_cordic_iter\TAG_W=s32'00000000000000000000000000001110
+        1   nqx_s1_div28
+        1   nqx_s1_qdec
+        1   nqx_s1_rcode
+        1   nqx_s1_rf
+        1   nqx_s1_rsign
+        1   nqx_s1_tcode
+
+=== nqx_s1_div28 ===
+
+        +----------Local Count, excluding submodules.
+        | 
+       43 wires
+      601 wire bits
+       19 public wires
+      247 public wire bits
+        6 ports
+       56 port bits
+       39 cells
+        6   $anyinit
+        1   $assume
+        1   $eq
+        1   $ge
+       27   $mux
+        1   $not
+        2   $sub
+
+=== nqx_s1_qdec ===
+
+        +----------Local Count, excluding submodules.
+        | 
+       24 wires
+      401 wire bits
+       19 public wires
+      301 public wire bits
+        7 ports
+      106 port bits
+       12 cells
+        4   $add
+        1   $gt
+        1   $mul
+        5   $mux
+        1   $sub
+
+=== nqx_s1_rcode ===
+
+        +----------Local Count, excluding submodules.
+        | 
+       23 wires
+      462 wire bits
+       18 public wires
+      448 public wire bits
+        3 ports
+       52 port bits
+       20 cells
+       10   $add
+        7   $gt
+        3   $sub
+
+=== nqx_s1_rf ===
+
+        +----------Local Count, excluding submodules.
+        | 
+     1168 wires
+    19099 wire bits
+      269 public wires
+     9344 public wire bits
+       12 ports
+      128 port bits
+     1158 cells
+      128   $anyinit
+        1   $assume
+      254   $eq
+      256   $logic_and
+        2   $logic_not
+        2   $mul
+      512   $mux
+        1   $not
+        2   $shiftx
+
+=== nqx_s1_rsign ===
+
+        +----------Local Count, excluding submodules.
+        | 
+       12 wires
+      274 wire bits
+        8 public wires
+      164 public wire bits
+        4 ports
+       53 port bits
+        7 cells
+        2   $add
+        1   $ge
+        3   $mux
+        1   $sub
+
+=== nqx_s1_tcode ===
+
+        +----------Local Count, excluding submodules.
+        | 
+        5 wires
+       47 wire bits
+        5 public wires
+       47 public wire bits
+        3 ports
+       24 port bits
+        3 cells
+        1   $add
+        1   $not
+        1   $sub
+
+=== design hierarchy ===
+
+        +----------Count including submodules.
+        | 
+     1881 core_props
+      486 nqx_s1_core
+      125   $paramod\nqx_s1_cordic_iter\TAG_W=s32'00000000000000000000000000001110
+       39   nqx_s1_div28
+       12   nqx_s1_qdec
+       20   nqx_s1_rcode
+     1158   nqx_s1_rf
+        7   nqx_s1_rsign
+        3   nqx_s1_tcode
+
+        +----------Count including submodules.
+        | 
+     1973 wires
+    28399 wire bits
+      564 public wires
+    13614 public wire bits
+       64 ports
+      625 port bits
+        - memories
+        - memory bits
+        - processes
+     1881 cells
+       38   $add
+        1   $and
+      193   $anyinit
+        2   $assert
+        6   $assume
+      329   $eq
+        6   $ff
+        2   $ge
+       16   $gt
+      276   $logic_and
+       18   $logic_not
+       14   $logic_or
+        4   $lt
+        1   $mem_v2
+        5   $mul
+      892   $mux
+        1   $ne
+        3   $neg
+        9   $not
+        3   $or
+       23   $pmux
+        3   $reduce_bool
+       12   $reduce_or
+        4   $shiftx
+        2   $sshr
+       16   $sub
+        2   $xor
+        1 submodules
+        1   nqx_s1_core
+
+6. Executing SMT2 backend.
+
+6.1. Executing BMUXMAP pass.
+
+6.2. Executing DEMUXMAP pass.
+Creating SMT-LIBv2 representation of module nqx_s1_rsign.
+Creating SMT-LIBv2 representation of module nqx_s1_tcode.
+Creating SMT-LIBv2 representation of module nqx_s1_rf.
+Creating SMT-LIBv2 representation of module nqx_s1_rcode.
+Creating SMT-LIBv2 representation of module nqx_s1_qdec.
+Creating SMT-LIBv2 representation of module nqx_s1_div28.
+Creating SMT-LIBv2 representation of module $paramod\nqx_s1_cordic_iter\TAG_W=s32'00000000000000000000000000001110.
+Creating SMT-LIBv2 representation of module nqx_s1_core.
+Creating SMT-LIBv2 representation of module core_props.
+
+End of script. Logfile hash: e4ef1f8f61, time: 0.20s, user: 0.10s, system: 0.02s, MEM: 41.65 MB peak
+Yosys 0.69+post (git sha1 v0.69, Release, GNU /nix/store/z4c6k0mrlkwl3s4w9ysxc8vq1wylm3ms-gcc-wrapper-15.3.0/bin/g++ 15.3.0)
+Time spent: 80% 2x write_smt2 (0 sec), 12% 2x read_rtlil (0 sec), ...
