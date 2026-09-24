@@ -55,6 +55,14 @@ PL_TARGET_DENSITY_PCT: 72
 GRT_LAYER_ADJUSTMENTS: [0.0, 0.25, 0.10, 0.0, 0.0, 0.0, 0.0]
 
 # Bond pads (70 x 70 um, generated from the IHP SG13_dev bondpad PCell)
+# The PDK default offset (5, -70) makes each bond pad only abut the I/O
+# cell's pad pin (a 70 x 3 um strip at the cell edge). Magic's abstract
+# extraction then leaves bond pad and pad cell on different nets on two sides
+# of the die (Netgen: 13 nets). -69 um overlaps the pad metal by 1 um; the
+# passivation opening stays outside the I/O cell. The bond pad LEF declares
+# its whole metal stack (Metal3..TopMetal2) as the pad pin.
+PAD_BONDPAD_OFFSETS:
+  "sg13g2_IOPad.*": [5.0, -69.0]
 EXTRA_LEFS:
   - dir::macros/bondpad_70x70.lef
 EXTRA_GDS_FILES:
