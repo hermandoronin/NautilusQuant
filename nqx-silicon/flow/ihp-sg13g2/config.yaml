@@ -104,9 +104,17 @@ DIODE_ON_PORTS: none
 RUN_HEURISTIC_DIODE_INSERTION: false
 DRT_ANTENNA_REPAIR_ITERS: 10
 
-# Magic DRC flags false positives inside the foundry I/O cells; KLayout
-# (the foundry deck) is the sign-off DRC.
+# Sign-off DRC is KLayout with IHP's own deck (ihp-sg13g2.drc, run by the
+# KLayout.DRC step); Magic's IHP rules are a community port and a full-chip
+# Magic DRC with fill runs for hours. LVS is Magic extraction from DEF plus
+# Netgen: the sg13g2_io cells enter as LEF abstracts, so the check covers
+# every connection to them but not their contents (foundry IP).
+RUN_MAGIC_DRC: false
 MAGIC_EXT_UNIQUE: notopports
+# Magic reports "illegal overlap" between the obstruction and pin shapes of
+# neighbouring sg13g2_io abstracts in the pad ring (21 259 in run full2,
+# none in the core). The real geometry is checked by the KLayout DRC deck.
+ERROR_ON_ILLEGAL_OVERLAPS: false
 PRIMARY_GDSII_STREAMOUT_TOOL: klayout
 
 # Metal/active fill: the PDK's fill macros run in KLayout's hierarchical
