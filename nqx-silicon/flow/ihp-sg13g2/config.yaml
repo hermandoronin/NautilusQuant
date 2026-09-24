@@ -32,7 +32,11 @@ SIGNOFF_SDC_FILE: dir::chip_top.sdc
 FP_SIZING: absolute
 DIE_AREA: [0, 0, 2000, 2000]
 CORE_AREA: [400, 400, 1600, 1600]
-PL_TARGET_DENSITY_PCT: 55
+PL_TARGET_DENSITY_PCT: 45
+
+# Routing: the 2R2W vector register makes Metal2 pin access dense. Reserve
+# part of Metal2/Metal3 during global routing so detailed routing converges.
+GRT_LAYER_ADJUSTMENTS: [0.0, 0.25, 0.10, 0.0, 0.0, 0.0, 0.0]
 
 # Bond pads (70 x 70 um, generated from the IHP SG13_dev bondpad PCell)
 EXTRA_LEFS:

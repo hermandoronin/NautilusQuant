@@ -57,6 +57,12 @@ jobs:
           $pythonLocation/bin/python tools/gen_vectors.py --out /tmp/vectors > /dev/null
           diff -r vectors /tmp/vectors
           PYTHONPATH=host:model $pythonLocation/bin/python host/run_all_vectors.py
+      - name: Tiny Tapeout package is current and passes its test
+        run: |
+          cd nqx-silicon
+          $pythonLocation/bin/python tools/export_tinytapeout.py --out /tmp/tt > /dev/null
+          diff -r -x __pycache__ tinytapeout /tmp/tt
+          cd tinytapeout/test && PATH=$pythonLocation/bin:$PATH make
 
   gds-ihp:
     name: GDSII - IHP SG13G2 chip

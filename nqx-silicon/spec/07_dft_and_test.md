@@ -10,7 +10,7 @@ scan chains and no memory BIST. This is the usual choice for MPW test chips:
 - The open-source flow (LibreLane 3.0.14) has no scan-insertion step, and
   none of the target MPW services (IHP, wafer.space, Tiny Tapeout) requires
   scan.
-- The design is small (5 633 flip-flops) and highly observable. Every
+- The design is small (5 634 flip-flops) and highly observable. Every
   architectural state bit can be written and read back through LDV/STVR/CSR
   commands. The datapaths are exercised by ENC/DEC with known answers from
   the bit-accurate model.

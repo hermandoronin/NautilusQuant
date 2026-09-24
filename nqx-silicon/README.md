@@ -39,6 +39,7 @@ See [`spec/00_datasheet.md`](spec/00_datasheet.md).
 | Formal verification | done: unbounded proofs of the handshake bridge and the stream protocol | `verif/formal`, `make formal` |
 | Full chip, IHP SG13G2 (130 nm) | GDSII with pad ring, seal ring and fill; sign-off results in `spec/06` | `flow/ihp-sg13g2`, `tapeout/ihp-sg13g2` |
 | Full chip, GF180MCU (wafer.space) | ready to build (template port, CI job) | `flow/wafer-space-gf180` |
+| Tiny Tapeout package (DIM=32) | ready, test passes | `tinytapeout/`, `tools/export_tinytapeout.py` |
 | Silicon | not yet ordered | see [`spec/08_tapeout_package.md`](spec/08_tapeout_package.md) |
 
 ## Specification package
@@ -93,6 +94,7 @@ verif/formal/     hsio.sby, core.sby + property harnesses
 flow/ihp-sg13g2/  chip_top.sv (pads), config.yaml, SDC, PDN, bond-pad macro
 flow/wafer-space-gf180/   wafer.space template with the NQX-S1 core
 tapeout/          sign-off GDS, netlists, reports, checksums (per process)
+tinytapeout/      generated Tiny Tapeout project (DIM=32, iterative CORDIC)
 vectors/          golden test vectors for silicon (W/R byte files)
 host/             MicroPython driver for a Pico, vector runner
 tools/            gen_params, gen_vectors, bench_numerics, sweep_widths

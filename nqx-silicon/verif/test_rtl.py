@@ -105,11 +105,17 @@ def test_chip_ihp():
 )
 def test_chip_ihp_gate_level():
     """Post-route netlist of the IHP chip with the foundry cell models."""
+    sys.path.insert(0, str(ROOT / "tools"))
+    from functional_cells import convert
+
     ref = IHP_PDK / "libs.ref"
+    cells = ROOT / "verif" / "sim_build" / "sg13g2_stdcell_functional.v"
+    cells.parent.mkdir(parents=True, exist_ok=True)
+    cells.write_text(convert((ref / "sg13g2_stdcell" / "verilog" / "sg13g2_stdcell.v").read_text()))
     srcs = [
         IHP_FLOW / "sim" / "tb_chip.sv",
         IHP_NETLIST,
-        ref / "sg13g2_stdcell" / "verilog" / "sg13g2_stdcell.v",
+        cells,
         ref / "sg13g2_io" / "verilog" / "sg13g2_io.v",
     ]
     _run("tb_chip", srcs, "test_top", "_ihp_gl")

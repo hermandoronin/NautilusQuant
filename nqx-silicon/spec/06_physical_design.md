@@ -66,7 +66,7 @@ are generated into `tapeout/ihp-sg13g2/SIGNOFF.md` by
   pad-to-flop and flop-to-pad path so the bundling assumptions hold with a
   large margin.
 - **Reset.** Asynchronous assertion. De-assertion comes from a flop, so
-  recovery/removal of all 5 633 flip-flops is checked by STA against clk.
+  recovery/removal of all 5 634 flip-flops is checked by STA against clk.
 - **Corners** (IHP liberty): `nom_slow_1p08V_125C`, `nom_typ_1p20V_25C`,
   `nom_fast_1p32V_m40C`. Setup is signed off at slow, hold at fast; all
   three are reported.

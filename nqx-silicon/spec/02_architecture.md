@@ -238,7 +238,7 @@ works. Details and command formats are in
   asynchronous inputs are in_req, out_ack and rst_n; each goes through two
   flip-flops.
 - **Reset.** Asynchronous assertion, synchronous de-assertion (a 2-flop
-  reset synchronizer in `nqx_s1_top`). All 5 633 flip-flops have an
+  reset synchronizer in `nqx_s1_top`). All 5 634 flip-flops have an
   asynchronous reset: the VR clears to 0, the INC registers load the golden
   constants and CTRL.REFINE = 1.
 - **Power.**
