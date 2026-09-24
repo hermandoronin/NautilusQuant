@@ -25,7 +25,7 @@ VERILOG_INCLUDE_DIRS:
 CLOCK_PORT: clk_PAD
 CLOCK_NET: clk_pad/p2c
 CLOCK_PERIOD: 20
-PNR_SDC_FILE: dir::chip_top.sdc
+PNR_SDC_FILE: dir::chip_top_pnr.sdc
 SIGNOFF_SDC_FILE: dir::chip_top.sdc
 
 # Timing sign-off at every corner (slow 1.08 V/125 C, typ, fast 1.32 V/-40 C).
