@@ -1,0 +1,174 @@
+{
+ "keys": {
+  "INT4 per token (asym)": {
+   "K": 0.2003979774005194,
+   "attn": 0.5016125054067675,
+   "bits": 4.25,
+   "streaming": true
+  },
+  "llama.cpp q4_0 (blocks of 32)": {
+   "K": 0.15415043249883256,
+   "attn": 0.4963669919205463,
+   "bits": 4.5,
+   "streaming": true
+  },
+  "KIVI-4 (per channel, groups of 128 tok)": {
+   "K": 0.059709053426945435,
+   "attn": 0.23302496479473295,
+   "bits": 4.25,
+   "streaming": false
+  },
+  "KIVI, calibrated ranges": {
+   "K": 0.0838286419798017,
+   "attn": 0.42064029434070144,
+   "bits": 4.0,
+   "streaming": true
+  },
+  "KVQuant-like: pre-RoPE, calibrated": {
+   "K": 0.08154638164246145,
+   "attn": 0.4085985264923941,
+   "bits": 4.0,
+   "streaming": true
+  },
+  "S1 polar, no rotation": {
+   "K": 0.16120888388549848,
+   "attn": 0.4786524266339054,
+   "bits": 4.25,
+   "streaming": true
+  },
+  "NQX-S1: golden L1+L2+L3 + S1": {
+   "K": 0.14823571167691368,
+   "attn": 0.4633110373271936,
+   "bits": 4.25,
+   "streaming": true
+  },
+  "Golden butterfly + S1": {
+   "K": 0.13088792548837302,
+   "attn": 0.3561073686333122,
+   "bits": 4.25,
+   "streaming": true
+  },
+  "TurboQuant-like: random + S1": {
+   "K": 0.12145303906641161,
+   "attn": 0.33778497070261354,
+   "bits": 4.25,
+   "streaming": true
+  },
+  "QuaRot-like: rand. Hadamard + S1": {
+   "K": 0.11970476586444914,
+   "attn": 0.37241829812085575,
+   "bits": 4.25,
+   "streaming": true
+  },
+  "PolarQuant-like: S1 on RoPE pairs": {
+   "K": 0.16395742368878718,
+   "attn": 0.3864151495721472,
+   "bits": 4.25,
+   "streaming": true
+  },
+  "NQX-RN: pre-RoPE polar, groups of 128": {
+   "K": 0.07343665084713921,
+   "attn": 0.3359294080186258,
+   "bits": 4.25,
+   "streaming": false
+  },
+  "NQX-RN static: pre-RoPE polar, calibrated": {
+   "K": 0.08049413098308347,
+   "attn": 0.43377591087360906,
+   "bits": 4.0,
+   "streaming": true
+  },
+  "Tuned golden butterfly + S1 (7 registers)": {
+   "K": 0.12776770724819997,
+   "attn": 0.3473304693580328,
+   "bits": 4.25,
+   "streaming": true
+  }
+ },
+ "values": {
+  "INT4 per token (asym)": {
+   "V": 0.11144528214874157,
+   "bits": 4.25
+  },
+  "llama.cpp q4_0": {
+   "V": 0.10235906554476296,
+   "bits": 4.5
+  },
+  "S1 polar, no rotation": {
+   "V": 0.12412477508795974,
+   "bits": 4.25
+  },
+  "NQX-S1 golden + S1": {
+   "V": 0.12317561131072162,
+   "bits": 4.25
+  },
+  "Golden butterfly + S1": {
+   "V": 0.12197557090768776,
+   "bits": 4.25
+  },
+  "Random + S1": {
+   "V": 0.12169248446397318,
+   "bits": 4.25
+  },
+  "Rand. Hadamard + S1": {
+   "V": 0.12144019607497795,
+   "bits": 4.25
+  }
+ },
+ "dims": {
+  "64": {
+   "no rotation": 0.15565174646951682,
+   "golden L1+L2+L3": 0.13483160067798144,
+   "golden butterfly": 0.1258869409551416,
+   "random orthogonal (d^2 state)": 0.12002616547079067,
+   "Hadamard (block-diagonal if d != 2^k)": 0.11854972008550275
+  },
+  "80": {
+   "no rotation": 0.15647001639105398,
+   "golden L1+L2+L3": 0.14203807093079107,
+   "golden butterfly": 0.13681857218613747,
+   "random orthogonal (d^2 state)": 0.12138477601919702,
+   "Hadamard (block-diagonal if d != 2^k)": 0.11995195774393963,
+   "Hadamard, zero-padded to 128 (+60 % bits)": 0.09447379697192912
+  },
+  "96": {
+   "no rotation": 0.15576729182268387,
+   "golden L1+L2+L3": 0.13916885309820398,
+   "golden butterfly": 0.12938402622637368,
+   "random orthogonal (d^2 state)": 0.12123022217855878,
+   "Hadamard (block-diagonal if d != 2^k)": 0.1227979376661297,
+   "Hadamard, zero-padded to 128 (+33 % bits)": 0.10391289521848054
+  },
+  "128": {
+   "no rotation": 0.16308772877000366,
+   "golden L1+L2+L3": 0.14968045376509398,
+   "golden butterfly": 0.13138126862317273,
+   "random orthogonal (d^2 state)": 0.12101718458367383,
+   "Hadamard (block-diagonal if d != 2^k)": 0.11990445467063979
+  }
+ },
+ "determinism": {
+  "fp32, two accumulation orders: max |difference|": 3.0994415283203125e-06,
+  "fp32, two accumulation orders: pairs with a different code": 0.0,
+  "fp32 vs bf16 platform: pairs with a different code": 0.02128515625,
+  "fp32 vs bf16 platform: vectors with at least one different code": 0.73425
+ },
+ "tuning": {
+  "golden butterfly (default increments), calibration": 0.13584819240589943,
+  "tuned butterfly, calibration": 0.12532511422917456,
+  "golden butterfly (default), held-out": 0.13578705728515053,
+  "tuned butterfly, held-out": 0.12529586468912177,
+  "random orthogonal, held-out": 0.12156879536007648,
+  "randomized Hadamard, held-out": 0.1197922436654019,
+  "NQX-S1 golden L1+L2+L3, held-out": 0.15648639774827341,
+  "tuned increments (hex, 32-bit phase)": [
+   "0x82EE4CA4",
+   "0xCF623706",
+   "0x004F4B0A",
+   "0x9A6609AF",
+   "0x9E3779B9",
+   "0x3C6EF373",
+   "0xE8B19471"
+  ]
+ }
+}
