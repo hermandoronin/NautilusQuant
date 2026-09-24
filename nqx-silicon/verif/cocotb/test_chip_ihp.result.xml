@@ -1,8 +1,0 @@
-<testsuites name="results">
-  <testsuite name="all" package="all">
-    <property name="random_seed" value="1790238328" />
-    <testcase name="pins_csr" classname="test_top" file="/home/user/NautilusQuant/nqx-silicon/verif/cocotb/test_top.py" lineno="79" time="0.11302709579467773" sim_time_ns="7992.0" ratio_time="70708.70877296601" />
-    <testcase name="pins_encode_decode" classname="test_top" file="/home/user/NautilusQuant/nqx-silicon/verif/cocotb/test_top.py" lineno="89" time="6.894140720367432" sim_time_ns="224455.0" ratio_time="32557.356906987734" />
-    <testcase name="golden_vectors" classname="test_top" file="/home/user/NautilusQuant/nqx-silicon/verif/cocotb/test_top.py" lineno="139" time="132.80521488189697" sim_time_ns="4349112.0" ratio_time="32748.051376353287" />
-  </testsuite>
-</testsuites>
