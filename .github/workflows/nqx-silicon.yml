@@ -9,6 +9,7 @@ on:
     paths:
       - "nqx-silicon/**"
       - ".github/workflows/nqx-silicon.yml"
+  # GDS jobs: run manually, or on a push whose commit message contains [gds].
   workflow_dispatch:
     inputs:
       gds:
@@ -59,7 +60,7 @@ jobs:
 
   gds-ihp:
     name: GDSII - IHP SG13G2 chip
-    if: github.event_name == 'workflow_dispatch' && inputs.gds
+    if: (github.event_name == 'workflow_dispatch' && inputs.gds) || (github.event_name == 'push' && contains(github.event.head_commit.message, '[gds]'))
     needs: [model, rtl]
     runs-on: ubuntu-24.04
     timeout-minutes: 350
@@ -86,7 +87,7 @@ jobs:
 
   gds-gf180:
     name: GDSII - wafer.space GF180MCU chip (${{ matrix.slot }})
-    if: github.event_name == 'workflow_dispatch' && inputs.gds
+    if: (github.event_name == 'workflow_dispatch' && inputs.gds) || (github.event_name == 'push' && contains(github.event.head_commit.message, '[gds]'))
     needs: [model, rtl]
     runs-on: ubuntu-24.04
     timeout-minutes: 350

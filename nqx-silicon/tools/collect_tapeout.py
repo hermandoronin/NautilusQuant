@@ -1,0 +1,151 @@
+#!/usr/bin/env python3
+"""Collect the sign-off views of a LibreLane run into tapeout/<process>/.
+
+    python tools/collect_tapeout.py flow/ihp-sg13g2/runs/<tag> --process ihp-sg13g2
+
+Copies the final GDS (gzip), netlists, SDC, metrics and the sign-off reports,
+writes SIGNOFF.md (a table generated from metrics.json) and SHA256SUMS.
+"""
+
+from __future__ import annotations
+
+import argparse
+import gzip
+import hashlib
+import json
+import shutil
+import subprocess
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+
+KEYS = [
+    ("design__die__bbox", "Die bounding box [µm]"),
+    ("design__die__area", "Die area [µm²]"),
+    ("design__core__area", "Core area [µm²]"),
+    ("design__instance__count", "Instances (all)"),
+    ("design__instance__count__stdcell", "Standard cells"),
+    ("design__instance__area__stdcell", "Standard-cell area [µm²]"),
+    ("design__instance__utilization", "Core utilization"),
+    ("design__io", "I/O pads"),
+    ("route__wirelength", "Routed wire length [µm]"),
+    ("route__drc_errors", "Detailed-routing DRC errors"),
+    ("magic__drc_error__count", "Magic DRC errors"),
+    ("klayout__drc_error__count", "KLayout DRC errors"),
+    ("magic__illegal_overlap__count", "Magic illegal overlaps"),
+    ("design__lvs_error__count", "LVS errors"),
+    ("design__lvs_unmatched_device__count", "LVS unmatched devices"),
+    ("design__lvs_unmatched_net__count", "LVS unmatched nets"),
+    ("design__lvs_unmatched_pin__count", "LVS unmatched pins"),
+    ("antenna__violating__nets", "Antenna-violating nets (OpenROAD)"),
+    ("antenna__violating__pins", "Antenna-violating pins (OpenROAD)"),
+    ("klayout__antenna_error__count", "KLayout antenna errors"),
+    ("klayout__density_error__count", "KLayout density errors"),
+    ("design__xor_difference__count", "Magic/KLayout GDS XOR differences"),
+    ("timing__setup__ws", "Worst setup slack, all corners [ns]"),
+    ("timing__hold__ws", "Worst hold slack, all corners [ns]"),
+    ("timing__setup_vio__count", "Setup violations"),
+    ("timing__hold_vio__count", "Hold violations"),
+    ("design__max_slew_violation__count", "Max slew violations"),
+    ("design__max_cap_violation__count", "Max capacitance violations"),
+    ("design__max_fanout_violation__count", "Max fanout violations"),
+    ("clock__skew__worst_setup", "Clock skew (setup) [ns]"),
+    ("power__total", "Total power, typical corner [W]"),
+    ("power__leakage__total", "Leakage power [W]"),
+    ("ir__drop__worst", "Worst IR drop [V]"),
+]
+
+
+def sha256(path: Path) -> str:
+    h = hashlib.sha256()
+    with open(path, "rb") as f:
+        for chunk in iter(lambda: f.read(1 << 20), b""):
+            h.update(chunk)
+    return h.hexdigest()
+
+
+def fmt(v) -> str:
+    if isinstance(v, float):
+        return f"{v:.4g}"
+    if isinstance(v, list):
+        return " ".join(fmt(x) for x in v)
+    return str(v)
+
+
+def main() -> None:
+    ap = argparse.ArgumentParser()
+    ap.add_argument("run", type=Path)
+    ap.add_argument("--process", default="ihp-sg13g2")
+    ap.add_argument("--top", default="chip_top")
+    args = ap.parse_args()
+
+    final = args.run / "final"
+    out = ROOT / "tapeout" / args.process
+    if out.exists():
+        shutil.rmtree(out)
+    (out / "reports").mkdir(parents=True)
+
+    gds = final / "gds" / f"{args.top}.gds"
+    with open(gds, "rb") as src, gzip.open(out / f"{args.top}.gds.gz", "wb", compresslevel=9) as dst:
+        shutil.copyfileobj(src, dst)
+    for sub, ext in [("nl", "nl.v"), ("pnl", "pnl.v"), ("sdc", "sdc"), ("spef/nom", "nom.spef")]:
+        for f in (final / sub.split("/")[0]).rglob(f"{args.top}*{ext}") if (final / sub.split("/")[0]).exists() else []:
+            if ext == "nom.spef" or f.suffix in (".v", ".sdc"):
+                shutil.copy(f, out / f.name)
+    metrics = json.loads((final / "metrics.json").read_text())
+    (out / "metrics.json").write_text(json.dumps(metrics, indent=1, sort_keys=True))
+
+    for pattern in [
+        "*-magic-drc/reports/*",
+        "*-klayout-drc/*.xml",
+        "*-klayout-drc/*.lyrdb",
+        "*-netgen-lvs/reports/*",
+        "*-klayout-antenna/*.lyrdb",
+        "*-klayout-density/*.lyrdb",
+        "*-openroad-stapostpnr/summary.rpt",
+        "*-openroad-stapostpnr/*/max.rpt",
+        "*-openroad-stapostpnr/*/min.rpt",
+        "*-openroad-stapostpnr/*/power.rpt",
+        "*-openroad-irdropreport/*.rpt",
+        "*-openroad-checkantennas*/reports/*",
+    ]:
+        for f in sorted(args.run.glob(pattern)):
+            if f.is_file() and f.stat().st_size < 20 * 1024 * 1024:
+                rel = f.relative_to(args.run)
+                dst = out / "reports" / str(rel).replace("/", "__")
+                shutil.copy(f, dst)
+
+    rev = subprocess.run(["git", "rev-parse", "HEAD"], cwd=ROOT, capture_output=True, text=True)
+    lines = [
+        f"# Sign-off summary: NQX-S1, {args.process}",
+        "",
+        f"Generated by `tools/collect_tapeout.py` from LibreLane run `{args.run.name}`"
+        f" (source commit `{rev.stdout.strip() or 'unknown'}`).",
+        "",
+        "| Metric | Value |",
+        "|---|---|",
+    ]
+    for key, label in KEYS:
+        if key in metrics:
+            lines.append(f"| {label} | {fmt(metrics[key])} |")
+    corners = sorted(
+        {k.split("corner:")[1] for k in metrics if "timing__setup__ws__corner:" in k}
+    )
+    if corners:
+        lines += ["", "| Corner | Setup WS [ns] | Setup TNS [ns] | Hold WS [ns] | Hold TNS [ns] |",
+                  "|---|---|---|---|---|"]
+        for c in corners:
+            g = lambda m: fmt(metrics.get(f"timing__{m}__corner:{c}", "n/a"))  # noqa: E731
+            lines.append(f"| {c} | {g('setup__ws')} | {g('setup__tns')} | {g('hold__ws')} | {g('hold__tns')} |")
+    (out / "SIGNOFF.md").write_text("\n".join(lines) + "\n")
+
+    sums = []
+    for f in sorted(out.rglob("*")):
+        if f.is_file() and f.name != "SHA256SUMS":
+            sums.append(f"{sha256(f)}  {f.relative_to(out)}")
+    (out / "SHA256SUMS").write_text("\n".join(sums) + "\n")
+    print((out / "SIGNOFF.md").read_text())
+
+
+if __name__ == "__main__":
+    main()

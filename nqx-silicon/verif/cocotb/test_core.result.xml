@@ -1,13 +1,13 @@
 <testsuites name="results">
   <testsuite name="all" package="all">
-    <property name="random_seed" value="1790239460" />
-    <testcase name="csr_and_sync" classname="test_core" file="/home/user/NautilusQuant/nqx-silicon/verif/cocotb/test_core.py" lineno="108" time="0.04068636894226074" sim_time_ns="1120.0" ratio_time="27527.646951966293" />
-    <testcase name="load_store" classname="test_core" file="/home/user/NautilusQuant/nqx-silicon/verif/cocotb/test_core.py" lineno="116" time="7.769921779632568" sim_time_ns="124130.0" ratio_time="15975.707802539806" />
-    <testcase name="single_ops" classname="test_core" file="/home/user/NautilusQuant/nqx-silicon/verif/cocotb/test_core.py" lineno="126" time="21.539249420166016" sim_time_ns="185700.0" ratio_time="8621.470338986803" />
-    <testcase name="encode_decode" classname="test_core" file="/home/user/NautilusQuant/nqx-silicon/verif/cocotb/test_core.py" lineno="147" time="59.10248923301697" sim_time_ns="361580.0" ratio_time="6117.847229317835" />
-    <testcase name="errors_and_saturation" classname="test_core" file="/home/user/NautilusQuant/nqx-silicon/verif/cocotb/test_core.py" lineno="167" time="0.4852268695831299" sim_time_ns="6720.0" ratio_time="13849.191834271904" />
-    <testcase name="cycle_counters" classname="test_core" file="/home/user/NautilusQuant/nqx-silicon/verif/cocotb/test_core.py" lineno="192" time="0.9914913177490234" sim_time_ns="8450.0" ratio_time="8522.515375307554" />
-    <testcase name="random_programs" classname="test_core" file="/home/user/NautilusQuant/nqx-silicon/verif/cocotb/test_core.py" lineno="208" time="59.65444469451904" sim_time_ns="458510.0" ratio_time="7686.099541248888" />
-    <testcase name="perf_cycles" classname="test_core" file="/home/user/NautilusQuant/nqx-silicon/verif/cocotb/test_core.py" lineno="218" time="4.353290796279907" sim_time_ns="29480.0" ratio_time="6771.888527454232" />
+    <property name="random_seed" value="1790240017" />
+    <testcase name="csr_and_sync" classname="test_core" file="/home/user/NautilusQuant/nqx-silicon/verif/cocotb/test_core.py" lineno="108" time="0.02842402458190918" sim_time_ns="1120.0" ratio_time="39403.287059948496" />
+    <testcase name="load_store" classname="test_core" file="/home/user/NautilusQuant/nqx-silicon/verif/cocotb/test_core.py" lineno="116" time="2.5219993591308594" sim_time_ns="124130.0" ratio_time="49218.8864166794" />
+    <testcase name="single_ops" classname="test_core" file="/home/user/NautilusQuant/nqx-silicon/verif/cocotb/test_core.py" lineno="126" time="9.703458070755005" sim_time_ns="471240.0" ratio_time="48564.13008268235" />
+    <testcase name="encode_decode" classname="test_core" file="/home/user/NautilusQuant/nqx-silicon/verif/cocotb/test_core.py" lineno="147" time="43.37745690345764" sim_time_ns="2147110.0" ratio_time="49498.29135393257" />
+    <testcase name="errors_and_saturation" classname="test_core" file="/home/user/NautilusQuant/nqx-silicon/verif/cocotb/test_core.py" lineno="167" time="0.39000797271728516" sim_time_ns="18470.0" ratio_time="47358.006225654295" />
+    <testcase name="cycle_counters" classname="test_core" file="/home/user/NautilusQuant/nqx-silicon/verif/cocotb/test_core.py" lineno="192" time="0.9480299949645996" sim_time_ns="44140.0" ratio_time="46559.70827341621" />
+    <testcase name="random_programs" classname="test_core" file="/home/user/NautilusQuant/nqx-silicon/verif/cocotb/test_core.py" lineno="208" time="30.571213483810425" sim_time_ns="1484910.0" ratio_time="48572.1641630733" />
+    <testcase name="perf_cycles" classname="test_core" file="/home/user/NautilusQuant/nqx-silicon/verif/cocotb/test_core.py" lineno="218" time="3.099702835083008" sim_time_ns="148610.0" ratio_time="47943.30550593581" />
   </testsuite>
 </testsuites>
