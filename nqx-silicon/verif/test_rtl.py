@@ -124,6 +124,7 @@ def test_chip_ihp_gate_level():
         IHP_NETLIST,
         cells,
         ref / "sg13g2_io" / "verilog" / "sg13g2_io.v",
+        IHP_FLOW / "sim" / "bondpad_70x70.v",
     ]
     _run("tb_chip", srcs, "test_top", "_ihp_gl", parameters={})
 
