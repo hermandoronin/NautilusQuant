@@ -170,5 +170,103 @@
    "0x3C6EF373",
    "0xE8B19471"
   ]
- }
+ },
+ "significance": [
+  [
+   11,
+   "golden butterfly - randomized Hadamard",
+   -0.016310929487543487,
+   0.0316683832323259,
+   10,
+   16
+  ],
+  [
+   11,
+   "golden butterfly - random orthogonal",
+   0.018322397930698682,
+   0.022698945452042155,
+   8,
+   16
+  ],
+  [
+   11,
+   "tuned butterfly - randomized Hadamard",
+   -0.025087828762822922,
+   0.021937040224255758,
+   11,
+   16
+  ],
+  [
+   11,
+   "NQX-S1 golden L1+L2+L3 - randomized Hadamard",
+   0.09089273920633784,
+   0.03354988786787771,
+   6,
+   16
+  ],
+  [
+   23,
+   "golden butterfly - randomized Hadamard",
+   0.028626161066537273,
+   0.031727113326544584,
+   6,
+   16
+  ],
+  [
+   23,
+   "golden butterfly - random orthogonal",
+   0.0008105332850503917,
+   0.0340630974585065,
+   7,
+   16
+  ],
+  [
+   23,
+   "tuned butterfly - randomized Hadamard",
+   0.039745799555489986,
+   0.02894279386161175,
+   7,
+   16
+  ],
+  [
+   23,
+   "NQX-S1 golden L1+L2+L3 - randomized Hadamard",
+   0.1976101933726186,
+   0.07184917629950022,
+   3,
+   16
+  ],
+  [
+   37,
+   "golden butterfly - randomized Hadamard",
+   -0.024092610112953557,
+   0.033062513419991994,
+   9,
+   16
+  ],
+  [
+   37,
+   "golden butterfly - random orthogonal",
+   -0.006855851993841611,
+   0.0245317048595223,
+   6,
+   16
+  ],
+  [
+   37,
+   "tuned butterfly - randomized Hadamard",
+   -0.014173478651412715,
+   0.01955117031561881,
+   7,
+   16
+  ],
+  [
+   37,
+   "NQX-S1 golden L1+L2+L3 - randomized Hadamard",
+   0.10873492292605089,
+   0.05186523127584377,
+   3,
+   16
+  ]
+ ]
 }

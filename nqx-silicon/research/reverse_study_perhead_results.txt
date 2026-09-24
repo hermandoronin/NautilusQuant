@@ -1,0 +1,16 @@
+head 0: cal 0.344->0.214 | test golden 0.457 tuned 0.413 hadamard 0.481 random 0.661
+head 1: cal 0.315->0.210 | test golden 0.308 tuned 0.305 hadamard 0.242 random 0.248
+head 2: cal 0.315->0.209 | test golden 0.314 tuned 0.184 hadamard 0.144 random 0.161
+head 3: cal 0.505->0.238 | test golden 0.391 tuned 0.432 hadamard 0.347 random 0.335
+head 4: cal 0.522->0.224 | test golden 0.358 tuned 0.534 hadamard 0.725 random 0.471
+head 5: cal 0.329->0.321 | test golden 0.410 tuned 0.515 hadamard 0.630 random 0.418
+head 6: cal 0.325->0.250 | test golden 0.641 tuned 0.503 hadamard 0.413 random 0.400
+head 7: cal 0.216->0.116 | test golden 0.242 tuned 0.286 hadamard 0.225 random 0.266
+head 8: cal 0.146->0.107 | test golden 0.526 tuned 0.488 hadamard 0.334 random 0.292
+head 9: cal 0.284->0.178 | test golden 0.357 tuned 0.393 hadamard 0.380 random 0.338
+head 10: cal 0.254->0.177 | test golden 0.318 tuned 0.352 hadamard 0.297 random 0.397
+head 11: cal 0.448->0.298 | test golden 0.373 tuned 0.340 hadamard 0.387 random 0.340
+means: cal default 0.3334 tuned 0.2119 | test golden 0.3914 tuned 0.3954 hadamard 0.3838 random 0.3607
+  per-head tuned - golden: +0.0040 +- 0.0259, wins 6/12
+  per-head tuned - hadamard: +0.0116 +- 0.0284, wins 4/12
+  per-head tuned - random: +0.0347 +- 0.0312, wins 3/12
