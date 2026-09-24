@@ -1,0 +1,4 @@
+* Bond pad (IHP SG13_dev bondpad PCell, 70 x 70 um): metal and passivation
+* opening only, no devices. Its single terminal is the pad metal.
+.SUBCKT bondpad_70x70 pad
+.ENDS bondpad_70x70
