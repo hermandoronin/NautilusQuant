@@ -15,7 +15,7 @@ RUN_TAG    ?= $(shell date +%Y%m%d_%H%M%S)
 
 pdk:
 	@if [ ! -d "$(PDK_ROOT)/$(PDK)" ]; then \
-	    ciel enable --pdk-root "$(PDK_ROOT)" --pdk-family ihp-sg13 $(PDK_COMMIT); \
+	    ciel enable --pdk-root "$(PDK_ROOT)" --pdk-family ihp-sg13g2 $(PDK_COMMIT); \
 	fi
 
 gds: pdk

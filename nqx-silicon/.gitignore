@@ -6,4 +6,4 @@ verif/formal/*_prove/
 verif/formal/*_cover/
 flow/*/runs/
 flow/wafer-space-gf180/cocotb/sim_build/
-verif/cocotb/*.result.xml
+*.result.xml

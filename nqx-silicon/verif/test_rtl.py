@@ -42,12 +42,19 @@ IHP_FLOW = ROOT / "flow" / "ihp-sg13g2"
 IHP_NETLIST = Path(os.environ.get("NQX_GL_NETLIST", ROOT / "tapeout" / "ihp-sg13g2" / "chip_top.nl.v"))
 
 
-def _run(toplevel: str, sources: list[Path], module: str, tag: str = "") -> None:
+def _run(
+    toplevel: str,
+    sources: list[Path],
+    module: str,
+    tag: str = "",
+    test_dir: Path = TB,
+    parameters: dict | None = None,
+) -> None:
     iter_cordic = os.environ.get("NQX_ITER", "0")
     name = f"{SIM}_{toplevel}_d{os.environ.get('NQX_DIM', '128')}_i{iter_cordic}{tag}"
     build_dir = ROOT / "verif" / "sim_build" / name
     runner = get_runner(SIM)
-    env = {"PYTHONPATH": os.pathsep.join([str(TB), str(MODEL), os.environ.get("PYTHONPATH", "")])}
+    env = {"PYTHONPATH": os.pathsep.join([str(test_dir), str(MODEL), os.environ.get("PYTHONPATH", "")])}
     build_args = []
     if SIM == "icarus":
         build_args = ["-g2012"]
@@ -59,16 +66,16 @@ def _run(toplevel: str, sources: list[Path], module: str, tag: str = "") -> None
         includes=[RTL],
         build_dir=build_dir,
         build_args=build_args,
-        parameters={} if toplevel in ("nqx_s1_cordic", "tb_chip") else {"ITER_CORDIC": int(iter_cordic)},
+        parameters=parameters if parameters is not None else {"ITER_CORDIC": int(iter_cordic)},
         timescale=("1ns", "1ps"),
         always=True,
     )
     # The cocotb runner exports this process's sys.path as PYTHONPATH.
-    sys.path[:0] = [str(TB), str(MODEL)]
+    sys.path[:0] = [str(test_dir), str(MODEL)]
     results = runner.test(
         hdl_toplevel=toplevel,
         test_module=module,
-        test_dir=TB,
+        test_dir=test_dir,
         build_dir=build_dir,
         extra_env={k: v for k, v in {**os.environ, **env}.items() if k.startswith(("NQX_", "COCOTB_", "PYTHONPATH"))},
     )
@@ -81,7 +88,7 @@ def _rtl(names: list[str]) -> list[Path]:
 
 
 def test_cordic():
-    _run("nqx_s1_cordic", _rtl(["nqx_s1_cordic.sv"]), "test_cordic")
+    _run("nqx_s1_cordic", _rtl(["nqx_s1_cordic.sv"]), "test_cordic", parameters={})
 
 
 def test_core():
@@ -97,7 +104,7 @@ def test_chip_ihp():
     """Full IHP chip_top (pad cells + core RTL) through the pads."""
     io = IHP_PDK / "libs.ref" / "sg13g2_io" / "verilog" / "sg13g2_io.v"
     srcs = [IHP_FLOW / "sim" / "tb_chip.sv", IHP_FLOW / "chip_top.sv", io] + _rtl(TOP_SOURCES)
-    _run("tb_chip", srcs, "test_top", "_ihp")
+    _run("tb_chip", srcs, "test_top", "_ihp", parameters={})
 
 
 @pytest.mark.skipif(
@@ -118,4 +125,14 @@ def test_chip_ihp_gate_level():
         cells,
         ref / "sg13g2_io" / "verilog" / "sg13g2_io.v",
     ]
-    _run("tb_chip", srcs, "test_top", "_ihp_gl")
+    _run("tb_chip", srcs, "test_top", "_ihp_gl", parameters={})
+
+
+def test_tinytapeout():
+    """The generated Tiny Tapeout package with its own testbench and test.
+
+    Its Makefile is for Tiny Tapeout's CI; this runs the same files here.
+    """
+    tt = ROOT / "tinytapeout"
+    srcs = [tt / "test" / "tb.v", *sorted((tt / "src").glob("*.v"))]
+    _run("tb", srcs, "test", "_tt", test_dir=tt / "test", parameters={})
