@@ -37,7 +37,7 @@ See [`spec/00_datasheet.md`](spec/00_datasheet.md).
 | RTL (SystemVerilog, 10 modules) | done, lint-clean (Verilator -Wall, Yosys, Icarus) | `rtl/`, `make lint yosys-check` |
 | RTL verification | done: CORDIC unit, core random, pin level, golden vectors | `verif/cocotb`, `make test-rtl` |
 | Formal verification | done: unbounded proofs of the handshake bridge and the stream protocol | `verif/formal`, `make formal` |
-| Full chip, IHP SG13G2 (130 nm) | GDSII with pad ring, seal ring and fill; sign-off results in `spec/06` | `flow/ihp-sg13g2`, `tapeout/ihp-sg13g2` |
+| Full chip, IHP SG13G2 (130 nm) | signed off: KLayout DRC with IHP's full deck 0, density and antenna 0, LVS match, STA clean at 3 corners (+1.08 ns slow), post-route netlist passes the golden vectors; details in `spec/06` | `flow/ihp-sg13g2`, `tapeout/ihp-sg13g2` |
 | Full chip, GF180MCU (wafer.space) | ready to build (template port, CI job) | `flow/wafer-space-gf180` |
 | Tiny Tapeout package (DIM=32) | ready, test passes | `tinytapeout/`, `tools/export_tinytapeout.py` |
 | Silicon | not yet ordered | see [`spec/08_tapeout_package.md`](spec/08_tapeout_package.md) |

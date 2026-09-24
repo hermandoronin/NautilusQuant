@@ -164,7 +164,9 @@ model of the bond pad (`flow/ihp-sg13g2/sim/bondpad_70x70.v`). It drives
 the same pin-level tests and the 91 golden transactions as the RTL chip
 test, through the asynchronous interface, and compares every output byte.
 
-Result on the final netlist: still running at the time of this revision.
+Result on the final netlist: **3 of 3 cocotb tests pass** (`pins_csr`,
+`pins_encode_decode`, `golden_vectors`: all 91 transactions bit-exact),
+16.2 ms of simulated time, 1 h 35 min wall time in Icarus Verilog.
 
 ## 7. Tool versions used for the committed IHP result
 

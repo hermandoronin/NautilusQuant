@@ -183,7 +183,7 @@ python demos/run_demo.py                   # TurboQuant vs NQX side-by-side
 | Datapath | Pipelined 18-stage CORDIC (shift-and-add), 128 × 24-bit vector register, exact integer quantizer |
 | Interface | 8-bit in / 8-bit out, asynchronous 4-phase handshake, any MCU |
 | Verification | Bit-exact vs the Python model at core, pin and gate level; SymbiYosys proofs; golden vectors for silicon |
-| Processes | IHP SG13G2 130 nm (full chip GDSII); wafer.space GF180MCU (template port, CI build + precheck) |
+| Processes | IHP SG13G2 130 nm (full chip, signed off: DRC, LVS, density, antenna, STA at 3 corners); wafer.space GF180MCU (template port, CI build + precheck) |
 | Findings | Layer 3 of the reference rotation is an identity; the S1 quantizer halves reconstruction error ([details](nqx-silicon/spec/11_algorithm_findings.md)) |
 
 Specification package: [`nqx-silicon/spec/`](nqx-silicon/spec/). How to order: [`08_tapeout_package.md`](nqx-silicon/spec/08_tapeout_package.md).
@@ -313,7 +313,7 @@ These are the properties the design *has*. Running a real condition-monitoring L
 | **E2** | RTL skeleton (Verilator + Yosys + OpenLane2 + SymbiYosys) | ✅ superseded by NQX-S1 | The `nqx-core/rtl/` skeleton stays for history; the implemented, verified RTL is [`nqx-silicon/rtl/`](nqx-silicon/rtl/) |
 | **E3** | FPGA bring-up (Alveo U280 / V80 / AWS F1) | ⏳ not started | needs E2 datapath first |
 | **E4** | LLM stack integration (HF Cache / vLLM / Triton kernel) | ⏳ not started | needs a rented GPU |
-| **E5** | MPW tape-out of a test chip | 🚧 GDSII ready, not ordered | NQX-S1: IHP SG13G2 full chip; wafer.space GF180MCU port. Efabless closed in 2025; options and prices in [`08_tapeout_package.md`](nqx-silicon/spec/08_tapeout_package.md) |
+| **E5** | MPW tape-out of a test chip | 🚧 GDSII signed off, not ordered | NQX-S1: IHP SG13G2 full chip; wafer.space GF180MCU port. Efabless closed in 2025; options and prices in [`08_tapeout_package.md`](nqx-silicon/spec/08_tapeout_package.md) |
 | **E6** | Commercial ASIC TSMC 12 / 7 nm | 🔮 future | $1.5–5 M depending on node |
 
 ---
