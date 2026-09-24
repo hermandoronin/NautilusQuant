@@ -26,9 +26,21 @@ module tb_chip (
     assign out_req    = bidir[17];
     assign busy       = bidir[18];
 
+`ifdef USE_POWER_PINS
+    // Supply nets: chip_top's power ports are inout, so they cannot take
+    // constants directly.
+    supply1 vdd;
+    supply0 vss;
+`endif
+
     chip_top u_chip (
 `ifdef USE_POWER_PINS
-        .VDD(1'b1), .VSS(1'b0), .DVDD(1'b1), .DVSS(1'b0),
+        .VDD(vdd), .VSS(vss),
+`ifndef NQX_GL
+        // RTL only: the powered netlist has VDD/VSS alone (VDD_NETS and
+        // GND_NETS in librelane/config.yaml); DVDD/DVSS are tied to them.
+        .DVDD(vdd), .DVSS(vss),
+`endif
 `endif
         .clk_PAD(clk), .rst_n_PAD(rst_n),
         .input_PAD(inputs), .bidir_PAD(bidir), .analog_PAD(analog)

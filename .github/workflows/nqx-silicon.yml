@@ -80,6 +80,13 @@ jobs:
         run: |
           cd nqx-silicon/flow/ihp-sg13g2
           nix-shell ../wafer-space-gf180/shell.nix --run "make gds"
+      - name: sign-off summary (DRC, density, antenna, LVS per rule)
+        if: always()
+        run: |
+          for r in nqx-silicon/flow/ihp-sg13g2/runs/*/; do
+            echo "== $r"; python3 nqx-silicon/tools/signoff_summary.py "$r"
+            cat "$r"/*-openroad-stapostpnr/summary.rpt 2>/dev/null || true
+          done
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -89,6 +96,9 @@ jobs:
             nqx-silicon/flow/ihp-sg13g2/runs/*/flow.log
             nqx-silicon/flow/ihp-sg13g2/runs/*/*.log
             nqx-silicon/flow/ihp-sg13g2/runs/*/final/metrics.*
+            nqx-silicon/flow/ihp-sg13g2/runs/*/*-klayout-*/reports/*.lyrdb
+            nqx-silicon/flow/ihp-sg13g2/runs/*/*-netgen-lvs/reports/*.rpt
+            nqx-silicon/flow/ihp-sg13g2/runs/*/*-openroad-stapostpnr/summary.rpt
 
   gds-gf180:
     name: GDSII - wafer.space GF180MCU chip (${{ matrix.slot }})

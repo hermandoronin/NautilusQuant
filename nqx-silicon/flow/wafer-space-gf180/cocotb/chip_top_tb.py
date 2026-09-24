@@ -45,7 +45,7 @@ def runner():
     if gl:
         lib = Path(pdk_root) / pdk / "libs.ref" / scl / "verilog"
         sources += [lib / f"{scl}.v", lib / "primitives.v", proj / "../final/pnl/chip_top.pnl.v"]
-        defines.update({"FUNCTIONAL": True, "USE_POWER_PINS": True})
+        defines.update({"FUNCTIONAL": True, "USE_POWER_PINS": True, "NQX_GL": True})
     else:
         sources += [proj / "../src/chip_top.sv", proj / "../src/chip_core.sv"]
         sources += [rtl / f for f in RTL_FILES]
