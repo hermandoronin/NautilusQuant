@@ -118,8 +118,8 @@ The study reports negative results with the same weight as positive ones.
    40 % calibration drift, and it has **not yet been checked on a real
    model** ([`research/nqx_rn_study.py`](nqx-silicon/research/nqx_rn_study.py)).
 
-The full write-up is a three-part preprint (in Russian):
-[`nqx-silicon/paper/nautilusquant_v1_v2.ru.md`](nqx-silicon/paper/nautilusquant_v1_v2.ru.md).
+The full write-up is a three-part preprint:
+**[English](nqx-silicon/paper/nautilusquant_v1_v2.en.md)** · [Deutsch](nqx-silicon/paper/nautilusquant_v1_v2.de.md) · [中文](nqx-silicon/paper/nautilusquant_v1_v2.zh.md) · [Русский (original)](nqx-silicon/paper/nautilusquant_v1_v2.ru.md).
 
 ## Repository map
 

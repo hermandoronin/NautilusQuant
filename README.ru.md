@@ -109,7 +109,7 @@
    калибровки на 40 %; **на настоящей модели ещё не проверен**.
 
 Полный текст — препринт из трёх частей:
-[`nqx-silicon/paper/nautilusquant_v1_v2.ru.md`](nqx-silicon/paper/nautilusquant_v1_v2.ru.md).
+**[русский оригинал](nqx-silicon/paper/nautilusquant_v1_v2.ru.md)**; переводы: [English](nqx-silicon/paper/nautilusquant_v1_v2.en.md) · [Deutsch](nqx-silicon/paper/nautilusquant_v1_v2.de.md) · [中文](nqx-silicon/paper/nautilusquant_v1_v2.zh.md).
 
 ## Структура репозитория
 
