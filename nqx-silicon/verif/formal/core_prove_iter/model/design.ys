@@ -1,0 +1,10 @@
+# running in core_prove_iter/src/
+read_verilog -sv -formal -I. nqx_s1_cordic.sv nqx_s1_cordic_iter.sv nqx_s1_rcode.sv nqx_s1_rsign.sv nqx_s1_tcode.sv nqx_s1_qdec.sv nqx_s1_div28.sv nqx_s1_rf.sv nqx_s1_core.sv
+read_verilog -sv -formal core_props.sv
+chparam -set ITER_CORDIC 1 nqx_s1_core
+prep -top core_props
+
+hierarchy -smtcheck
+rename -witness
+write_jny -no-connections ../model/design.json
+write_rtlil ../model/design.il

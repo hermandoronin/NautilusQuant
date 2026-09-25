@@ -1,0 +1,10 @@
+# NQX-S1 golden vectors: 00_identity
+# chip id 0x4E515831, version 0x00010000, DIM=128
+# start from reset; W = host writes, R = chip must return, '.' ends a transaction
+W 72007201720272037204720572067207710aefbeadde720a725570
+R 3158514e000001000718121401000000000000004786c861b979379e00000000
+R efbeadde00000000a5
+.
+W 72127213
+R 0000000000000000
+.

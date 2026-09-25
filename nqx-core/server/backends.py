@@ -145,7 +145,7 @@ class GPUBackend:
             from nautilus_triton import NautilusConfig, NautilusQuantPyTorch
         except ImportError as e:
             raise RuntimeError(
-                "GPUBackend requires nautilus_triton.py from the NautilusQuant repo "
+                "GPUBackend requires nautilus_triton.py (reference/ in the NautilusQuant repo) "
                 "on PYTHONPATH. Set PYTHONPATH or git clone it into the image."
             ) from e
 

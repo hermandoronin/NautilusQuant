@@ -20,6 +20,10 @@ golden-ratio KV-cache accelerator.**
 
 </div>
 
+> **Version 1 of the project.** This emulator and its RTL skeleton came before the chip.
+> The implemented, verified and signed-off design is [NQX-S1 in `nqx-silicon/`](../nqx-silicon/);
+> the project overview is the [root README](../README.md).
+
 ---
 
 ## TL;DR
@@ -45,7 +49,7 @@ a FastAPI HTTP server with monitoring and chaos tests, a demo runner, and
 | Functional-unit math (Givens, polar, Lloyd-Max, QJL, pack, MX, sub-bit) | **Real, tested** against the upstream reference |
 | FastAPI service, metrics, chaos tests, Docker images | **Real** |
 | Benchmarks in `bench/`, demos in `demos/` | **Real**, all on synthetic KV-like data |
-| SystemVerilog RTL | **Skeleton.** `polar_unit.sv` computes `x^y` / `x+y` where CORDIC belongs; `quant_unit.sv` truncates instead of applying Lloyd-Max. Hierarchy, interfaces and pipelining are real; the arithmetic is a placeholder. |
+| SystemVerilog RTL | **Skeleton.** `polar_unit.sv` computes `x^y` / `x+y` where CORDIC belongs; `quant_unit.sv` truncates instead of applying Lloyd-Max. Hierarchy, interfaces and pipelining are real; the arithmetic is a placeholder. The implemented and verified fixed-point RTL, with full-chip layout, is **NQX-S1** in [`../nqx-silicon/`](../nqx-silicon/). |
 | Yosys / OpenLane / SymbiYosys flows | Configuration files exist; never run to GDS or to a formal proof |
 | ASIC floorplan, timing, tape-out checklist in `asic/` | Paper study, no PDK run behind it |
 | Cycle counts and energy figures | **Analytical model** in `nqx/pipeline.py` + `nqx/energy.py`, not measurement |

@@ -1,396 +1,177 @@
 <div align="center">
 
-# 🐚 NautilusQuant
+# NautilusQuant · NQX-S1
 
-### Deterministic Orthogonal KV-Cache Quantization with a 1.9 KB Rotation ROM
+### An open-source KV-cache compression chip, from an algorithm idea to a signed-off 130 nm layout
 
-[![Status](https://img.shields.io/badge/status-research%20prototype-orange?style=for-the-badge)](nqx-core/docs/PRD.md)
-[![Tests](https://img.shields.io/badge/tests-246_passing%2C_1_skipped-brightgreen?style=for-the-badge)](nqx-core/tests)
-[![License](https://img.shields.io/badge/license-MIT-blue?style=for-the-badge)](LICENSE)
-[![Python](https://img.shields.io/badge/python-3.11+-green?style=for-the-badge&logo=python&logoColor=white)](https://python.org)
-[![PyTorch](https://img.shields.io/badge/pytorch-2.0+-ee4c2c?style=for-the-badge&logo=pytorch&logoColor=white)](https://pytorch.org)
-[![Triton](https://img.shields.io/badge/triton-GPU%20kernel-76B900?style=for-the-badge&logo=nvidia&logoColor=white)](https://triton-lang.org)
+[![nqx-silicon](https://github.com/hermandoronin/NautilusQuant/actions/workflows/nqx-silicon.yml/badge.svg)](https://github.com/hermandoronin/NautilusQuant/actions/workflows/nqx-silicon.yml)
+[![nqx-core](https://github.com/hermandoronin/NautilusQuant/actions/workflows/nqx-core-ci.yml/badge.svg)](https://github.com/hermandoronin/NautilusQuant/actions/workflows/nqx-core-ci.yml)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
+![Process](https://img.shields.io/badge/process-IHP%20SG13G2%20130%20nm-555)
+![Sign-off](https://img.shields.io/badge/DRC%20%C2%B7%20LVS%20%C2%B7%20STA-clean-2F6B45)
 
-**[TL;DR](#tldr)** ·
-**[How it works](#how-it-works)** ·
-**[NQX-Core](#nqx-core--pre-silicon-emulator-and-chip-development-kit)** ·
-**[Results](#results)** ·
-**[What is not true yet](#what-is-not-true-yet)** ·
-**[Maritime](#industrial-applications--shipboard-edge-ai)** ·
-**[Roadmap](#roadmap)**
+<img src="nqx-silicon/tapeout/ihp-sg13g2/chip_top.png" width="440" alt="NQX-S1 layout: 2 × 2 mm die, 31 pads, IHP SG13G2">
+
+*NQX-S1 on IHP SG13G2: 2.0 × 2.0 mm, 31 pads, 44 k standard cells, 50 MHz.*
+
+**[Chip](#the-chip)** · **[What I built](#what-i-built)** · **[Sign-off problems solved](#sign-off-problems-solved)** · **[Findings](#research-findings)** · **[Repository](#repository-map)** · **[Reproduce](#reproduce)** · **[Русский](README.ru.md)**
 
 </div>
 
 ---
 
-## TL;DR
-
-Rotation-based KV-cache quantization ([TurboQuant](https://arxiv.org/abs/2504.19874), Google ICLR 2026) needs a **random orthogonal matrix** — `dim × dim` FP16 of persistent state per configuration: 32 KB at dim=128, 2 MB at dim=1024. NautilusQuant replaces the random matrix with three layers of **golden-angle Givens rotations**, so the entire rotation collapses into a **1 910-byte ROM at dim=128** (15 KB at dim=1024) and produces **bit-identical output on every run** — no PRNG, no seed, no per-layer matrix in HBM.
-
-**That size and determinism claim is the defensible core of this project.** It is reproducible from [`nqx-core/bench/lut_budget.md`](nqx-core/bench/lut_budget.md) and [`nqx-core/bench/determinism.md`](nqx-core/bench/determinism.md).
-
-**What is *not* established:** that the golden angle gives *better reconstruction quality* than a random matrix. The repo's own head-to-head says it does not — φ is **7.9 % worse in RMSE** ([`bench/phi_vs_random.md`](nqx-core/bench/phi_vs_random.md)). See [Results](#results).
-
-**v0.1.0** ships an upstream-faithful reference implementation (this repo) plus **NQX-Core** — a pre-silicon emulator and chip development kit at [`nqx-core/`](nqx-core/): 24-opcode ISA, cycle-accurate NumPy emulator, SystemVerilog RTL *skeleton* (placeholder datapath, see [E2](#roadmap)), Yosys + OpenLane configuration, ASIC floorplan and timing notes, FastAPI server, demo runner with side-by-side TurboQuant comparison, **247 tests (246 pass, 1 skip)**.
-
----
-
-## The Problem
-
-LLM inference is **memory-bound**, not compute-bound. The KV-cache for a 7B model at 128K context is **64 GB in FP16**, the dominant HBM consumer. Compression directly buys throughput.
-
-State of the art ([TurboQuant](https://arxiv.org/abs/2504.19874)): random orthogonal rotation, then polar-quantize to 3 bits. It works — but the rotation matrix is PRNG-derived, must be stored or regenerated, has only statistical (O(1/√N)) angular uniformity, and does not map cleanly onto deterministic-dataflow hardware (Groq, Cerebras, shipboard PLCs) that has no PRNG block and no room for a multi-MB matrix.
-
-**The question this repo asks:** how much of the rotation can be replaced by a closed-form constant, and what does that cost in quality?
-
----
-
-## Core Hypothesis
-
-The rotation matrix is a product of **non-overlapping Givens pairs** with golden-angle θ:
-
-```
-θ_k = (2π / φ²) × (k + 1) ≈ 137.5077640500° × (k + 1)
-```
-
-Hermann Weyl (1916) proved that the golden angle has the slowest-converging continued fraction `[1; 1, 1, 1, …]` of any number, giving **angular discrepancy O(1/N)** instead of the O(1/√N) of an i.i.d. random sequence. That is a statement about *angle coverage*, not about end-to-end quantization error — the two turn out not to be the same thing (see [Results](#results)).
-
-| Property                        | Random Rotation (TurboQuant) | **Golden Rotation (NautilusQuant)** |
-|---------------------------------|------------------------------|-------------------------------------|
-| Deterministic                   | No (seed-dependent)          | **Yes** (φ and π are constants)     |
-| Angular uniformity              | O(1/√N) statistical          | **O(1/N)** (Weyl)                   |
-| Reproducibility                 | Depends on PRNG state        | **100 %** bit-identical every run   |
-| Rotation state (dim=128)        | 32 KB FP16 matrix            | **1 910 B ROM**                     |
-| Rotation state (dim=1024)       | 2 MB FP16 matrix             | **15 KB ROM** (137× smaller)        |
-| Runtime state                   | seed + rotation matrix       | **0** (precomputed angles)          |
-| Maps onto static dataflow?      | No (random matmul)           | **Yes** (Givens pipeline 1:1)       |
-| Reconstruction RMSE             | **better by 7.9 %**          | worse — see [Results](#results)     |
-
-The matrix must be **orthogonal** so attention scores survive: `‖Tv‖ = ‖v‖`, `⟨Tq, Tk⟩ = ⟨q, k⟩`. v1 of this design included `φ^(-i/d)` centripetal scaling that broke orthogonality — fixed in v2 with pure Givens.
-
----
-
-## How It Works
-
-```
-┌──────────┐   ┌───────────┐   ┌──────────┐   ┌───────────┐   ┌──────────┐
-│ 1. Input │──▶│ 2. Rotate │──▶│ 3. Polar │──▶│ 4. Quant  │──▶│ 5. QJL   │
-│   FP16   │   │  Golden φ │   │  (r, θ)  │   │ Lloyd-Max │   │  ±1 bit  │
-│  16 bit  │   │  T^T·T=I  │   │          │   │   3 bit   │   │  1 bit   │
-└──────────┘   └───────────┘   └──────────┘   └───────────┘   └──────────┘
-     HBM ──────────── SRAM (fused, single pass) ────────────▶ HBM
-```
-
-Three layers of non-overlapping Givens rotations, all orthogonal by construction:
-
-```python
-# Layer 1: adjacent pairs
-for k in range(dim // 2):
-    givens(v, 2*k, 2*k+1, GOLDEN_ANGLE * (k + 1))
-
-# Layer 2: shifted pairs (offset by 1)
-for k in range((dim - 1) // 2):
-    givens(v, 2*k+1, 2*k+2, GOLDEN_ANGLE * (k + 1) * φ)
-
-# Layer 3: butterfly with stride dim/4 (non-overlapping pairs only)
-for k in range(dim):
-    if not_overlapping(k):
-        givens(v, k, (k + dim//4) % dim, GOLDEN_ANGLE * (k + 1) * φ²)
-```
-
-Decode is the same in reverse with negated angles: `T⁻¹ = L₁ᵀ·L₂ᵀ·L₃ᵀ`.
-
-The ROM stores one `(pair_i, pair_j, cos, sin)` record per pair — 10 bytes each, 191 pairs at dim=128 → **1 910 bytes**, independent of model, layer and device.
-
----
-
-## NQX-Core — pre-silicon emulator and chip development kit
-
-> **The deterministic dataflow processor that NautilusQuant maps to 1:1.**
-> Lives at [`nqx-core/`](nqx-core/). **Software-only.** No FPGA bring-up, no silicon.
-
-```
-        ┌────────── HBM (off-chip, FP16) ──────────┐
-        v                                          ^
-   ┌────────┐                                ┌──────────┐
-   │  DMA   │--> SRAM_in (24KB) ─────> ... ──│   PACK   │
-   └────────┘                                │   3+1bit │
-                                             └──────────┘
-                                                  ^
-   SRAM_in ──> [ VRF FP32, 16 × 128 elem ]        │
-                       │                          │
-        ┌──────────────┴────────────────┐    ┌────┴──────┐
-        v                               v    │   QJL     │
-  ┌──────────┐  ┌──────────┐  ┌──────────┐   │ sign+corr │
-  │  GU-L1   │─▶│  GU-L2   │─▶│  GU-L3   │   └─────▲─────┘
-  │ 64 lanes │  │ 63 lanes │  │ ~32 lns  │         │
-  │ adj pair │  │ shifted  │  │ butterfly│         │
-  └──────────┘  └──────────┘  └──────────┘         │
-                       │                           │
-                       v                           │
-                 ┌──────────┐    ┌──────────┐      │
-                 │  POLAR   │───▶│  QUANT   │──────┘
-                 │ √+atan2  │    │ Lloyd-Max│
-                 │ 64 lanes │    │   3-bit  │
-                 └──────────┘    └──────────┘
-                       ^
-                 ┌─────┴────┐
-                 │ ROM LUT  │  golden cos/sin, 1 910 B
-                 │ 191 pair │
-                 └──────────┘
-```
-
-**Pipeline depth: 18 cycles. Steady-state throughput: 1 vec/cycle** — as modelled by the emulator's cycle counter, not measured on hardware.
-
-| Layer                     | Artifact                                                          |
-|---------------------------|-------------------------------------------------------------------|
-| ISA + assembler           | [`nqx-core/nqx/`](nqx-core/nqx/) — 24 opcodes (`LDV`, `GVNS`, `POLAR`, `QUANT`, `QJL`, `PACK3`, `MXPACK`, `SUBBIT_ENC`, `ATTN_DOT`, `LDV_ASYNC`, …) |
-| Cycle-accurate emulator   | [`nqx-core/nqx/cpu.py`](nqx-core/nqx/cpu.py) — pure NumPy, no torch dep |
-| RTL **skeleton**          | [`nqx-core/rtl/`](nqx-core/rtl/) — 5 SystemVerilog design modules + Verilator testbench. `polar_unit.sv` and `quant_unit.sv` still carry **placeholder datapaths** (XOR/ADD instead of CORDIC, truncation instead of Lloyd-Max). Structure and interfaces only. |
-| Synthesis                 | [`nqx-core/rtl/synth/`](nqx-core/rtl/synth/) — Yosys flow with sky130 target |
-| Open-source tape-out      | [`nqx-core/rtl/openlane/`](nqx-core/rtl/openlane/) — OpenLane2 config (Skywater MPW path) |
-| Formal verification       | [`nqx-core/rtl/formal/`](nqx-core/rtl/formal/) — SymbiYosys harness for orthogonality |
-| ASIC floorplan + timing   | [`nqx-core/asic/`](nqx-core/asic/) — paper study: 50 mm² TSMC 7 nm target, 1 GHz, tape-out checklist |
-| HTTP service              | [`nqx-core/server/`](nqx-core/server/) — FastAPI, monitoring, chaos tests |
-| Side-by-side vs TurboQuant| [`nqx-core/demos/side_by_side.md`](nqx-core/demos/side_by_side.md) |
-| φ vs random head-to-head  | [`nqx-core/bench/phi_vs_random.md`](nqx-core/bench/phi_vs_random.md) |
-| Pre-silicon SDK           | [`nqx-core/sdk/`](nqx-core/sdk/) — libnqx C ABI, install.sh, errata, programming guide |
-| Linux driver skeleton     | [`nqx-core/firmware/driver/`](nqx-core/firmware/driver/) |
-| Roadmap (E1-E6)           | [`nqx-core/docs/PRD.md`](nqx-core/docs/PRD.md)                     |
-
-```bash
-git clone https://github.com/hermandoronin/NautilusQuant && cd NautilusQuant/nqx-core
-pip install -r requirements.txt
-python -m pytest -q                        # 246 passed, 1 skipped (247 collected)
-python run.py verify --dim 128             # acceptance criteria
-python run.py bench --vectors 4096         # cycles + throughput + energy (model)
-python demos/run_demo.py                   # TurboQuant vs NQX side-by-side
-```
-
----
-
-## Results
-
-Two kinds of number live in this table and they are labelled as such:
-
-- **measured** — produced by running code in this repo (pytest, emulator, benchmarks);
-- **model** — produced by the project's own analytical cycle/energy model in [`nqx-core/nqx/energy.py`](nqx-core/nqx/energy.py) and [`nqx-core/nqx/pipeline.py`](nqx-core/nqx/pipeline.py). **No silicon, no FPGA and no GPU wall-clock measurement backs these.**
-
-| Metric                                             | Value                | Kind      | Source                                 |
-|----------------------------------------------------|----------------------|-----------|----------------------------------------|
-| Orthogonality `T^T·T = I` (dim=128)                | err **1.6 × 10⁻⁷**   | measured  | `nqx-core/tests/test_orthogonality.py` |
-| Roundtrip without quantization                     | RMSE **9.6 × 10⁻⁸**  | measured  | same                                   |
-| Matches the reference implementation `nautilus_triton.py` | within **10⁻⁴** max abs diff | measured | `nqx-core/tests/test_vs_reference.py` |
-| Compression ratio                                  | exactly **4.00×**    | measured  | `nqx-core/tests/test_roundtrip.py`     |
-| ROM-LUT size (dim=128)                             | **1 910 bytes**      | measured  | `nqx-core/nqx/lut.py`, `bench/lut_budget.md` |
-| ROM-LUT size (dim=64 / 1024)                       | **950 B / 15 350 B** | measured  | `nqx-core/bench/lut_budget.md`         |
-| Determinism — 100 runs, same input                 | **100 %** identical  | measured  | `nqx-core/bench/determinism.md`        |
-| **Reconstruction quality vs random rotation**      | **φ is 7.9 % WORSE** (RMSE 0.1429 vs 0.1325) | measured | [`nqx-core/bench/phi_vs_random.md`](nqx-core/bench/phi_vs_random.md) |
-| Reconstruction quality vs TurboQuant pipeline      | φ is 1.5 % worse (RMSE 0.2860 vs 0.2818) | measured | [`nqx-core/demos/side_by_side.md`](nqx-core/demos/side_by_side.md) |
-| Pipeline depth                                     | **18** cycles        | model     | emulator cycle counter                 |
-| Throughput (steady state)                          | **1 vec / cycle**    | model     | emulator cycle counter                 |
-| Cycles per vector vs TurboQuant emulation          | **32× fewer**        | model     | `nqx-core/demos/side_by_side.md`       |
-| Energy per vector vs TurboQuant emulation          | **9.7× lower**       | model     | `nqx-core/nqx/energy.py`               |
-| Energy / encode-vec, TSMC 7 nm assumptions         | **≈ 5.1 nJ**         | model     | `nqx-core/nqx/energy.py`               |
-| NQ-ISA opcode count                                | **24**               | measured  | `nqx-core/nqx/isa.py`                  |
-| Unit tests                                         | **246 passing, 1 skipped** (247 collected) in < 20 s | measured | `pytest -q` in `nqx-core/` |
-
-### The negative result
-
-The head-to-head benchmark in [`nqx-core/bench/phi_vs_random.md`](nqx-core/bench/phi_vs_random.md) compares φ-Givens against a fresh QR-orthonormal random matrix on identical synthetic KV-like inputs (Gaussian + 1/64 outliers ≈6σ), across dim ∈ {64, 128} and 3/4-bit quantization:
-
-| dim | bits | φ RMSE | random RMSE | φ worse by |
-|----:|-----:|-------:|------------:|-----------:|
-| 64  | 3    | 0.2009 | 0.1832      | +9.7 %     |
-| 64  | 4    | 0.0940 | 0.0854      | +10.1 %    |
-| 128 | 3    | 0.1887 | 0.1781      | +6.0 %     |
-| 128 | 4    | 0.0879 | 0.0831      | +5.8 %     |
-| **avg** | | **0.1429** | **0.1325** | **+7.9 %** |
-
-**The golden angle does not beat random rotation on reconstruction quality.** Weyl-optimal angular *coverage* did not translate into lower quantization error here. The three-layer Givens topology is far from a dense random orthogonal matrix, and that structural deficit outweighs the coverage advantage.
-
-What survives the negative result, and what the project is actually about:
-
-- rotation state shrinks from 32 KB (dim=128) / 2 MB (dim=1024) to **1 910 B / 15 KB**;
-- output is **bit-identical** across runs — no seed to record, no PRNG to reproduce;
-- the schedule is fully static, so it maps onto hardware with no PRNG and no scheduler;
-- 88.9 % fewer modelled compute cycles than a dense random matmul.
-
-Whether ~8 % extra RMSE is an acceptable price for those properties is an application decision, not a claim this repo can make for you.
-
----
-
-## What is not true yet
-
-Explicitly, so nobody has to reverse-engineer it from the code:
-
-- **No silicon, no FPGA bitstream, no tape-out.** Everything hardware-related is a paper design plus a Python emulator.
-- **The RTL is a skeleton.** `polar_unit.sv` computes `x ^ y` and `x + y` where CORDIC belongs; `quant_unit.sv` truncates instead of applying Lloyd-Max. Interfaces, pipelining and the module hierarchy are real; the arithmetic is not.
-- **Cycle and energy numbers come from this project's own model**, not from measurement.
-- **No end-to-end LLM quality evaluation** (perplexity, long-context accuracy) has been run on a real model with these kernels.
-- **The φ hypothesis is not confirmed.** On quality it loses to random rotation; it wins on state size and determinism.
-
----
-
-## Compression Comparison
-
-| Config                                | Bits/value | Memory reduction (reported) | Rotation state (dim=128) | Determinism |
-|---------------------------------------|------------|------------------------------|--------------------------|-------------|
-| FP16 baseline                         | 16         | 1.0×                         | —                        | n/a         |
-| KIVI (no rotation)                    | 2          | 2.6× (end-to-end, per paper) | per-channel scales       | yes         |
-| TurboQuant (random)                   | 3 + 1      | 4.0× (KV-cache)              | 32 KB → 2 MB at dim=1024 | seed-dependent |
-| **NautilusQuant (φ)**                 | **3 + 1**  | **4.0×** (KV-cache)          | **1.9 KB → 15 KB**       | **bit-identical** |
-
-The "memory reduction" column mixes sources: KIVI's 2.6× is the end-to-end system figure reported in [its paper](https://arxiv.org/abs/2402.02750), while the 4.0× rows are the KV-cache tensor ratio measured in `tests/test_roundtrip.py`. They are not directly comparable — hence the column name.
-
-`scale + zero-point` overhead currently matches TurboQuant (32 bit / group). Whether golden-angle rotation produces a tight enough output distribution to drop them entirely is still an **open empirical question**.
-
----
-
-## Hardware fit
-
-The pipeline is a **static dataflow** — fixed schedule, zero data-dependent branches, no PRNG, LUT in constant memory. This is the execution model of inference accelerators without a hardware scheduler. The "NQX status" column below describes *design fit*, not ported and benchmarked code:
-
-| Platform                         | Why it fits              | NQX status                   |
-|----------------------------------|--------------------------|------------------------------|
-| **Groq LPU** (Tensor Streaming)  | Fully static schedule, no HBM, 230 MB on-chip SRAM | architectural fit on paper |
-| **Cerebras WSE-3**               | Large on-chip SRAM, dataflow scheduling | architectural fit on paper |
-| **Google TPU v5/v6**             | Systolic MXU, XLA static schedule | XLA path not implemented |
-| **AWS Trainium**                 | MXFP4 native + dataflow  | MX fallback exists in the emulator |
-| **NVIDIA Blackwell / RTX 5090**  | MXFP4 / NVFP4 tensor cores | Triton kernel exists (`nautilus_triton.py`), not benchmarked on Blackwell |
-| **AMD MI355X** (CDNA4)           | FP4 / FP6 native         | ROCm path not implemented |
-| **Skywater 130 nm**              | Open PDK, free MPW slots | OpenLane2 config present, never run to GDS |
-| **NVIDIA Jetson / Movidius**     | Edge GPU + 4–8 GB RAM    | target platform, not yet deployed |
-| **PLCs / FPGAs with ≥ 1 KB ROM** | Constrained controllers  | 950 B ROM at dim=64 fits a small register file |
-
-Random rotation does not map onto these targets cleanly — it needs a PRNG block and a persistent matrix that grows with `dim²`.
-
----
-
-## Industrial Applications — shipboard edge AI
-
-NautilusQuant did not start as an academic curiosity. It started in the engine room.
-
-A modern ship power plant generates thousands of sensor readings per second. Satellite uplink between vessel and shore is **64–512 kbps** (VSAT or Iridium Certus), shared with crew comms, ECDIS updates and IMO mandatory reporting. Pushing raw telemetry plus an LLM-based decision-support model up that pipe needs aggressive and *auditable* compression.
-
-| Constraint                          | Property of this design that addresses it                                   |
-|-------------------------------------|-----------------------------------------------------------------------------|
-| **VSAT / Iridium uplink 64–512 kbps** | 4× KV-cache compression, measured on synthetic tensors                     |
-| **IMO / SOLAS auditability**        | No PRNG seed → bit-identical results, reproducible from the code alone      |
-| **Resource-constrained controllers**| 950 B rotation ROM at dim=64; no per-model rotation state at all            |
-| **Real-time determinism**           | Fixed schedule, no data-dependent branches, no cache-miss jitter            |
-
-These are the properties the design *has*. Running a real condition-monitoring LLM on a real vessel is future work — see [Roadmap](#roadmap) E4.
-
----
-
-## Roadmap
-
-| Stage | What | Status | Notes |
-|---|---|---|---|
-| **E1** | Software emulator + 24-opcode ISA + assembler | ✅ shipped | `nqx-core/nqx/`, 247 tests |
-| **E2** | RTL skeleton (Verilator + Yosys + OpenLane2 + SymbiYosys) | 🚧 skeleton — placeholder datapath | Module hierarchy, interfaces and build flow exist; `polar_unit.sv` / `quant_unit.sv` arithmetic is a placeholder |
-| **E3** | FPGA bring-up (Alveo U280 / V80 / AWS F1) | ⏳ not started | needs E2 datapath first |
-| **E4** | LLM stack integration (HF Cache / vLLM / Triton kernel) | ⏳ not started | needs a rented GPU |
-| **E5** | Skywater 130 nm tape-out via Efabless Open MPW | ⏳ planned | $0 sponsored slots / $10K commercial |
-| **E6** | Commercial ASIC TSMC 12 / 7 nm | 🔮 future | $1.5–5 M depending on node |
-
----
-
-## Risks
-
-Three things can break the central thesis:
-
-| Risk | What breaks | Mitigation |
+Large language models keep a key/value cache for every token, and at long
+context it dominates memory. The best compressors rotate each vector with a
+random orthogonal matrix and then quantize it. **NautilusQuant** asks whether
+the random matrix can be replaced by a closed-form constant: Givens
+rotations whose angles step by the golden angle 2π/φ². The rotation becomes
+deterministic and needs almost no stored state.
+
+The project took that idea through the whole chain a hardware team would:
+a bit-accurate model, synthesizable RTL, simulation and formal
+verification, a full-chip layout for a real foundry process, sign-off, a
+tape-out package, and a research study that measures honestly where the
+idea helps and where it does not. Everything uses open-source tools and
+open PDKs.
+
+## The chip
+
+| | |
+|---|---|
+| Function | Compresses a 128 × int16 KV vector to a 70-byte packet (golden-angle rotation → polar form → 3-bit radius, 3-bit angle, residual bits) and back |
+| Rotation state | Two 32-bit phase increments (`0x61C88647`, `0x9E3779B9`) and a phase accumulator; no angle ROM, no matrix |
+| Datapath | One pipelined 18-stage shift-and-add CORDIC for both the rotation and the polar transform; no general multipliers |
+| Interface | 8-bit in / 8-bit out, asynchronous four-phase handshake, drivable by any microcontroller |
+| Process | IHP SG13G2 130 nm: 2.0 × 2.0 mm die, 1.04 mm core, 63 % utilization, 5 634 flip-flops, 50 MHz, 4.6 mW |
+| Sign-off | KLayout DRC with IHP's full rule deck (174 rule categories): 0 · density and antenna: 0 · LVS: circuits match · STA at three corners: +1.08 ns setup slack at 1.08 V / 125 °C, no slew or capacitance violations |
+| Verification | Bit-exact against the Python model for the CORDIC unit (4 254 operations), the core (random programs, bus stalls), the pins (91 golden transactions) and the post-route netlist; SymbiYosys proofs of the handshake and stream protocol |
+| Second process | wafer.space GF180MCU: CI builds two die sizes, runs gate-level simulation and passes the official wafer.space precheck |
+| Status | Tape-out package ready ([`nqx-silicon/tapeout/ihp-sg13g2/`](nqx-silicon/tapeout/ihp-sg13g2/)); silicon not ordered |
+
+Datasheet and the 12-document specification package:
+[`nqx-silicon/spec/`](nqx-silicon/spec/).
+
+## What I built
+
+| Stage | Result | Where |
 |---|---|---|
-| **Structural resonance** | Golden angles align with outlier dims → MSE explodes | Fixed permutation layer before rotation |
-| **0-overhead failure**  | Angle distribution not predictable enough → still need scale/zero-point | MX-format fallback (0.25 bit/value overhead) |
-| **FP16 drift**          | Roundtrip errors accumulate over 100K-token contexts | Kahan summation / periodic renormalization |
+| Algorithm | Golden-angle Givens rotation, polar quantizer; version 1 in PyTorch and Triton | [`reference/`](reference/) |
+| Pre-silicon emulator | Cycle-accurate NumPy emulator of an idealised accelerator, 24-opcode ISA, assembler, SDK, 247 tests | [`nqx-core/`](nqx-core/) |
+| Bit-accurate model | Fixed-point model that the RTL must match bit for bit; single source of constants for RTL headers | [`nqx-silicon/model/`](nqx-silicon/model/) |
+| RTL | 10 SystemVerilog modules: pipelined CORDIC, radius and angle coders, 28-bit divider, 2R2W register file, asynchronous byte interface; lint-clean in Verilator, Yosys and Icarus | [`nqx-silicon/rtl/`](nqx-silicon/rtl/) |
+| Verification | cocotb regressions, SymbiYosys k-induction proofs, golden vectors for silicon bring-up, gate-level simulation with the foundry cell models | [`nqx-silicon/verif/`](nqx-silicon/verif/), [`vectors/`](nqx-silicon/vectors/) |
+| Physical design | LibreLane Chip flow: pad ring, bond pads, power grid, placement, clock tree, routing, seal ring, metal fill | [`nqx-silicon/flow/ihp-sg13g2/`](nqx-silicon/flow/ihp-sg13g2/) |
+| Sign-off | DRC, density, antenna, LVS, static timing at three corners, IR drop | [`spec/06_physical_design.md`](nqx-silicon/spec/06_physical_design.md) |
+| Second process | Port to the wafer.space GF180MCU template, built and prechecked in CI | [`nqx-silicon/flow/wafer-space-gf180/`](nqx-silicon/flow/wafer-space-gf180/) |
+| Tiny Tapeout | Reduced 32-value version packaged for a Tiny Tapeout tile | [`nqx-silicon/tinytapeout/`](nqx-silicon/tinytapeout/) |
+| Bring-up | MicroPython driver for a Raspberry Pi Pico and a vector runner | [`nqx-silicon/host/`](nqx-silicon/host/), [`spec/10_bringup.md`](nqx-silicon/spec/10_bringup.md) |
+| Research | Reverse study against open KV compressors; the NQX-RN codec; a three-part preprint | [`nqx-silicon/research/`](nqx-silicon/research/), [`nqx-silicon/paper/`](nqx-silicon/paper/) |
+| CI | GitHub Actions: model, lint, formal, RTL and golden-vector checks on every push; full GDSII builds on demand | [`.github/workflows/`](.github/workflows/) |
 
-The first risk is partly realised already: on synthetic outlier-heavy data φ is 7.9 % worse than random rotation. What is left is the state-size and determinism argument, which does not depend on the quality result.
+## Sign-off problems solved
 
-Experimental drop-in alternatives live in [`plan_b/`](plan_b/) — `quasicrystal.py`, `golden_jl.py`, `phinary.py`, `fractal_hash.py`, `groq_dataflow.py`, `multimodal_spiral.py`. Untested, marked experimental.
+Getting the IHP layout clean took more than running the flow. Each problem
+was traced to its cause and fixed in the flow configuration:
 
----
+| Problem | Cause | Fix | Before → after |
+|---|---|---|---|
+| Setup slack at the slow corner (1.08 V, 125 °C) | Resizer used placement-based parasitics and checked the typical corner only | Design and timing repair after global routing; all corners checked | −2.5 ns → +1.08 ns |
+| Antenna diodes on almost every net | Heuristic diode insertion | Disabled; antennas repaired after routing and checked with IHP's deck | 47 343 diodes → 0 |
+| Hold buffers | Setup clock uncertainty also applied to hold | Separate 0.10 ns hold margin | 7 254 → 731 buffers |
+| Metal fill killed by memory | PDK fill script flattens the die | Same rules in KLayout's hierarchical (deep) mode | > 12 GB → 2 GB |
+| Metal2 density below 25 % in 800 µm windows | Core fully covered by routed cells | Smaller core, fill spacing set per metal layer | 16–22 % → rule met in every window |
+| 13 unmatched nets in LVS | Bond pads only abutted the pad pin, so extraction saw no contact | 1 µm overlap on the pad metal | 13 → 0 |
+| IHP's KLayout LVS deck unusable | It rejects the PDK's own I/O cell netlists | Magic extraction + Netgen, I/O cells as abstracts | circuits match |
 
-## Quick Start (this repo)
+## Research findings
+
+The study reports negative results with the same weight as positive ones.
+
+1. **The golden angle is not better than a random rotation.** In version 1
+   it lost 7.9 % in reconstruction RMSE. What it does give is determinism
+   and tiny state: 1.9 KB of angle table instead of a 32 KB matrix, and on
+   the chip two 32-bit registers.
+2. **Mapping to fixed point exposed the structure.** The third rotation
+   layer is the identity, and the second layer's angles are the first
+   layer's negated, so the whole rotation state fits in two registers
+   ([`spec/11`](nqx-silicon/spec/11_algorithm_findings.md)). A new
+   quantizer cut reconstruction error from 0.316 to 0.146 at the same
+   4 bits per value.
+3. **Why the golden angle loses.** Adjacent-pair rotations spread each input
+   channel to only 4 of 128 outputs. A butterfly topology with golden
+   angles ties with Hadamard and random rotation on attention error, with
+   zero multipliers.
+4. **Bit-exactness is the real advantage over float rotations.** Moving a
+   float random rotation from fp32 to bf16 changes at least one 4-bit code
+   in 73 % of vectors; the integer CORDIC path changes none
+   ([`research/reverse_study.py`](nqx-silicon/research/reverse_study.py)).
+5. **Tuning angles to the data does not transfer.** Per-head tuning cut the
+   calibration error by 36 % and changed the error on new tokens of the
+   same head by +1 %.
+6. **NQX-RN, a codec that fits the data rather than a rotation.** Store keys
+   before RoPE, each RoPE pair as radius and angle; RoPE becomes an integer
+   phase addition, and bits go to pairs by the query energy, which RoPE
+   leaves unchanged. On an emulated KV cache it reaches, at 3.1 bits per
+   value, lower attention error (0.263) than Hadamard and random rotation at
+   4.1 bits (0.297, 0.316), and its positions are exact at any context
+   length. It stops winning without massive values in the keys or with
+   40 % calibration drift, and it has **not yet been checked on a real
+   model** ([`research/nqx_rn_study.py`](nqx-silicon/research/nqx_rn_study.py)).
+
+The full write-up is a three-part preprint:
+**[English](nqx-silicon/paper/nautilusquant_v1_v2.en.md)** · [Deutsch](nqx-silicon/paper/nautilusquant_v1_v2.de.md) · [中文](nqx-silicon/paper/nautilusquant_v1_v2.zh.md) · [Русский (original)](nqx-silicon/paper/nautilusquant_v1_v2.ru.md).
+
+## Repository map
+
+| Path | Content |
+|---|---|
+| [`nqx-silicon/`](nqx-silicon/) | **The NQX-S1 chip**: model, RTL, verification, IHP and GF180 flows, tape-out package, specification, research scripts, preprint |
+| [`nqx-core/`](nqx-core/) | Version 1: emulator of an idealised accelerator, ISA, SDK, server, 247 tests |
+| [`reference/`](reference/) | Version 1 software: PyTorch/Triton reference and benchmark scripts |
+| [`labs/`](labs/) | Interactive browser visualizations from the exploration phase |
+| [`docs/`](docs/) | Early design notes and the version 1 README |
+
+## Reproduce
 
 ```bash
-git clone https://github.com/hermandoronin/NautilusQuant && cd NautilusQuant
-pip install -r requirements.txt
-
-# Browse interactively (no install needed)
-xdg-open index.html        # 3D pipeline visualization
-
-# Synthetic validation with realistic outliers
-python validate_real_kv.py --sweep --dim 128 --count 500
-
-# Real KV-cache from Gemma 3
-pip install transformers accelerate
-python validate_real_kv.py --model google/gemma-3-4b-it --sweep
-
-# GPU kernel (Triton)
-pip install triton
-python nautilus_triton.py --dim 128 --n 10000
-
-# Hardware co-design concepts (Concept 1-4)
-python nautilus_hardware.py
-
-# Needle-in-a-Haystack on 104K tokens
-python benchmark_needle.py --model google/gemma-3-4b-it --method both
-
-# Pure-numpy GloVe vector-search benchmark
-python benchmark_glove.py --profile
+git clone https://github.com/hermandoronin/NautilusQuant
+cd NautilusQuant/nqx-silicon
+pip install numpy pytest cocotb==2.0.1     # plus iverilog, verilator, yosys, sby
+make test-model                            # bit-accurate model
+make lint yosys-check                      # RTL static checks
+make test-rtl                              # cocotb: CORDIC, core, pins, golden vectors
+make formal                                # SymbiYosys proofs
+make gds-ihp                               # full chip on IHP SG13G2 (LibreLane 3.0.14)
+python tools/collect_tapeout.py flow/ihp-sg13g2/runs/<tag> --process ihp-sg13g2
+python research/nqx_rn_study.py            # the NQX-RN study (NumPy only)
 ```
 
-For the **chip development kit**, jump to [`nqx-core/README.md`](nqx-core/README.md).
+## Tools
 
-> Some design documents (`RISKS.md`, `nqx-core/docs/architecture.md`,
-> `nqx-core/docs/FINAL_REPORT.md`, `nqx-core/audits/`) are written in Russian.
-> The English documentation set is this file, [`nqx-core/README.md`](nqx-core/README.md),
-> [`nqx-core/docs/PRD.md`](nqx-core/docs/PRD.md) and [`nqx-core/docs/paper/`](nqx-core/docs/paper/).
+Python and NumPy · SystemVerilog · Verilator · Icarus Verilog · Yosys ·
+cocotb · SymbiYosys · LibreLane (OpenROAD, OpenSTA, Magic, Netgen, KLayout) ·
+IHP-Open-PDK SG13G2 · GF180MCU · GitHub Actions · Nix
 
----
+## Next steps
 
-## Related Work
-
-| Method            | Year | Approach                                          | Bits   | Paper                                            |
-|-------------------|------|---------------------------------------------------|--------|--------------------------------------------------|
-| GPTQ              | 2022 | Layer-wise Hessian quantization                   | 4      | [arXiv:2210.17323](https://arxiv.org/abs/2210.17323) |
-| AWQ               | 2023 | Activation-aware weight protection                | 4      | [arXiv:2306.00978](https://arxiv.org/abs/2306.00978) |
-| QuIP#             | 2023 | Hadamard rotation + E8 lattice codebooks          | 2      | [arXiv:2402.04396](https://arxiv.org/abs/2402.04396) |
-| SqueezeLLM        | 2023 | Dense-and-sparse quantization                     | 3–4    | [arXiv:2306.07629](https://arxiv.org/abs/2306.07629) |
-| KIVI              | 2024 | Per-channel KV-cache quantization                 | 2      | [arXiv:2402.02750](https://arxiv.org/abs/2402.02750) |
-| BitNet b1.58      | 2024 | Ternary weights from training                     | 1.58   | [arXiv:2402.17764](https://arxiv.org/abs/2402.17764) |
-| **TurboQuant**    | 2026 | **Random** rotation + PolarQuant + QJL            | 3 + 1  | [arXiv:2504.19874](https://arxiv.org/abs/2504.19874) |
-| **NautilusQuant** | 2026 | **Golden ratio** rotation + PolarQuant + QJL      | 3 + 1  | this repo (paper draft: [`nqx-core/docs/paper/`](nqx-core/docs/paper/)) |
-
----
+- Check NQX-RN on real KV caches (Llama, Qwen, Phi-3); the protocol is in
+  section 19 of the preprint.
+- Prototype the version 3 datapath (butterfly topology, RoPE pairs,
+  pre-RoPE polar keys) on an FPGA.
+- Silicon: an IHP research shuttle or the Tiny Tapeout version.
 
 ## Citation
 
 ```bibtex
-@software{nautilusquant2026,
+@software{doronin2026nautilusquant,
   author = {Doronin, Herman},
-  title  = {NautilusQuant: Deterministic Orthogonal KV-Cache Quantization
-            via Golden Ratio Geometry},
+  title  = {NautilusQuant and NQX-S1: deterministic KV-cache compression,
+            from algorithm to signed-off silicon layout},
   year   = {2026},
-  url    = {https://github.com/hermandoronin/NautilusQuant},
-  note   = {Includes NQX-Core pre-silicon emulator (nqx-core/, MIT)}
+  url    = {https://github.com/hermandoronin/NautilusQuant}
 }
 ```
 
-Machine-readable: [`nqx-core/CITATION.cff`](nqx-core/CITATION.cff).
-
-License: MIT — see [`LICENSE`](LICENSE).
-
----
-
-<div align="center">
-
-**φ = 1.618 033 988 749 894 848 …**
-
-*A 1.9 KB constant instead of a 32 KB random matrix —*<br>
-*at the price of 8 % reconstruction error.*
-
-</div>
+MIT License, see [`LICENSE`](LICENSE). The hardware implementation,
+verification and physical design of version 2 were done with the help of
+Claude Code (Anthropic).

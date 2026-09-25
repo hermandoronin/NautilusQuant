@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+<testsuite timestamp="2026-09-24T08:43:21" hostname="vm" package="core" id="0" name="prove_iter" tests="4" errors="0" failures="0" time="6" skipped="2">
+<properties>
+<property name="os" value="Linux"/>
+<property name="expect" value="PASS"/>
+<property name="status" value="PASS"/>
+</properties>
+<testcase classname="prove_iter" name="build execution" time="0">
+</testcase>
+<testcase classname="prove_iter" name="Property ASSERT in core_props at core_props.sv:33.52-33.101" time="0" type="ASSERT" location="core_props.sv:33.52-33.101" id="_witness_.check_assert_core_props_sv_33_1396">
+</testcase>
+<testcase classname="prove_iter" name="Property ASSERT in core_props at core_props.sv:35.20-35.37" time="0" type="ASSERT" location="core_props.sv:35.20-35.37" id="_witness_.check_assert_core_props_sv_35_1400">
+</testcase>
+<testcase classname="prove_iter" name="Property COVER in core_props at core_props.sv:39.27-39.63" time="0" type="COVER" location="core_props.sv:39.27-39.63" id="_witness_.check_cover_core_props_sv_39_1402">
+<skipped />
+</testcase>
+<testcase classname="prove_iter" name="Property COVER in core_props at core_props.sv:40.27-40.77" time="0" type="COVER" location="core_props.sv:40.27-40.77" id="_witness_.check_cover_core_props_sv_40_1407">
+<skipped />
+</testcase>
+<system-out>SBY  8:43:17 [core_prove] Removing directory '/home/user/NautilusQuant/nqx-silicon/verif/formal/core_prove'.
+SBY  8:43:17 [core_prove_iter] Removing directory '/home/user/NautilusQuant/nqx-silicon/verif/formal/core_prove_iter'.
+SBY  8:43:17 [core_prove_iter] Copy '/home/user/NautilusQuant/nqx-silicon/verif/formal/../../rtl/nqx_s1_params.vh' to '/home/user/NautilusQuant/nqx-silicon/verif/formal/core_prove_iter/src/nqx_s1_params.vh'.
+SBY  8:43:17 [core_prove_iter] Copy '/home/user/NautilusQuant/nqx-silicon/verif/formal/../../rtl/nqx_s1_atan.vh' to '/home/user/NautilusQuant/nqx-silicon/verif/formal/core_prove_iter/src/nqx_s1_atan.vh'.
+SBY  8:43:17 [core_prove_iter] Copy '/home/user/NautilusQuant/nqx-silicon/verif/formal/../../rtl/nqx_s1_cordic.sv' to '/home/user/NautilusQuant/nqx-silicon/verif/formal/core_prove_iter/src/nqx_s1_cordic.sv'.
+SBY  8:43:17 [core_prove_iter] Copy '/home/user/NautilusQuant/nqx-silicon/verif/formal/../../rtl/nqx_s1_cordic_iter.sv' to '/home/user/NautilusQuant/nqx-silicon/verif/formal/core_prove_iter/src/nqx_s1_cordic_iter.sv'.
+SBY  8:43:17 [core_prove_iter] Copy '/home/user/NautilusQuant/nqx-silicon/verif/formal/../../rtl/nqx_s1_rcode.sv' to '/home/user/NautilusQuant/nqx-silicon/verif/formal/core_prove_iter/src/nqx_s1_rcode.sv'.
+SBY  8:43:17 [core_prove_iter] Copy '/home/user/NautilusQuant/nqx-silicon/verif/formal/../../rtl/nqx_s1_rsign.sv' to '/home/user/NautilusQuant/nqx-silicon/verif/formal/core_prove_iter/src/nqx_s1_rsign.sv'.
+SBY  8:43:17 [core_prove_iter] Copy '/home/user/NautilusQuant/nqx-silicon/verif/formal/../../rtl/nqx_s1_tcode.sv' to '/home/user/NautilusQuant/nqx-silicon/verif/formal/core_prove_iter/src/nqx_s1_tcode.sv'.
+SBY  8:43:17 [core_prove_iter] Copy '/home/user/NautilusQuant/nqx-silicon/verif/formal/../../rtl/nqx_s1_qdec.sv' to '/home/user/NautilusQuant/nqx-silicon/verif/formal/core_prove_iter/src/nqx_s1_qdec.sv'.
+SBY  8:43:17 [core_prove_iter] Copy '/home/user/NautilusQuant/nqx-silicon/verif/formal/../../rtl/nqx_s1_div28.sv' to '/home/user/NautilusQuant/nqx-silicon/verif/formal/core_prove_iter/src/nqx_s1_div28.sv'.
+SBY  8:43:17 [core_prove_iter] Copy '/home/user/NautilusQuant/nqx-silicon/verif/formal/../../rtl/nqx_s1_rf.sv' to '/home/user/NautilusQuant/nqx-silicon/verif/formal/core_prove_iter/src/nqx_s1_rf.sv'.
+SBY  8:43:17 [core_prove_iter] Copy '/home/user/NautilusQuant/nqx-silicon/verif/formal/../../rtl/nqx_s1_core.sv' to '/home/user/NautilusQuant/nqx-silicon/verif/formal/core_prove_iter/src/nqx_s1_core.sv'.
+SBY  8:43:17 [core_prove_iter] Copy '/home/user/NautilusQuant/nqx-silicon/verif/formal/core_props.sv' to '/home/user/NautilusQuant/nqx-silicon/verif/formal/core_prove_iter/src/core_props.sv'.
+SBY  8:43:17 [core_prove_iter] engine_0: smtbmc yices
+SBY  8:43:17 [core_prove_iter] base: starting process &quot;cd core_prove_iter/src; /nix/store/qh2djvg55jzqsb2xlrsh8hjfaj114jbq-yosys-0.69/bin/yosys -ql ../model/design.log ../model/design.ys&quot;
+SBY  8:43:18 [core_prove_iter] base: finished (returncode=0)
+SBY  8:43:18 [core_prove_iter] prep: starting process &quot;cd core_prove_iter/model; /nix/store/qh2djvg55jzqsb2xlrsh8hjfaj114jbq-yosys-0.69/bin/yosys -ql design_prep.log design_prep.ys&quot;
+SBY  8:43:19 [core_prove_iter] prep: finished (returncode=0)
+SBY  8:43:19 [core_prove_iter] smt2: starting process &quot;cd core_prove_iter/model; /nix/store/qh2djvg55jzqsb2xlrsh8hjfaj114jbq-yosys-0.69/bin/yosys -ql design_smt2.log design_smt2.ys&quot;
+SBY  8:43:19 [core_prove_iter] smt2: finished (returncode=0)
+SBY  8:43:19 [core_prove_iter] engine_0.basecase: starting process &quot;cd core_prove_iter; /nix/store/qh2djvg55jzqsb2xlrsh8hjfaj114jbq-yosys-0.69/bin/yosys-smtbmc -s yices --presat --unroll --noprogress -t 4  --append 0 --dump-vcd engine_0/trace.vcd --dump-yw engine_0/trace.yw --dump-vlogtb engine_0/trace_tb.v --dump-smtc engine_0/trace.smtc model/design_smt2.smt2&quot;
+SBY  8:43:19 [core_prove_iter] engine_0.induction: starting process &quot;cd core_prove_iter; /nix/store/qh2djvg55jzqsb2xlrsh8hjfaj114jbq-yosys-0.69/bin/yosys-smtbmc -s yices --presat --unroll -i --noprogress -t 4  --append 0 --dump-vcd engine_0/trace_induct.vcd --dump-yw engine_0/trace_induct.yw --dump-vlogtb engine_0/trace_induct_tb.v --dump-smtc engine_0/trace_induct.smtc model/design_smt2.smt2&quot;
+SBY  8:43:19 [core_prove_iter] engine_0.basecase: ##   0:00:00  Solver: yices
+SBY  8:43:19 [core_prove_iter] engine_0.induction: ##   0:00:00  Solver: yices
+SBY  8:43:20 [core_prove_iter] engine_0.basecase: ##   0:00:00  Checking assumptions in step 0..
+SBY  8:43:20 [core_prove_iter] engine_0.basecase: ##   0:00:00  Checking assertions in step 0..
+SBY  8:43:20 [core_prove_iter] engine_0.induction: ##   0:00:00  Trying induction in step 4..
+SBY  8:43:20 [core_prove_iter] engine_0.basecase: ##   0:00:00  Checking assumptions in step 1..
+SBY  8:43:20 [core_prove_iter] engine_0.induction: ##   0:00:00  Trying induction in step 3..
+SBY  8:43:20 [core_prove_iter] engine_0.basecase: ##   0:00:00  Checking assertions in step 1..
+SBY  8:43:20 [core_prove_iter] engine_0.basecase: ##   0:00:00  Checking assumptions in step 2..
+SBY  8:43:20 [core_prove_iter] engine_0.induction: ##   0:00:00  Trying induction in step 2..
+SBY  8:43:20 [core_prove_iter] engine_0.basecase: ##   0:00:00  Checking assertions in step 2..
+SBY  8:43:20 [core_prove_iter] engine_0.basecase: ##   0:00:00  Checking assumptions in step 3..
+SBY  8:43:20 [core_prove_iter] engine_0.basecase: ##   0:00:00  Checking assertions in step 3..
+SBY  8:43:20 [core_prove_iter] engine_0.basecase: ##   0:00:00  Status: passed
+SBY  8:43:20 [core_prove_iter] engine_0.basecase: finished (returncode=0)
+SBY  8:43:20 [core_prove_iter] engine_0.basecase: Status returned by engine for basecase: pass
+SBY  8:43:20 [core_prove_iter] engine_0.induction: ##   0:00:00  Temporal induction successful.
+SBY  8:43:21 [core_prove_iter] engine_0.induction: ##   0:00:01  Status: passed
+SBY  8:43:21 [core_prove_iter] engine_0.induction: finished (returncode=0)
+SBY  8:43:21 [core_prove_iter] engine_0.induction: Status returned by engine for induction: pass
+SBY  8:43:21 [core_prove_iter] summary: Elapsed clock time [H:MM:SS (secs)]: 0:00:03 (3)
+SBY  8:43:21 [core_prove_iter] summary: Elapsed process time [H:MM:SS (secs)]: 0:00:06 (6)
+SBY  8:43:21 [core_prove_iter] summary: engine_0 (smtbmc yices) returned pass for basecase
+SBY  8:43:21 [core_prove_iter] summary: engine_0 (smtbmc yices) returned pass for induction
+SBY  8:43:21 [core_prove_iter] summary: engine_0 did not produce any traces
+SBY  8:43:21 [core_prove_iter] summary: successful proof by k-induction.
+SBY  8:43:21 [core_prove_iter] DONE (PASS, rc=0)
+</system-out>
+<system-err>
+</system-err>
+</testsuite>
+</testsuites>

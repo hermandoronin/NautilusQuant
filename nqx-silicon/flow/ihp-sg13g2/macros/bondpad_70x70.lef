@@ -1,0 +1,29 @@
+VERSION 5.8 ;
+BUSBITCHARS "[]" ;
+DIVIDERCHAR "/" ;
+
+MACRO bondpad_70x70
+  CLASS COVER ;
+  ORIGIN 0 0 ;
+  FOREIGN bondpad_70x70 0 0 ;
+  SIZE 70.000 BY 70.000 ;
+  SYMMETRY X Y R90 ;
+  PIN pad
+    DIRECTION INOUT ;
+    USE SIGNAL ;
+    PORT
+      LAYER Metal3 ;
+        RECT 0.000 0.000 70.000 70.000 ;
+      LAYER Metal4 ;
+        RECT 0.000 0.000 70.000 70.000 ;
+      LAYER Metal5 ;
+        RECT 0.000 0.000 70.000 70.000 ;
+      LAYER TopMetal1 ;
+        RECT 0.000 0.000 70.000 70.000 ;
+      LAYER TopMetal2 ;
+        RECT 0.000 0.000 70.000 70.000 ;
+    END
+  END pad
+END bondpad_70x70
+
+END LIBRARY

@@ -1,0 +1,36 @@
+[tasks]
+prove
+prove_iter
+cover
+
+[options]
+prove: mode prove
+prove: depth 4
+prove_iter: mode prove
+prove_iter: depth 4
+cover: mode cover
+cover: depth 30
+multiclock off
+
+[engines]
+smtbmc yices
+
+[script]
+read_verilog -sv -formal -I. nqx_s1_cordic.sv nqx_s1_cordic_iter.sv nqx_s1_rcode.sv nqx_s1_rsign.sv nqx_s1_tcode.sv nqx_s1_qdec.sv nqx_s1_div28.sv nqx_s1_rf.sv nqx_s1_core.sv
+read_verilog -sv -formal core_props.sv
+prove_iter: chparam -set ITER_CORDIC 1 nqx_s1_core
+prep -top core_props
+
+[files]
+../../rtl/nqx_s1_params.vh
+../../rtl/nqx_s1_atan.vh
+../../rtl/nqx_s1_cordic.sv
+../../rtl/nqx_s1_cordic_iter.sv
+../../rtl/nqx_s1_rcode.sv
+../../rtl/nqx_s1_rsign.sv
+../../rtl/nqx_s1_tcode.sv
+../../rtl/nqx_s1_qdec.sv
+../../rtl/nqx_s1_div28.sv
+../../rtl/nqx_s1_rf.sv
+../../rtl/nqx_s1_core.sv
+core_props.sv

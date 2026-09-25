@@ -146,7 +146,7 @@ Either set `NQX_BACKEND=cpu`, or clone the upstream into the search path:
 
 ```bash
 git clone https://github.com/hermandoronin/NautilusQuant /tmp/naut
-export PYTHONPATH=/tmp/naut:$PYTHONPATH
+export PYTHONPATH=/tmp/naut/reference:$PYTHONPATH   # nautilus_triton.py lives in reference/
 ```
 
 ### Tests fail with "import torch"

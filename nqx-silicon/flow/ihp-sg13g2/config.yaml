@@ -1,0 +1,128 @@
+# NQX-S1 full chip on IHP SG13G2 (130 nm BiCMOS, Frankfurt (Oder)).
+# LibreLane "Chip" flow: pad ring, core P&R, seal ring, metal fill, sign-off.
+meta:
+  version: 3
+  flow: Chip
+
+DESIGN_NAME: chip_top
+VERILOG_FILES:
+  - dir::chip_top.sv
+  - dir::../../rtl/nqx_s1_cordic.sv
+  - dir::../../rtl/nqx_s1_cordic_iter.sv
+  - dir::../../rtl/nqx_s1_rcode.sv
+  - dir::../../rtl/nqx_s1_rsign.sv
+  - dir::../../rtl/nqx_s1_tcode.sv
+  - dir::../../rtl/nqx_s1_qdec.sv
+  - dir::../../rtl/nqx_s1_div28.sv
+  - dir::../../rtl/nqx_s1_rf.sv
+  - dir::../../rtl/nqx_s1_core.sv
+  - dir::../../rtl/nqx_s1_hsio.sv
+  - dir::../../rtl/nqx_s1_top.sv
+VERILOG_INCLUDE_DIRS:
+  - dir::../../rtl
+
+# Clock: 50 MHz
+CLOCK_PORT: clk_PAD
+CLOCK_NET: clk_pad/p2c
+CLOCK_PERIOD: 20
+PNR_SDC_FILE: dir::chip_top_pnr.sdc
+SIGNOFF_SDC_FILE: dir::chip_top.sdc
+
+# Timing sign-off at every corner (slow 1.08 V/125 C, typ, fast 1.32 V/-40 C).
+# The resizer's placement-based parasitic estimate missed the slow corner
+# (no setup violation reported, -2.5 ns after routing), so design repair
+# and timing repair also run on global-routing parasitics.
+RUN_POST_GRT_DESIGN_REPAIR: true
+RUN_POST_GRT_RESIZER_TIMING: true
+TIMING_VIOLATION_CORNERS: ["*"]
+MAX_SLEW_VIOLATION_CORNERS: ["*"]
+MAX_CAP_VIOLATION_CORNERS: ["*"]
+
+# Floorplan: 2.0 mm x 2.0 mm die, pad ring 140 um seal/bond zone + 180 um pads.
+# The core (1.04 mm square) is deliberately smaller than the space inside the
+# pad ring. IHP's density rules MxFil.h need >= 25 % Metal2..5 (drawn + fill)
+# in every 800 x 800 um window; the routed standard-cell area leaves too few
+# gaps for Metal2 fill, so every window must also contain some empty, fully
+# fillable area. With the core at 400..1600 um the four central windows held
+# only routed cells and Metal2 reached 22 % at best.
+FP_SIZING: absolute
+DIE_AREA: [0, 0, 2000, 2000]
+CORE_AREA: [480, 480, 1520, 1520]
+PL_TARGET_DENSITY_PCT: 72
+
+# Routing: the 2R2W vector register makes Metal2 pin access dense. Reserve
+# part of Metal2/Metal3 during global routing so detailed routing converges.
+GRT_LAYER_ADJUSTMENTS: [0.0, 0.25, 0.10, 0.0, 0.0, 0.0, 0.0]
+
+# Bond pads (70 x 70 um, generated from the IHP SG13_dev bondpad PCell)
+# The PDK default offset (5, -70) makes each bond pad only abut the I/O
+# cell's pad pin (a 70 x 3 um strip at the cell edge). Magic's abstract
+# extraction then leaves bond pad and pad cell on different nets on two sides
+# of the die (Netgen: 13 nets). -69 um overlaps the pad metal by 1 um; the
+# passivation opening stays outside the I/O cell. The bond pad LEF declares
+# its whole metal stack (Metal3..TopMetal2) as the pad pin.
+PAD_BONDPAD_OFFSETS:
+  "sg13g2_IOPad.*": [5.0, -69.0]
+EXTRA_LEFS:
+  - dir::macros/bondpad_70x70.lef
+EXTRA_GDS_FILES:
+  - dir::macros/bondpad_70x70.gds
+
+# Power: core 1.2 V (VDD/VSS), I/O 3.3 V (IOVDD/IOVSS)
+VDD_NETS: [VDD, IOVDD]
+GND_NETS: [VSS, IOVSS]
+PDN_MACRO_CONNECTIONS:
+  - ".*_pad.* VDD VSS vdd vss"
+  - ".*_pad.* IOVDD IOVSS iovdd iovss"
+PDN_CFG: dir::pdn_cfg.tcl
+PDN_CORE_RING: true
+PDN_CORE_RING_VWIDTH: 10
+PDN_CORE_RING_HWIDTH: 10
+PDN_CORE_RING_CONNECT_TO_PADS: true
+IGNORE_DISCONNECTED_MODULES:
+  - sg13g2_IOPadVdd
+  - sg13g2_IOPadVss
+  - sg13g2_IOPadIOVdd
+  - sg13g2_IOPadIOVss
+  - bondpad_70x70   # metal only, no power pins (report-only setting)
+
+# Pad ring, counter-clockwise from the south-west corner
+PAD_SOUTH: [vdd_pad0, vss_pad0, clk_pad, rst_n_pad, busy_pad, iovdd_pad0, iovss_pad0]
+PAD_EAST:  [out_bus0_pad, out_bus1_pad, out_bus2_pad, out_bus3_pad,
+            out_bus4_pad, out_bus5_pad, out_bus6_pad, out_bus7_pad]
+PAD_NORTH: [iovss_pad1, iovdd_pad1, out_ack_pad, out_req_pad, in_ack_pad, in_req_pad,
+            vss_pad1, vdd_pad1]
+PAD_WEST:  [in_bus7_pad, in_bus6_pad, in_bus5_pad, in_bus4_pad,
+            in_bus3_pad, in_bus2_pad, in_bus1_pad, in_bus0_pad]
+
+# Antenna repair
+DIODE_ON_PORTS: none
+# No heuristic diodes: in run full3 they added 47 343 diode cells (+0.26 mm2,
+# utilization 55 % -> 73 %) while only 5 nets needed repair after routing.
+# Antennas are repaired after global and detailed routing and signed off by
+# OpenROAD's check and KLayout's antenna deck.
+RUN_HEURISTIC_DIODE_INSERTION: false
+DRT_ANTENNA_REPAIR_ITERS: 10
+
+# Sign-off DRC is KLayout with IHP's own deck (ihp-sg13g2.drc, run by the
+# KLayout.DRC step); Magic's IHP rules are a community port and a full-chip
+# Magic DRC with fill runs for hours. LVS is Magic extraction from DEF plus
+# Netgen: the sg13g2_io cells enter as LEF abstracts, so the check covers
+# every connection to them but not their contents (foundry IP).
+RUN_MAGIC_DRC: false
+MAGIC_EXT_UNIQUE: notopports
+# Magic reports "illegal overlap" between the obstruction and pin shapes of
+# neighbouring sg13g2_io abstracts in the pad ring (21 259 in run full2,
+# none in the core). The real geometry is checked by the KLayout DRC deck.
+ERROR_ON_ILLEGAL_OVERLAPS: false
+PRIMARY_GDSII_STREAMOUT_TOOL: klayout
+
+# Metal/active fill: the PDK's fill macros run in KLayout's hierarchical
+# (deep) mode. The stock script flattens the die and was killed above 12 GB
+# on a 16 GB machine; see scripts/filler_deep.py.
+KLAYOUT_FILLER_SCRIPT: dir::scripts/filler_deep.py
+# Filler-to-filler distance for Metal2,3,4,5 (PDK defaults 1.5, 2, 2, 2 um;
+# minimum 0.42 um). Tighter on Metal2-4 to meet MxFil.h in the core, Metal5
+# at the default to stay under the 60 % maximum (M5.k).
+KLAYOUT_FILLER_DEFINES:
+  metal_fill_distance: "0.42,1.0,1.0,2.0"

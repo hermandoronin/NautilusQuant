@@ -1,0 +1,11 @@
+# sha256 over (write, expected) bytes of every transaction
+
+b8050562325c5dc59d678356fb94c7403a0cb026a3239c2d797e8219f46b9506  00_identity.txt  (2 transactions, 31 bytes written)
+c1c798660ddfd3e8f8ac143f4b3490d0d8b94a97d8d4d47a3b901edf16909ab1  01_vector_register.txt  (9 transactions, 2331 bytes written)
+74eb62082feed5dade41a745e95e8cfb1e8ce7679d784d0f27d0fa2c7ab4e58b  02_rotation.txt  (8 transactions, 2208 bytes written)
+01a65fe3037f765529ec19ad94142a8d4ae8206d8e42ca51ae0dfabfddb59d1a  03_polar.txt  (9 transactions, 2421 bytes written)
+bb80fc717dbfb86b88ff49138ea451b43fbb5344d195f847b722fd426a67f067  04_encode_decode.txt  (39 transactions, 12792 bytes written)
+8f2a94be66e11068541d2d928b55bb37be82f1991067e8dca1d01ae5b13d137e  05_refine_off.txt  (8 transactions, 440 bytes written)
+aba6bbb840ff0314b016c5e6033dd7c884ed01f816a0af397df777287a872704  06_programmable_rotation.txt  (4 transactions, 1623 bytes written)
+2c650acda530ca4ad798a07ad87d242c3791ca8dc6e6f2e05bf8a3a565ab2ef8  07_errors.txt  (6 transactions, 100 bytes written)
+158044b58ab0e35bf1c8ad99bb1877378b9a15036c07cf4687b6443ff5cd5e61  08_random_programs.txt  (6 transactions, 14116 bytes written)

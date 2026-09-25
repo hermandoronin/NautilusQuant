@@ -1,0 +1,9 @@
+__pycache__/
+.pytest_cache/
+verif/sim_build/
+verif/cocotb/results.xml
+verif/formal/*_prove/
+verif/formal/*_cover/
+flow/*/runs/
+flow/wafer-space-gf180/cocotb/sim_build/
+*.result.xml

@@ -1,0 +1,2644 @@
+
+ /----------------------------------------------------------------------------\
+ |  yosys -- Yosys Open SYnthesis Suite                                       |
+ |  Copyright (C) 2012 - 2026  Claire Xenia Wolf <claire@yosyshq.com>         |
+ |  Distributed under an ISC-like license, type "license" to see terms        |
+ \----------------------------------------------------------------------------/
+ Yosys 0.69+post (git sha1 v0.69, Release, GNU /nix/store/z4c6k0mrlkwl3s4w9ysxc8vq1wylm3ms-gcc-wrapper-15.3.0/bin/g++ 15.3.0)
+
+-- Executing script file `../model/design.ys' --
+
+1. Executing Verilog-2005 frontend: nqx_s1_cordic.sv
+Parsing formal SystemVerilog input from `nqx_s1_cordic.sv' to AST representation.
+Generating RTLIL representation for module `\nqx_s1_cordic'.
+Successfully finished Verilog frontend.
+
+2. Executing Verilog-2005 frontend: nqx_s1_cordic_iter.sv
+Parsing formal SystemVerilog input from `nqx_s1_cordic_iter.sv' to AST representation.
+Generating RTLIL representation for module `\nqx_s1_cordic_iter'.
+Successfully finished Verilog frontend.
+
+3. Executing Verilog-2005 frontend: nqx_s1_rcode.sv
+Parsing formal SystemVerilog input from `nqx_s1_rcode.sv' to AST representation.
+Generating RTLIL representation for module `\nqx_s1_rcode'.
+Successfully finished Verilog frontend.
+
+4. Executing Verilog-2005 frontend: nqx_s1_rsign.sv
+Parsing formal SystemVerilog input from `nqx_s1_rsign.sv' to AST representation.
+Generating RTLIL representation for module `\nqx_s1_rsign'.
+Successfully finished Verilog frontend.
+
+5. Executing Verilog-2005 frontend: nqx_s1_tcode.sv
+Parsing formal SystemVerilog input from `nqx_s1_tcode.sv' to AST representation.
+Generating RTLIL representation for module `\nqx_s1_tcode'.
+Successfully finished Verilog frontend.
+
+6. Executing Verilog-2005 frontend: nqx_s1_qdec.sv
+Parsing formal SystemVerilog input from `nqx_s1_qdec.sv' to AST representation.
+Generating RTLIL representation for module `\nqx_s1_qdec'.
+Successfully finished Verilog frontend.
+
+7. Executing Verilog-2005 frontend: nqx_s1_div28.sv
+Parsing formal SystemVerilog input from `nqx_s1_div28.sv' to AST representation.
+Generating RTLIL representation for module `\nqx_s1_div28'.
+Successfully finished Verilog frontend.
+
+8. Executing Verilog-2005 frontend: nqx_s1_rf.sv
+Parsing formal SystemVerilog input from `nqx_s1_rf.sv' to AST representation.
+Generating RTLIL representation for module `\nqx_s1_rf'.
+Successfully finished Verilog frontend.
+
+9. Executing Verilog-2005 frontend: nqx_s1_core.sv
+Parsing formal SystemVerilog input from `nqx_s1_core.sv' to AST representation.
+Generating RTLIL representation for module `\nqx_s1_core'.
+Successfully finished Verilog frontend.
+
+10. Executing Verilog-2005 frontend: core_props.sv
+Parsing formal SystemVerilog input from `core_props.sv' to AST representation.
+Generating RTLIL representation for module `\core_props'.
+Successfully finished Verilog frontend.
+Parameter \ITER_CORDIC = 1
+
+11. Executing AST frontend in derive mode using pre-parsed AST for module `\nqx_s1_core'.
+Parameter \ITER_CORDIC = 1
+Generating RTLIL representation for module `$paramod\nqx_s1_core\ITER_CORDIC=s32'00000000000000000000000000000001'.
+
+12. Executing PREP pass.
+
+12.1. Executing HIERARCHY pass (managing design hierarchy).
+
+12.1.1. Analyzing design hierarchy..
+Top module:  \core_props
+Used module:     \nqx_s1_core
+Used module:         \nqx_s1_rf
+Used module:         \nqx_s1_rcode
+Used module:         \nqx_s1_rsign
+Used module:         \nqx_s1_tcode
+Used module:         \nqx_s1_div28
+Used module:         \nqx_s1_qdec
+Used module:         \nqx_s1_cordic_iter
+Parameter \TAG_W = 14
+
+12.1.2. Executing AST frontend in derive mode using pre-parsed AST for module `\nqx_s1_cordic_iter'.
+Parameter \TAG_W = 14
+Generating RTLIL representation for module `$paramod\nqx_s1_cordic_iter\TAG_W=s32'00000000000000000000000000001110'.
+
+12.1.3. Analyzing design hierarchy..
+Top module:  \core_props
+Used module:     \nqx_s1_core
+Used module:         \nqx_s1_rf
+Used module:         \nqx_s1_rcode
+Used module:         \nqx_s1_rsign
+Used module:         \nqx_s1_tcode
+Used module:         \nqx_s1_div28
+Used module:         \nqx_s1_qdec
+Used module:         $paramod\nqx_s1_cordic_iter\TAG_W=s32'00000000000000000000000000001110
+
+12.1.4. Analyzing design hierarchy..
+Top module:  \core_props
+Used module:     \nqx_s1_core
+Used module:         \nqx_s1_rf
+Used module:         \nqx_s1_rcode
+Used module:         \nqx_s1_rsign
+Used module:         \nqx_s1_tcode
+Used module:         \nqx_s1_div28
+Used module:         \nqx_s1_qdec
+Used module:         $paramod\nqx_s1_cordic_iter\TAG_W=s32'00000000000000000000000000001110
+Removing unused module `\nqx_s1_cordic_iter'.
+Removing unused module `\nqx_s1_cordic'.
+Removed 2 unused modules.
+Module core_props directly or indirectly contains formal properties -> setting "keep" attribute.
+
+12.2. Executing PROC pass (convert processes to netlists).
+
+12.2.1. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Cleaned up 0 empty switches.
+
+12.2.2. Executing PROC_RMDEAD pass (remove dead branches from decision trees).
+Marked 2 switch rules as full_case in process $proc$nqx_s1_core.sv:167$1440 in module nqx_s1_core.
+Marked 1 switch rules as full_case in process $proc$nqx_s1_core.sv:241$1464 in module nqx_s1_core.
+Marked 1 switch rules as full_case in process $proc$nqx_s1_core.sv:298$1486 in module nqx_s1_core.
+Marked 4 switch rules as full_case in process $proc$nqx_s1_core.sv:321$1487 in module nqx_s1_core.
+Marked 15 switch rules as full_case in process $proc$nqx_s1_core.sv:362$1497 in module nqx_s1_core.
+Marked 2 switch rules as full_case in process $proc$nqx_s1_rf.sv:31$1201 in module nqx_s1_rf.
+Marked 2 switch rules as full_case in process $proc$nqx_s1_rf.sv:31$1195 in module nqx_s1_rf.
+Marked 2 switch rules as full_case in process $proc$nqx_s1_rf.sv:31$1189 in module nqx_s1_rf.
+Marked 2 switch rules as full_case in process $proc$nqx_s1_rf.sv:31$1183 in module nqx_s1_rf.
+Marked 2 switch rules as full_case in process $proc$nqx_s1_rf.sv:31$1177 in module nqx_s1_rf.
+Marked 2 switch rules as full_case in process $proc$nqx_s1_rf.sv:31$1171 in module nqx_s1_rf.
+Marked 2 switch rules as full_case in process $proc$nqx_s1_rf.sv:31$1165 in module nqx_s1_rf.
+Marked 2 switch rules as full_case in process $proc$nqx_s1_rf.sv:31$1159 in module nqx_s1_rf.
+Marked 2 switch rules as full_case in process $proc$nqx_s1_rf.sv:31$1153 in module nqx_s1_rf.
+Marked 2 switch rules as full_case in process $proc$nqx_s1_rf.sv:31$1147 in module nqx_s1_rf.
+Marked 2 switch rules as full_case in process $proc$nqx_s1_rf.sv:31$1141 in module nqx_s1_rf.
+Marked 2 switch rules as full_case in process $proc$nqx_s1_rf.sv:31$1135 in module nqx_s1_rf.
+Marked 2 switch rules as full_case in process $proc$nqx_s1_rf.sv:31$1129 in module nqx_s1_rf.
+Marked 2 switch rules as full_case in process $proc$nqx_s1_rf.sv:31$1123 in module nqx_s1_rf.
+Marked 2 switch rules as full_case in process $proc$nqx_s1_rf.sv:31$1117 in module nqx_s1_rf.
+Marked 2 switch rules as full_case in process $proc$nqx_s1_rf.sv:31$1111 in module nqx_s1_rf.
+Marked 2 switch rules as full_case in process $proc$nqx_s1_rf.sv:31$1105 in module nqx_s1_rf.
+Marked 2 switch rules as full_case in process $proc$nqx_s1_rf.sv:31$1099 in module nqx_s1_rf.
+Marked 2 switch rules as full_case in process $proc$nqx_s1_rf.sv:31$1093 in module nqx_s1_rf.
+Marked 2 switch rules as full_case in process $proc$nqx_s1_rf.sv:31$1087 in module nqx_s1_rf.
+Marked 2 switch rules as full_case in process $proc$nqx_s1_rf.sv:31$1081 in module nqx_s1_rf.
+Marked 2 switch rules as full_case in process $proc$nqx_s1_rf.sv:31$1075 in module nqx_s1_rf.
+Marked 2 switch rules as full_case in process $proc$nqx_s1_rf.sv:31$1069 in module nqx_s1_rf.
+Marked 2 switch rules as full_case in process $proc$nqx_s1_rf.sv:31$1063 in module nqx_s1_rf.
+Marked 2 switch rules as full_case in process $proc$nqx_s1_rf.sv:31$1057 in module nqx_s1_rf.
+Marked 2 switch rules as full_case in process $proc$nqx_s1_rf.sv:31$1051 in module nqx_s1_rf.
+Marked 2 switch rules as full_case in process $proc$nqx_s1_rf.sv:31$1045 in module nqx_s1_rf.
+Marked 2 switch rules as full_case in process $proc$nqx_s1_rf.sv:31$1039 in module nqx_s1_rf.
+Marked 2 switch rules as full_case in process $proc$nqx_s1_rf.sv:31$1033 in module nqx_s1_rf.
+Marked 2 switch rules as full_case in process $proc$nqx_s1_rf.sv:31$1027 in module nqx_s1_rf.
+Marked 2 switch rules as full_case in process $proc$nqx_s1_rf.sv:31$1021 in module nqx_s1_rf.
+Marked 2 switch rules as full_case in process $proc$nqx_s1_rf.sv:31$1015 in module nqx_s1_rf.
+Marked 2 switch rules as full_case in process $proc$nqx_s1_rf.sv:31$1009 in module nqx_s1_rf.
+Marked 2 switch rules as full_case in process $proc$nqx_s1_rf.sv:31$1003 in module nqx_s1_rf.
+Marked 2 switch rules as full_case in process $proc$nqx_s1_rf.sv:31$997 in module nqx_s1_rf.
+Marked 2 switch rules as full_case in process $proc$nqx_s1_rf.sv:31$991 in module nqx_s1_rf.
+Marked 2 switch rules as full_case in process $proc$nqx_s1_rf.sv:31$985 in module nqx_s1_rf.
+Marked 2 switch rules as full_case in process $proc$nqx_s1_rf.sv:31$979 in module nqx_s1_rf.
+Marked 2 switch rules as full_case in process $proc$nqx_s1_rf.sv:31$973 in module nqx_s1_rf.
+Marked 2 switch rules as full_case in process $proc$nqx_s1_rf.sv:31$967 in module nqx_s1_rf.
+Marked 2 switch rules as full_case in process $proc$nqx_s1_rf.sv:31$961 in module nqx_s1_rf.
+Marked 2 switch rules as full_case in process $proc$nqx_s1_rf.sv:31$955 in module nqx_s1_rf.
+Marked 2 switch rules as full_case in process $proc$nqx_s1_rf.sv:31$949 in module nqx_s1_rf.
+Marked 2 switch rules as full_case in process $proc$nqx_s1_rf.sv:31$943 in module nqx_s1_rf.
+Marked 2 switch rules as full_case in process $proc$nqx_s1_rf.sv:31$937 in module nqx_s1_rf.
+Marked 2 switch rules as full_case in process $proc$nqx_s1_rf.sv:31$931 in module nqx_s1_rf.
+Marked 2 switch rules as full_case in process $proc$nqx_s1_rf.sv:31$925 in module nqx_s1_rf.
+Marked 2 switch rules as full_case in process $proc$nqx_s1_rf.sv:31$919 in module nqx_s1_rf.
+Marked 2 switch rules as full_case in process $proc$nqx_s1_rf.sv:31$913 in module nqx_s1_rf.
+Marked 2 switch rules as full_case in process $proc$nqx_s1_rf.sv:31$907 in module nqx_s1_rf.
+Marked 2 switch rules as full_case in process $proc$nqx_s1_rf.sv:31$901 in module nqx_s1_rf.
+Marked 2 switch rules as full_case in process $proc$nqx_s1_rf.sv:31$895 in module nqx_s1_rf.
+Marked 2 switch rules as full_case in process $proc$nqx_s1_rf.sv:31$889 in module nqx_s1_rf.
+Marked 2 switch rules as full_case in process $proc$nqx_s1_rf.sv:31$883 in module nqx_s1_rf.
+Marked 2 switch rules as full_case in process $proc$nqx_s1_rf.sv:31$877 in module nqx_s1_rf.
+Marked 2 switch rules as full_case in process $proc$nqx_s1_rf.sv:31$871 in module nqx_s1_rf.
+Marked 2 switch rules as full_case in process $proc$nqx_s1_rf.sv:31$865 in module nqx_s1_rf.
+Marked 2 switch rules as full_case in process $proc$nqx_s1_rf.sv:31$859 in module nqx_s1_rf.
+Marked 2 switch rules as full_case in process $proc$nqx_s1_rf.sv:31$853 in module nqx_s1_rf.
+Marked 2 switch rules as full_case in process $proc$nqx_s1_rf.sv:31$847 in module nqx_s1_rf.
+Marked 2 switch rules as full_case in process $proc$nqx_s1_rf.sv:31$841 in module nqx_s1_rf.
+Marked 2 switch rules as full_case in process $proc$nqx_s1_rf.sv:31$835 in module nqx_s1_rf.
+Marked 2 switch rules as full_case in process $proc$nqx_s1_rf.sv:31$829 in module nqx_s1_rf.
+Marked 2 switch rules as full_case in process $proc$nqx_s1_rf.sv:31$823 in module nqx_s1_rf.
+Marked 2 switch rules as full_case in process $proc$nqx_s1_rf.sv:31$817 in module nqx_s1_rf.
+Marked 2 switch rules as full_case in process $proc$nqx_s1_rf.sv:31$811 in module nqx_s1_rf.
+Marked 2 switch rules as full_case in process $proc$nqx_s1_rf.sv:31$805 in module nqx_s1_rf.
+Marked 2 switch rules as full_case in process $proc$nqx_s1_rf.sv:31$799 in module nqx_s1_rf.
+Marked 2 switch rules as full_case in process $proc$nqx_s1_rf.sv:31$793 in module nqx_s1_rf.
+Marked 2 switch rules as full_case in process $proc$nqx_s1_rf.sv:31$787 in module nqx_s1_rf.
+Marked 2 switch rules as full_case in process $proc$nqx_s1_rf.sv:31$781 in module nqx_s1_rf.
+Marked 2 switch rules as full_case in process $proc$nqx_s1_rf.sv:31$775 in module nqx_s1_rf.
+Marked 2 switch rules as full_case in process $proc$nqx_s1_rf.sv:31$769 in module nqx_s1_rf.
+Marked 2 switch rules as full_case in process $proc$nqx_s1_rf.sv:31$763 in module nqx_s1_rf.
+Marked 2 switch rules as full_case in process $proc$nqx_s1_rf.sv:31$757 in module nqx_s1_rf.
+Marked 2 switch rules as full_case in process $proc$nqx_s1_rf.sv:31$751 in module nqx_s1_rf.
+Marked 2 switch rules as full_case in process $proc$nqx_s1_rf.sv:31$745 in module nqx_s1_rf.
+Marked 2 switch rules as full_case in process $proc$nqx_s1_rf.sv:31$739 in module nqx_s1_rf.
+Marked 2 switch rules as full_case in process $proc$nqx_s1_rf.sv:31$733 in module nqx_s1_rf.
+Marked 2 switch rules as full_case in process $proc$nqx_s1_rf.sv:31$727 in module nqx_s1_rf.
+Marked 2 switch rules as full_case in process $proc$nqx_s1_rf.sv:31$721 in module nqx_s1_rf.
+Marked 2 switch rules as full_case in process $proc$nqx_s1_rf.sv:31$715 in module nqx_s1_rf.
+Marked 2 switch rules as full_case in process $proc$nqx_s1_rf.sv:31$709 in module nqx_s1_rf.
+Marked 2 switch rules as full_case in process $proc$nqx_s1_rf.sv:31$703 in module nqx_s1_rf.
+Marked 2 switch rules as full_case in process $proc$nqx_s1_rf.sv:31$697 in module nqx_s1_rf.
+Marked 2 switch rules as full_case in process $proc$nqx_s1_rf.sv:31$691 in module nqx_s1_rf.
+Marked 2 switch rules as full_case in process $proc$nqx_s1_rf.sv:31$685 in module nqx_s1_rf.
+Marked 2 switch rules as full_case in process $proc$nqx_s1_rf.sv:31$679 in module nqx_s1_rf.
+Marked 2 switch rules as full_case in process $proc$nqx_s1_rf.sv:31$673 in module nqx_s1_rf.
+Marked 2 switch rules as full_case in process $proc$nqx_s1_rf.sv:31$667 in module nqx_s1_rf.
+Marked 2 switch rules as full_case in process $proc$nqx_s1_rf.sv:31$661 in module nqx_s1_rf.
+Marked 2 switch rules as full_case in process $proc$nqx_s1_rf.sv:31$655 in module nqx_s1_rf.
+Marked 2 switch rules as full_case in process $proc$nqx_s1_rf.sv:31$649 in module nqx_s1_rf.
+Marked 2 switch rules as full_case in process $proc$nqx_s1_rf.sv:31$643 in module nqx_s1_rf.
+Marked 2 switch rules as full_case in process $proc$nqx_s1_rf.sv:31$637 in module nqx_s1_rf.
+Marked 2 switch rules as full_case in process $proc$nqx_s1_rf.sv:31$631 in module nqx_s1_rf.
+Marked 2 switch rules as full_case in process $proc$nqx_s1_rf.sv:31$625 in module nqx_s1_rf.
+Marked 2 switch rules as full_case in process $proc$nqx_s1_rf.sv:31$619 in module nqx_s1_rf.
+Marked 2 switch rules as full_case in process $proc$nqx_s1_rf.sv:31$613 in module nqx_s1_rf.
+Marked 2 switch rules as full_case in process $proc$nqx_s1_rf.sv:31$607 in module nqx_s1_rf.
+Marked 2 switch rules as full_case in process $proc$nqx_s1_rf.sv:31$601 in module nqx_s1_rf.
+Marked 2 switch rules as full_case in process $proc$nqx_s1_rf.sv:31$595 in module nqx_s1_rf.
+Marked 2 switch rules as full_case in process $proc$nqx_s1_rf.sv:31$589 in module nqx_s1_rf.
+Marked 2 switch rules as full_case in process $proc$nqx_s1_rf.sv:31$583 in module nqx_s1_rf.
+Marked 2 switch rules as full_case in process $proc$nqx_s1_rf.sv:31$577 in module nqx_s1_rf.
+Marked 2 switch rules as full_case in process $proc$nqx_s1_rf.sv:31$571 in module nqx_s1_rf.
+Marked 2 switch rules as full_case in process $proc$nqx_s1_rf.sv:31$565 in module nqx_s1_rf.
+Marked 2 switch rules as full_case in process $proc$nqx_s1_rf.sv:31$559 in module nqx_s1_rf.
+Marked 2 switch rules as full_case in process $proc$nqx_s1_rf.sv:31$553 in module nqx_s1_rf.
+Marked 2 switch rules as full_case in process $proc$nqx_s1_rf.sv:31$547 in module nqx_s1_rf.
+Marked 2 switch rules as full_case in process $proc$nqx_s1_rf.sv:31$541 in module nqx_s1_rf.
+Marked 2 switch rules as full_case in process $proc$nqx_s1_rf.sv:31$535 in module nqx_s1_rf.
+Marked 2 switch rules as full_case in process $proc$nqx_s1_rf.sv:31$529 in module nqx_s1_rf.
+Marked 2 switch rules as full_case in process $proc$nqx_s1_rf.sv:31$523 in module nqx_s1_rf.
+Marked 2 switch rules as full_case in process $proc$nqx_s1_rf.sv:31$517 in module nqx_s1_rf.
+Marked 2 switch rules as full_case in process $proc$nqx_s1_rf.sv:31$511 in module nqx_s1_rf.
+Marked 2 switch rules as full_case in process $proc$nqx_s1_rf.sv:31$505 in module nqx_s1_rf.
+Marked 2 switch rules as full_case in process $proc$nqx_s1_rf.sv:31$499 in module nqx_s1_rf.
+Marked 2 switch rules as full_case in process $proc$nqx_s1_rf.sv:31$493 in module nqx_s1_rf.
+Marked 2 switch rules as full_case in process $proc$nqx_s1_rf.sv:31$487 in module nqx_s1_rf.
+Marked 2 switch rules as full_case in process $proc$nqx_s1_rf.sv:31$481 in module nqx_s1_rf.
+Marked 2 switch rules as full_case in process $proc$nqx_s1_rf.sv:31$475 in module nqx_s1_rf.
+Marked 2 switch rules as full_case in process $proc$nqx_s1_rf.sv:31$469 in module nqx_s1_rf.
+Marked 2 switch rules as full_case in process $proc$nqx_s1_rf.sv:31$463 in module nqx_s1_rf.
+Marked 2 switch rules as full_case in process $proc$nqx_s1_rf.sv:31$457 in module nqx_s1_rf.
+Marked 2 switch rules as full_case in process $proc$nqx_s1_rf.sv:31$451 in module nqx_s1_rf.
+Marked 2 switch rules as full_case in process $proc$nqx_s1_rf.sv:31$445 in module nqx_s1_rf.
+Marked 2 switch rules as full_case in process $proc$nqx_s1_rf.sv:31$439 in module nqx_s1_rf.
+Marked 2 switch rules as full_case in process $proc$nqx_s1_div28.sv:31$427 in module nqx_s1_div28.
+Marked 1 switch rules as full_case in process $proc$nqx_s1_cordic_iter.sv:65$1629 in module $paramod\nqx_s1_cordic_iter\TAG_W=s32'00000000000000000000000000001110.
+Marked 3 switch rules as full_case in process $proc$nqx_s1_cordic_iter.sv:83$1601 in module $paramod\nqx_s1_cordic_iter\TAG_W=s32'00000000000000000000000000001110.
+Removed a total of 0 dead cases.
+
+12.2.3. Executing PROC_PRUNE pass (remove redundant assignments in processes).
+Removed 5 redundant assignments.
+Promoted 31 assignments to connections.
+
+12.2.4. Executing PROC_INIT pass (extract init attributes).
+Found init rule in `\core_props.$proc$core_props.sv:14$1413'.
+  Set init value: \past_ok = 1'0
+Found init rule in `\core_props.$proc$core_props.sv:12$1412'.
+  Set init value: \rst_n = 1'0
+
+12.2.5. Executing PROC_ARST pass (detect async resets in processes).
+Found async reset \rst_n in `\nqx_s1_core.$proc$nqx_s1_core.sv:241$1464'.
+Found async reset \rst_n in `\nqx_s1_core.$proc$nqx_s1_core.sv:362$1497'.
+Found async reset \rst_n in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1201'.
+Found async reset \rst_n in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1195'.
+Found async reset \rst_n in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1189'.
+Found async reset \rst_n in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1183'.
+Found async reset \rst_n in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1177'.
+Found async reset \rst_n in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1171'.
+Found async reset \rst_n in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1165'.
+Found async reset \rst_n in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1159'.
+Found async reset \rst_n in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1153'.
+Found async reset \rst_n in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1147'.
+Found async reset \rst_n in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1141'.
+Found async reset \rst_n in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1135'.
+Found async reset \rst_n in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1129'.
+Found async reset \rst_n in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1123'.
+Found async reset \rst_n in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1117'.
+Found async reset \rst_n in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1111'.
+Found async reset \rst_n in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1105'.
+Found async reset \rst_n in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1099'.
+Found async reset \rst_n in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1093'.
+Found async reset \rst_n in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1087'.
+Found async reset \rst_n in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1081'.
+Found async reset \rst_n in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1075'.
+Found async reset \rst_n in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1069'.
+Found async reset \rst_n in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1063'.
+Found async reset \rst_n in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1057'.
+Found async reset \rst_n in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1051'.
+Found async reset \rst_n in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1045'.
+Found async reset \rst_n in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1039'.
+Found async reset \rst_n in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1033'.
+Found async reset \rst_n in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1027'.
+Found async reset \rst_n in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1021'.
+Found async reset \rst_n in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1015'.
+Found async reset \rst_n in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1009'.
+Found async reset \rst_n in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1003'.
+Found async reset \rst_n in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$997'.
+Found async reset \rst_n in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$991'.
+Found async reset \rst_n in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$985'.
+Found async reset \rst_n in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$979'.
+Found async reset \rst_n in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$973'.
+Found async reset \rst_n in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$967'.
+Found async reset \rst_n in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$961'.
+Found async reset \rst_n in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$955'.
+Found async reset \rst_n in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$949'.
+Found async reset \rst_n in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$943'.
+Found async reset \rst_n in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$937'.
+Found async reset \rst_n in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$931'.
+Found async reset \rst_n in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$925'.
+Found async reset \rst_n in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$919'.
+Found async reset \rst_n in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$913'.
+Found async reset \rst_n in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$907'.
+Found async reset \rst_n in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$901'.
+Found async reset \rst_n in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$895'.
+Found async reset \rst_n in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$889'.
+Found async reset \rst_n in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$883'.
+Found async reset \rst_n in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$877'.
+Found async reset \rst_n in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$871'.
+Found async reset \rst_n in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$865'.
+Found async reset \rst_n in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$859'.
+Found async reset \rst_n in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$853'.
+Found async reset \rst_n in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$847'.
+Found async reset \rst_n in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$841'.
+Found async reset \rst_n in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$835'.
+Found async reset \rst_n in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$829'.
+Found async reset \rst_n in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$823'.
+Found async reset \rst_n in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$817'.
+Found async reset \rst_n in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$811'.
+Found async reset \rst_n in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$805'.
+Found async reset \rst_n in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$799'.
+Found async reset \rst_n in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$793'.
+Found async reset \rst_n in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$787'.
+Found async reset \rst_n in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$781'.
+Found async reset \rst_n in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$775'.
+Found async reset \rst_n in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$769'.
+Found async reset \rst_n in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$763'.
+Found async reset \rst_n in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$757'.
+Found async reset \rst_n in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$751'.
+Found async reset \rst_n in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$745'.
+Found async reset \rst_n in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$739'.
+Found async reset \rst_n in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$733'.
+Found async reset \rst_n in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$727'.
+Found async reset \rst_n in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$721'.
+Found async reset \rst_n in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$715'.
+Found async reset \rst_n in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$709'.
+Found async reset \rst_n in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$703'.
+Found async reset \rst_n in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$697'.
+Found async reset \rst_n in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$691'.
+Found async reset \rst_n in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$685'.
+Found async reset \rst_n in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$679'.
+Found async reset \rst_n in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$673'.
+Found async reset \rst_n in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$667'.
+Found async reset \rst_n in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$661'.
+Found async reset \rst_n in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$655'.
+Found async reset \rst_n in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$649'.
+Found async reset \rst_n in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$643'.
+Found async reset \rst_n in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$637'.
+Found async reset \rst_n in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$631'.
+Found async reset \rst_n in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$625'.
+Found async reset \rst_n in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$619'.
+Found async reset \rst_n in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$613'.
+Found async reset \rst_n in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$607'.
+Found async reset \rst_n in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$601'.
+Found async reset \rst_n in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$595'.
+Found async reset \rst_n in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$589'.
+Found async reset \rst_n in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$583'.
+Found async reset \rst_n in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$577'.
+Found async reset \rst_n in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$571'.
+Found async reset \rst_n in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$565'.
+Found async reset \rst_n in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$559'.
+Found async reset \rst_n in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$553'.
+Found async reset \rst_n in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$547'.
+Found async reset \rst_n in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$541'.
+Found async reset \rst_n in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$535'.
+Found async reset \rst_n in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$529'.
+Found async reset \rst_n in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$523'.
+Found async reset \rst_n in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$517'.
+Found async reset \rst_n in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$511'.
+Found async reset \rst_n in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$505'.
+Found async reset \rst_n in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$499'.
+Found async reset \rst_n in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$493'.
+Found async reset \rst_n in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$487'.
+Found async reset \rst_n in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$481'.
+Found async reset \rst_n in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$475'.
+Found async reset \rst_n in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$469'.
+Found async reset \rst_n in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$463'.
+Found async reset \rst_n in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$457'.
+Found async reset \rst_n in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$451'.
+Found async reset \rst_n in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$445'.
+Found async reset \rst_n in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$439'.
+Found async reset \rst_n in `\nqx_s1_div28.$proc$nqx_s1_div28.sv:31$427'.
+Found async reset \rst_n in `$paramod\nqx_s1_cordic_iter\TAG_W=s32'00000000000000000000000000001110.$proc$nqx_s1_cordic_iter.sv:83$1601'.
+
+12.2.6. Executing PROC_ROM pass (convert switches to ROMs).
+Converted 1 switch.
+<suppressed ~324 debug messages>
+
+12.2.7. Executing PROC_MUX pass (convert decision trees to multiplexers).
+Creating decoders for process `\nqx_s1_core.$proc$nqx_s1_core.sv:167$1440'.
+     1/8: $2\kmax[6:0]
+     2/8: $2\pvalid[0:0]
+     3/8: $2\pj[6:0]
+     4/8: $2\pi[6:0]
+     5/8: $1\kmax[6:0]
+     6/8: $1\pj[6:0]
+     7/8: $1\pi[6:0]
+     8/8: $1\pvalid[0:0]
+Creating decoders for process `\nqx_s1_core.$proc$nqx_s1_core.sv:241$1464'.
+     1/1: $0\inflight[5:0]
+Creating decoders for process `\nqx_s1_core.$proc$nqx_s1_core.sv:298$1486'.
+     1/1: $1\csr_rdata[31:0]
+Creating decoders for process `\nqx_s1_core.$proc$nqx_s1_core.sv:321$1487'.
+     1/20: $3\wdb[23:0]
+     2/20: $3\wb[6:0]
+     3/20: $3\web[0:0]
+     4/20: $3\wda[23:0]
+     5/20: $3\wa[6:0]
+     6/20: $3\wea[0:0]
+     7/20: $2\wda[23:0]
+     8/20: $2\wa[6:0]
+     9/20: $2\wea[0:0]
+    10/20: $2\wdb[23:0]
+    11/20: $2\wb[6:0]
+    12/20: $2\web[0:0]
+    13/20: $1\wdb[23:0]
+    14/20: $1\wb[6:0]
+    15/20: $1\web[0:0]
+    16/20: $1\wda[23:0]
+    17/20: $1\wa[6:0]
+    18/20: $1\wea[0:0]
+    19/20: $1\ra[6:0]
+    20/20: $1\rb[6:0]
+Creating decoders for process `\nqx_s1_core.$proc$nqx_s1_core.sv:362$1497'.
+     1/50: $6\macro_uop$func$nqx_s1_core.sv:552$1416.$result[5:0]$1535
+     2/50: $5\macro_uop$func$nqx_s1_core.sv:552$1416.$result[5:0]$1534
+     3/50: $4\macro_uop$func$nqx_s1_core.sv:552$1416.$result[5:0]$1533
+     4/50: $0\uop[2:0]
+     5/50: $3\macro_uop$func$nqx_s1_core.sv:552$1416.step[2:0]$1529
+     6/50: $3\macro_uop$func$nqx_s1_core.sv:552$1416.m[1:0]$1528
+     7/50: $0\layer[1:0]
+     8/50: $2\macro_uop$func$nqx_s1_core.sv:552$1416.m[1:0]$1514
+     9/50: $2\macro_uop$func$nqx_s1_core.sv:552$1416.$result[5:0]$1513
+    10/50: $1\macro_uop$func$nqx_s1_core.sv:552$1416.step[2:0]$1504
+    11/50: $1\macro_uop$func$nqx_s1_core.sv:552$1416.m[1:0]$1503
+    12/50: $1\macro_uop$func$nqx_s1_core.sv:552$1416.$result[5:0]$1502
+    13/50: $0\cnt_cycles[31:0]
+    14/50: $0\drmin[23:0]
+    15/50: $0\hdr[47:0]
+    16/50: $0\qrng[23:0]
+    17/50: $0\qq[2:0]
+    18/50: $0\qd[24:0]
+    19/50: $0\cnt_dec[31:0]
+    20/50: $0\cnt_enc[31:0]
+    21/50: $0\cnt_cordic[31:0]
+    22/50: $0\cnt_busy[31:0]
+    23/50: $0\scratch[31:0]
+    24/50: $0\rmax[23:0]
+    25/50: $0\st_sat[0:0]
+    26/50: $0\st_illegal[0:0]
+    27/50: $0\inc2[31:0]
+    28/50: $0\inc1[31:0]
+    29/50: $0\inc0[31:0]
+    30/50: $0\obuf_v[0:0]
+    31/50: $0\obuf[7:0]
+    32/50: $0\ocnt[2:0]
+    33/50: $0\oshift[31:0]
+    34/50: $0\wshift[31:0]
+    35/50: $0\caddr[7:0]
+    36/50: $0\acc[31:0]
+    37/50: $0\lo[7:0]
+    38/50: $0\k[6:0]
+    39/50: $0\mstep[2:0]
+    40/50: $0\macro[1:0]
+    41/50: $2\macro_uop$func$nqx_s1_core.sv:552$1416.step[2:0]$1515
+    42/50: $0\inv[0:0]
+    43/50: $3\macro_uop$func$nqx_s1_core.sv:552$1416.$result[5:0]$1527
+    44/50: $0\state[4:0]
+    45/50: $0\qt[19:0]
+    46/50: $0\refine[0:0]
+    47/50: $0\rmin[23:0]
+    48/50: $0\pk[7:0]
+    49/50: $0\first[0:0]
+    50/50: $0\b[2:0]
+Creating decoders for process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1201'.
+     1/1: $0\g_el[127].q[23:0]
+Creating decoders for process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1195'.
+     1/1: $0\g_el[126].q[23:0]
+Creating decoders for process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1189'.
+     1/1: $0\g_el[125].q[23:0]
+Creating decoders for process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1183'.
+     1/1: $0\g_el[124].q[23:0]
+Creating decoders for process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1177'.
+     1/1: $0\g_el[123].q[23:0]
+Creating decoders for process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1171'.
+     1/1: $0\g_el[122].q[23:0]
+Creating decoders for process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1165'.
+     1/1: $0\g_el[121].q[23:0]
+Creating decoders for process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1159'.
+     1/1: $0\g_el[120].q[23:0]
+Creating decoders for process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1153'.
+     1/1: $0\g_el[119].q[23:0]
+Creating decoders for process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1147'.
+     1/1: $0\g_el[118].q[23:0]
+Creating decoders for process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1141'.
+     1/1: $0\g_el[117].q[23:0]
+Creating decoders for process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1135'.
+     1/1: $0\g_el[116].q[23:0]
+Creating decoders for process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1129'.
+     1/1: $0\g_el[115].q[23:0]
+Creating decoders for process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1123'.
+     1/1: $0\g_el[114].q[23:0]
+Creating decoders for process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1117'.
+     1/1: $0\g_el[113].q[23:0]
+Creating decoders for process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1111'.
+     1/1: $0\g_el[112].q[23:0]
+Creating decoders for process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1105'.
+     1/1: $0\g_el[111].q[23:0]
+Creating decoders for process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1099'.
+     1/1: $0\g_el[110].q[23:0]
+Creating decoders for process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1093'.
+     1/1: $0\g_el[109].q[23:0]
+Creating decoders for process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1087'.
+     1/1: $0\g_el[108].q[23:0]
+Creating decoders for process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1081'.
+     1/1: $0\g_el[107].q[23:0]
+Creating decoders for process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1075'.
+     1/1: $0\g_el[106].q[23:0]
+Creating decoders for process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1069'.
+     1/1: $0\g_el[105].q[23:0]
+Creating decoders for process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1063'.
+     1/1: $0\g_el[104].q[23:0]
+Creating decoders for process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1057'.
+     1/1: $0\g_el[103].q[23:0]
+Creating decoders for process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1051'.
+     1/1: $0\g_el[102].q[23:0]
+Creating decoders for process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1045'.
+     1/1: $0\g_el[101].q[23:0]
+Creating decoders for process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1039'.
+     1/1: $0\g_el[100].q[23:0]
+Creating decoders for process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1033'.
+     1/1: $0\g_el[99].q[23:0]
+Creating decoders for process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1027'.
+     1/1: $0\g_el[98].q[23:0]
+Creating decoders for process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1021'.
+     1/1: $0\g_el[97].q[23:0]
+Creating decoders for process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1015'.
+     1/1: $0\g_el[96].q[23:0]
+Creating decoders for process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1009'.
+     1/1: $0\g_el[95].q[23:0]
+Creating decoders for process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1003'.
+     1/1: $0\g_el[94].q[23:0]
+Creating decoders for process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$997'.
+     1/1: $0\g_el[93].q[23:0]
+Creating decoders for process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$991'.
+     1/1: $0\g_el[92].q[23:0]
+Creating decoders for process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$985'.
+     1/1: $0\g_el[91].q[23:0]
+Creating decoders for process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$979'.
+     1/1: $0\g_el[90].q[23:0]
+Creating decoders for process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$973'.
+     1/1: $0\g_el[89].q[23:0]
+Creating decoders for process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$967'.
+     1/1: $0\g_el[88].q[23:0]
+Creating decoders for process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$961'.
+     1/1: $0\g_el[87].q[23:0]
+Creating decoders for process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$955'.
+     1/1: $0\g_el[86].q[23:0]
+Creating decoders for process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$949'.
+     1/1: $0\g_el[85].q[23:0]
+Creating decoders for process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$943'.
+     1/1: $0\g_el[84].q[23:0]
+Creating decoders for process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$937'.
+     1/1: $0\g_el[83].q[23:0]
+Creating decoders for process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$931'.
+     1/1: $0\g_el[82].q[23:0]
+Creating decoders for process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$925'.
+     1/1: $0\g_el[81].q[23:0]
+Creating decoders for process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$919'.
+     1/1: $0\g_el[80].q[23:0]
+Creating decoders for process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$913'.
+     1/1: $0\g_el[79].q[23:0]
+Creating decoders for process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$907'.
+     1/1: $0\g_el[78].q[23:0]
+Creating decoders for process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$901'.
+     1/1: $0\g_el[77].q[23:0]
+Creating decoders for process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$895'.
+     1/1: $0\g_el[76].q[23:0]
+Creating decoders for process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$889'.
+     1/1: $0\g_el[75].q[23:0]
+Creating decoders for process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$883'.
+     1/1: $0\g_el[74].q[23:0]
+Creating decoders for process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$877'.
+     1/1: $0\g_el[73].q[23:0]
+Creating decoders for process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$871'.
+     1/1: $0\g_el[72].q[23:0]
+Creating decoders for process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$865'.
+     1/1: $0\g_el[71].q[23:0]
+Creating decoders for process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$859'.
+     1/1: $0\g_el[70].q[23:0]
+Creating decoders for process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$853'.
+     1/1: $0\g_el[69].q[23:0]
+Creating decoders for process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$847'.
+     1/1: $0\g_el[68].q[23:0]
+Creating decoders for process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$841'.
+     1/1: $0\g_el[67].q[23:0]
+Creating decoders for process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$835'.
+     1/1: $0\g_el[66].q[23:0]
+Creating decoders for process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$829'.
+     1/1: $0\g_el[65].q[23:0]
+Creating decoders for process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$823'.
+     1/1: $0\g_el[64].q[23:0]
+Creating decoders for process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$817'.
+     1/1: $0\g_el[63].q[23:0]
+Creating decoders for process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$811'.
+     1/1: $0\g_el[62].q[23:0]
+Creating decoders for process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$805'.
+     1/1: $0\g_el[61].q[23:0]
+Creating decoders for process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$799'.
+     1/1: $0\g_el[60].q[23:0]
+Creating decoders for process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$793'.
+     1/1: $0\g_el[59].q[23:0]
+Creating decoders for process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$787'.
+     1/1: $0\g_el[58].q[23:0]
+Creating decoders for process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$781'.
+     1/1: $0\g_el[57].q[23:0]
+Creating decoders for process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$775'.
+     1/1: $0\g_el[56].q[23:0]
+Creating decoders for process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$769'.
+     1/1: $0\g_el[55].q[23:0]
+Creating decoders for process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$763'.
+     1/1: $0\g_el[54].q[23:0]
+Creating decoders for process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$757'.
+     1/1: $0\g_el[53].q[23:0]
+Creating decoders for process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$751'.
+     1/1: $0\g_el[52].q[23:0]
+Creating decoders for process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$745'.
+     1/1: $0\g_el[51].q[23:0]
+Creating decoders for process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$739'.
+     1/1: $0\g_el[50].q[23:0]
+Creating decoders for process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$733'.
+     1/1: $0\g_el[49].q[23:0]
+Creating decoders for process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$727'.
+     1/1: $0\g_el[48].q[23:0]
+Creating decoders for process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$721'.
+     1/1: $0\g_el[47].q[23:0]
+Creating decoders for process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$715'.
+     1/1: $0\g_el[46].q[23:0]
+Creating decoders for process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$709'.
+     1/1: $0\g_el[45].q[23:0]
+Creating decoders for process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$703'.
+     1/1: $0\g_el[44].q[23:0]
+Creating decoders for process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$697'.
+     1/1: $0\g_el[43].q[23:0]
+Creating decoders for process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$691'.
+     1/1: $0\g_el[42].q[23:0]
+Creating decoders for process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$685'.
+     1/1: $0\g_el[41].q[23:0]
+Creating decoders for process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$679'.
+     1/1: $0\g_el[40].q[23:0]
+Creating decoders for process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$673'.
+     1/1: $0\g_el[39].q[23:0]
+Creating decoders for process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$667'.
+     1/1: $0\g_el[38].q[23:0]
+Creating decoders for process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$661'.
+     1/1: $0\g_el[37].q[23:0]
+Creating decoders for process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$655'.
+     1/1: $0\g_el[36].q[23:0]
+Creating decoders for process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$649'.
+     1/1: $0\g_el[35].q[23:0]
+Creating decoders for process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$643'.
+     1/1: $0\g_el[34].q[23:0]
+Creating decoders for process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$637'.
+     1/1: $0\g_el[33].q[23:0]
+Creating decoders for process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$631'.
+     1/1: $0\g_el[32].q[23:0]
+Creating decoders for process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$625'.
+     1/1: $0\g_el[31].q[23:0]
+Creating decoders for process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$619'.
+     1/1: $0\g_el[30].q[23:0]
+Creating decoders for process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$613'.
+     1/1: $0\g_el[29].q[23:0]
+Creating decoders for process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$607'.
+     1/1: $0\g_el[28].q[23:0]
+Creating decoders for process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$601'.
+     1/1: $0\g_el[27].q[23:0]
+Creating decoders for process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$595'.
+     1/1: $0\g_el[26].q[23:0]
+Creating decoders for process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$589'.
+     1/1: $0\g_el[25].q[23:0]
+Creating decoders for process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$583'.
+     1/1: $0\g_el[24].q[23:0]
+Creating decoders for process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$577'.
+     1/1: $0\g_el[23].q[23:0]
+Creating decoders for process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$571'.
+     1/1: $0\g_el[22].q[23:0]
+Creating decoders for process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$565'.
+     1/1: $0\g_el[21].q[23:0]
+Creating decoders for process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$559'.
+     1/1: $0\g_el[20].q[23:0]
+Creating decoders for process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$553'.
+     1/1: $0\g_el[19].q[23:0]
+Creating decoders for process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$547'.
+     1/1: $0\g_el[18].q[23:0]
+Creating decoders for process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$541'.
+     1/1: $0\g_el[17].q[23:0]
+Creating decoders for process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$535'.
+     1/1: $0\g_el[16].q[23:0]
+Creating decoders for process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$529'.
+     1/1: $0\g_el[15].q[23:0]
+Creating decoders for process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$523'.
+     1/1: $0\g_el[14].q[23:0]
+Creating decoders for process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$517'.
+     1/1: $0\g_el[13].q[23:0]
+Creating decoders for process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$511'.
+     1/1: $0\g_el[12].q[23:0]
+Creating decoders for process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$505'.
+     1/1: $0\g_el[11].q[23:0]
+Creating decoders for process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$499'.
+     1/1: $0\g_el[10].q[23:0]
+Creating decoders for process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$493'.
+     1/1: $0\g_el[9].q[23:0]
+Creating decoders for process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$487'.
+     1/1: $0\g_el[8].q[23:0]
+Creating decoders for process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$481'.
+     1/1: $0\g_el[7].q[23:0]
+Creating decoders for process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$475'.
+     1/1: $0\g_el[6].q[23:0]
+Creating decoders for process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$469'.
+     1/1: $0\g_el[5].q[23:0]
+Creating decoders for process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$463'.
+     1/1: $0\g_el[4].q[23:0]
+Creating decoders for process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$457'.
+     1/1: $0\g_el[3].q[23:0]
+Creating decoders for process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$451'.
+     1/1: $0\g_el[2].q[23:0]
+Creating decoders for process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$445'.
+     1/1: $0\g_el[1].q[23:0]
+Creating decoders for process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$439'.
+     1/1: $0\g_el[0].q[23:0]
+Creating decoders for process `\nqx_s1_div28.$proc$nqx_s1_div28.sv:31$427'.
+     1/6: $0\cnt[5:0]
+     2/6: $0\rem[4:0]
+     3/6: $0\quo[31:0]
+     4/6: $0\num[31:0]
+     5/6: $0\step[27:0]
+     6/6: $0\busy[0:0]
+Creating decoders for process `$paramod\nqx_s1_cordic_iter\TAG_W=s32'00000000000000000000000000001110.$proc$nqx_s1_cordic_iter.sv:65$1629'.
+     1/1: $1\nqx_atan$func$nqx_s1_cordic_iter.sv:65$1580.$result[19:0]$1633
+Creating decoders for process `$paramod\nqx_s1_cordic_iter\TAG_W=s32'00000000000000000000000000001110.$proc$nqx_s1_cordic_iter.sv:83$1601'.
+     1/14: $0\out_valid[0:0]
+     2/14: $0\t[13:0]
+     3/14: $0\m[0:0]
+     4/14: $0\x[27:0]
+     5/14: $0\fin[0:0]
+     6/14: $0\loaded[0:0]
+     7/14: $0\out_tag[13:0]
+     8/14: $0\out_sat[0:0]
+     9/14: $0\out_z[19:0]
+    10/14: $0\out_y[23:0]
+    11/14: $0\out_x[23:0]
+    12/14: $0\z[19:0]
+    13/14: $0\y[27:0]
+    14/14: $0\i[4:0]
+Creating decoders for process `\core_props.$proc$core_props.sv:14$1413'.
+Creating decoders for process `\core_props.$proc$core_props.sv:12$1412'.
+Creating decoders for process `\core_props.$proc$core_props.sv:40$1406'.
+Creating decoders for process `\core_props.$proc$core_props.sv:39$1401'.
+Creating decoders for process `\core_props.$proc$core_props.sv:31$1390'.
+     1/2: $assert$core_props.sv:35$1400_EN
+     2/2: $assert$core_props.sv:33$1396_EN
+Creating decoders for process `\core_props.$proc$core_props.sv:28$1380'.
+     1/1: $assume$core_props.sv:29$1387_EN
+Creating decoders for process `\core_props.$proc$core_props.sv:15$1379'.
+Creating decoders for process `\core_props.$proc$core_props.sv:13$1378'.
+
+12.2.8. Executing PROC_DLATCH pass (convert process syncs to latches).
+No latch inferred for signal `\nqx_s1_core.\pi' from process `\nqx_s1_core.$proc$nqx_s1_core.sv:167$1440'.
+No latch inferred for signal `\nqx_s1_core.\pj' from process `\nqx_s1_core.$proc$nqx_s1_core.sv:167$1440'.
+No latch inferred for signal `\nqx_s1_core.\pvalid' from process `\nqx_s1_core.$proc$nqx_s1_core.sv:167$1440'.
+No latch inferred for signal `\nqx_s1_core.\kmax' from process `\nqx_s1_core.$proc$nqx_s1_core.sv:167$1440'.
+No latch inferred for signal `\nqx_s1_core.\csr_rdata' from process `\nqx_s1_core.$proc$nqx_s1_core.sv:298$1486'.
+No latch inferred for signal `\nqx_s1_core.\ra' from process `\nqx_s1_core.$proc$nqx_s1_core.sv:321$1487'.
+No latch inferred for signal `\nqx_s1_core.\rb' from process `\nqx_s1_core.$proc$nqx_s1_core.sv:321$1487'.
+No latch inferred for signal `\nqx_s1_core.\wea' from process `\nqx_s1_core.$proc$nqx_s1_core.sv:321$1487'.
+No latch inferred for signal `\nqx_s1_core.\wa' from process `\nqx_s1_core.$proc$nqx_s1_core.sv:321$1487'.
+No latch inferred for signal `\nqx_s1_core.\wda' from process `\nqx_s1_core.$proc$nqx_s1_core.sv:321$1487'.
+No latch inferred for signal `\nqx_s1_core.\web' from process `\nqx_s1_core.$proc$nqx_s1_core.sv:321$1487'.
+No latch inferred for signal `\nqx_s1_core.\wb' from process `\nqx_s1_core.$proc$nqx_s1_core.sv:321$1487'.
+No latch inferred for signal `\nqx_s1_core.\wdb' from process `\nqx_s1_core.$proc$nqx_s1_core.sv:321$1487'.
+No latch inferred for signal `$paramod\nqx_s1_cordic_iter\TAG_W=s32'00000000000000000000000000001110.\nqx_atan$func$nqx_s1_cordic_iter.sv:65$1579.$result' from process `$paramod\nqx_s1_cordic_iter\TAG_W=s32'00000000000000000000000000001110.$proc$nqx_s1_cordic_iter.sv:65$1629'.
+
+12.2.9. Executing PROC_DFF pass (convert process syncs to FFs).
+Creating register for signal `\nqx_s1_core.\inflight' using process `\nqx_s1_core.$proc$nqx_s1_core.sv:241$1464'.
+  created $adff cell `$procdff$3675' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_core.\b' using process `\nqx_s1_core.$proc$nqx_s1_core.sv:362$1497'.
+  created $adff cell `$procdff$3680' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_core.\first' using process `\nqx_s1_core.$proc$nqx_s1_core.sv:362$1497'.
+  created $adff cell `$procdff$3685' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_core.\pk' using process `\nqx_s1_core.$proc$nqx_s1_core.sv:362$1497'.
+  created $adff cell `$procdff$3690' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_core.\rmin' using process `\nqx_s1_core.$proc$nqx_s1_core.sv:362$1497'.
+  created $adff cell `$procdff$3695' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_core.\refine' using process `\nqx_s1_core.$proc$nqx_s1_core.sv:362$1497'.
+  created $adff cell `$procdff$3700' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_core.\qt' using process `\nqx_s1_core.$proc$nqx_s1_core.sv:362$1497'.
+  created $adff cell `$procdff$3705' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_core.\state' using process `\nqx_s1_core.$proc$nqx_s1_core.sv:362$1497'.
+  created $adff cell `$procdff$3710' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_core.\uop' using process `\nqx_s1_core.$proc$nqx_s1_core.sv:362$1497'.
+  created $adff cell `$procdff$3715' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_core.\layer' using process `\nqx_s1_core.$proc$nqx_s1_core.sv:362$1497'.
+  created $adff cell `$procdff$3720' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_core.\inv' using process `\nqx_s1_core.$proc$nqx_s1_core.sv:362$1497'.
+  created $adff cell `$procdff$3725' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_core.\macro' using process `\nqx_s1_core.$proc$nqx_s1_core.sv:362$1497'.
+  created $adff cell `$procdff$3730' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_core.\mstep' using process `\nqx_s1_core.$proc$nqx_s1_core.sv:362$1497'.
+  created $adff cell `$procdff$3735' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_core.\k' using process `\nqx_s1_core.$proc$nqx_s1_core.sv:362$1497'.
+  created $adff cell `$procdff$3740' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_core.\lo' using process `\nqx_s1_core.$proc$nqx_s1_core.sv:362$1497'.
+  created $adff cell `$procdff$3745' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_core.\acc' using process `\nqx_s1_core.$proc$nqx_s1_core.sv:362$1497'.
+  created $adff cell `$procdff$3750' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_core.\caddr' using process `\nqx_s1_core.$proc$nqx_s1_core.sv:362$1497'.
+  created $adff cell `$procdff$3755' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_core.\wshift' using process `\nqx_s1_core.$proc$nqx_s1_core.sv:362$1497'.
+  created $adff cell `$procdff$3760' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_core.\oshift' using process `\nqx_s1_core.$proc$nqx_s1_core.sv:362$1497'.
+  created $adff cell `$procdff$3765' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_core.\ocnt' using process `\nqx_s1_core.$proc$nqx_s1_core.sv:362$1497'.
+  created $adff cell `$procdff$3770' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_core.\obuf' using process `\nqx_s1_core.$proc$nqx_s1_core.sv:362$1497'.
+  created $adff cell `$procdff$3775' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_core.\obuf_v' using process `\nqx_s1_core.$proc$nqx_s1_core.sv:362$1497'.
+  created $adff cell `$procdff$3780' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_core.\inc0' using process `\nqx_s1_core.$proc$nqx_s1_core.sv:362$1497'.
+  created $adff cell `$procdff$3785' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_core.\inc1' using process `\nqx_s1_core.$proc$nqx_s1_core.sv:362$1497'.
+  created $adff cell `$procdff$3790' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_core.\inc2' using process `\nqx_s1_core.$proc$nqx_s1_core.sv:362$1497'.
+  created $adff cell `$procdff$3795' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_core.\st_illegal' using process `\nqx_s1_core.$proc$nqx_s1_core.sv:362$1497'.
+  created $adff cell `$procdff$3800' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_core.\st_sat' using process `\nqx_s1_core.$proc$nqx_s1_core.sv:362$1497'.
+  created $adff cell `$procdff$3805' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_core.\rmax' using process `\nqx_s1_core.$proc$nqx_s1_core.sv:362$1497'.
+  created $adff cell `$procdff$3810' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_core.\scratch' using process `\nqx_s1_core.$proc$nqx_s1_core.sv:362$1497'.
+  created $adff cell `$procdff$3815' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_core.\cnt_cycles' using process `\nqx_s1_core.$proc$nqx_s1_core.sv:362$1497'.
+  created $adff cell `$procdff$3820' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_core.\cnt_busy' using process `\nqx_s1_core.$proc$nqx_s1_core.sv:362$1497'.
+  created $adff cell `$procdff$3825' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_core.\cnt_cordic' using process `\nqx_s1_core.$proc$nqx_s1_core.sv:362$1497'.
+  created $adff cell `$procdff$3830' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_core.\cnt_enc' using process `\nqx_s1_core.$proc$nqx_s1_core.sv:362$1497'.
+  created $adff cell `$procdff$3835' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_core.\cnt_dec' using process `\nqx_s1_core.$proc$nqx_s1_core.sv:362$1497'.
+  created $adff cell `$procdff$3840' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_core.\qd' using process `\nqx_s1_core.$proc$nqx_s1_core.sv:362$1497'.
+  created $adff cell `$procdff$3845' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_core.\qq' using process `\nqx_s1_core.$proc$nqx_s1_core.sv:362$1497'.
+  created $adff cell `$procdff$3850' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_core.\qrng' using process `\nqx_s1_core.$proc$nqx_s1_core.sv:362$1497'.
+  created $adff cell `$procdff$3855' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_core.\hdr' using process `\nqx_s1_core.$proc$nqx_s1_core.sv:362$1497'.
+  created $adff cell `$procdff$3860' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_core.\drmin' using process `\nqx_s1_core.$proc$nqx_s1_core.sv:362$1497'.
+  created $adff cell `$procdff$3865' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_core.\macro_uop$func$nqx_s1_core.sv:552$1416.$result' using process `\nqx_s1_core.$proc$nqx_s1_core.sv:362$1497'.
+  created $adff cell `$procdff$3870' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_core.\macro_uop$func$nqx_s1_core.sv:552$1416.m' using process `\nqx_s1_core.$proc$nqx_s1_core.sv:362$1497'.
+  created $adff cell `$procdff$3875' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_core.\macro_uop$func$nqx_s1_core.sv:552$1416.step' using process `\nqx_s1_core.$proc$nqx_s1_core.sv:362$1497'.
+  created $adff cell `$procdff$3880' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_rf.\g_el[127].q' using process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1201'.
+  created $adff cell `$procdff$3885' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_rf.\g_el[126].q' using process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1195'.
+  created $adff cell `$procdff$3890' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_rf.\g_el[125].q' using process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1189'.
+  created $adff cell `$procdff$3895' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_rf.\g_el[124].q' using process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1183'.
+  created $adff cell `$procdff$3900' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_rf.\g_el[123].q' using process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1177'.
+  created $adff cell `$procdff$3905' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_rf.\g_el[122].q' using process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1171'.
+  created $adff cell `$procdff$3910' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_rf.\g_el[121].q' using process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1165'.
+  created $adff cell `$procdff$3915' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_rf.\g_el[120].q' using process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1159'.
+  created $adff cell `$procdff$3920' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_rf.\g_el[119].q' using process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1153'.
+  created $adff cell `$procdff$3925' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_rf.\g_el[118].q' using process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1147'.
+  created $adff cell `$procdff$3930' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_rf.\g_el[117].q' using process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1141'.
+  created $adff cell `$procdff$3935' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_rf.\g_el[116].q' using process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1135'.
+  created $adff cell `$procdff$3940' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_rf.\g_el[115].q' using process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1129'.
+  created $adff cell `$procdff$3945' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_rf.\g_el[114].q' using process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1123'.
+  created $adff cell `$procdff$3950' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_rf.\g_el[113].q' using process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1117'.
+  created $adff cell `$procdff$3955' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_rf.\g_el[112].q' using process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1111'.
+  created $adff cell `$procdff$3960' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_rf.\g_el[111].q' using process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1105'.
+  created $adff cell `$procdff$3965' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_rf.\g_el[110].q' using process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1099'.
+  created $adff cell `$procdff$3970' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_rf.\g_el[109].q' using process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1093'.
+  created $adff cell `$procdff$3975' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_rf.\g_el[108].q' using process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1087'.
+  created $adff cell `$procdff$3980' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_rf.\g_el[107].q' using process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1081'.
+  created $adff cell `$procdff$3985' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_rf.\g_el[106].q' using process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1075'.
+  created $adff cell `$procdff$3990' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_rf.\g_el[105].q' using process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1069'.
+  created $adff cell `$procdff$3995' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_rf.\g_el[104].q' using process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1063'.
+  created $adff cell `$procdff$4000' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_rf.\g_el[103].q' using process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1057'.
+  created $adff cell `$procdff$4005' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_rf.\g_el[102].q' using process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1051'.
+  created $adff cell `$procdff$4010' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_rf.\g_el[101].q' using process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1045'.
+  created $adff cell `$procdff$4015' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_rf.\g_el[100].q' using process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1039'.
+  created $adff cell `$procdff$4020' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_rf.\g_el[99].q' using process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1033'.
+  created $adff cell `$procdff$4025' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_rf.\g_el[98].q' using process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1027'.
+  created $adff cell `$procdff$4030' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_rf.\g_el[97].q' using process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1021'.
+  created $adff cell `$procdff$4035' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_rf.\g_el[96].q' using process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1015'.
+  created $adff cell `$procdff$4040' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_rf.\g_el[95].q' using process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1009'.
+  created $adff cell `$procdff$4045' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_rf.\g_el[94].q' using process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1003'.
+  created $adff cell `$procdff$4050' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_rf.\g_el[93].q' using process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$997'.
+  created $adff cell `$procdff$4055' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_rf.\g_el[92].q' using process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$991'.
+  created $adff cell `$procdff$4060' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_rf.\g_el[91].q' using process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$985'.
+  created $adff cell `$procdff$4065' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_rf.\g_el[90].q' using process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$979'.
+  created $adff cell `$procdff$4070' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_rf.\g_el[89].q' using process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$973'.
+  created $adff cell `$procdff$4075' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_rf.\g_el[88].q' using process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$967'.
+  created $adff cell `$procdff$4080' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_rf.\g_el[87].q' using process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$961'.
+  created $adff cell `$procdff$4085' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_rf.\g_el[86].q' using process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$955'.
+  created $adff cell `$procdff$4090' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_rf.\g_el[85].q' using process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$949'.
+  created $adff cell `$procdff$4095' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_rf.\g_el[84].q' using process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$943'.
+  created $adff cell `$procdff$4100' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_rf.\g_el[83].q' using process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$937'.
+  created $adff cell `$procdff$4105' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_rf.\g_el[82].q' using process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$931'.
+  created $adff cell `$procdff$4110' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_rf.\g_el[81].q' using process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$925'.
+  created $adff cell `$procdff$4115' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_rf.\g_el[80].q' using process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$919'.
+  created $adff cell `$procdff$4120' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_rf.\g_el[79].q' using process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$913'.
+  created $adff cell `$procdff$4125' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_rf.\g_el[78].q' using process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$907'.
+  created $adff cell `$procdff$4130' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_rf.\g_el[77].q' using process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$901'.
+  created $adff cell `$procdff$4135' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_rf.\g_el[76].q' using process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$895'.
+  created $adff cell `$procdff$4140' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_rf.\g_el[75].q' using process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$889'.
+  created $adff cell `$procdff$4145' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_rf.\g_el[74].q' using process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$883'.
+  created $adff cell `$procdff$4150' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_rf.\g_el[73].q' using process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$877'.
+  created $adff cell `$procdff$4155' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_rf.\g_el[72].q' using process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$871'.
+  created $adff cell `$procdff$4160' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_rf.\g_el[71].q' using process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$865'.
+  created $adff cell `$procdff$4165' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_rf.\g_el[70].q' using process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$859'.
+  created $adff cell `$procdff$4170' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_rf.\g_el[69].q' using process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$853'.
+  created $adff cell `$procdff$4175' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_rf.\g_el[68].q' using process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$847'.
+  created $adff cell `$procdff$4180' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_rf.\g_el[67].q' using process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$841'.
+  created $adff cell `$procdff$4185' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_rf.\g_el[66].q' using process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$835'.
+  created $adff cell `$procdff$4190' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_rf.\g_el[65].q' using process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$829'.
+  created $adff cell `$procdff$4195' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_rf.\g_el[64].q' using process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$823'.
+  created $adff cell `$procdff$4200' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_rf.\g_el[63].q' using process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$817'.
+  created $adff cell `$procdff$4205' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_rf.\g_el[62].q' using process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$811'.
+  created $adff cell `$procdff$4210' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_rf.\g_el[61].q' using process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$805'.
+  created $adff cell `$procdff$4215' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_rf.\g_el[60].q' using process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$799'.
+  created $adff cell `$procdff$4220' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_rf.\g_el[59].q' using process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$793'.
+  created $adff cell `$procdff$4225' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_rf.\g_el[58].q' using process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$787'.
+  created $adff cell `$procdff$4230' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_rf.\g_el[57].q' using process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$781'.
+  created $adff cell `$procdff$4235' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_rf.\g_el[56].q' using process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$775'.
+  created $adff cell `$procdff$4240' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_rf.\g_el[55].q' using process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$769'.
+  created $adff cell `$procdff$4245' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_rf.\g_el[54].q' using process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$763'.
+  created $adff cell `$procdff$4250' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_rf.\g_el[53].q' using process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$757'.
+  created $adff cell `$procdff$4255' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_rf.\g_el[52].q' using process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$751'.
+  created $adff cell `$procdff$4260' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_rf.\g_el[51].q' using process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$745'.
+  created $adff cell `$procdff$4265' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_rf.\g_el[50].q' using process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$739'.
+  created $adff cell `$procdff$4270' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_rf.\g_el[49].q' using process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$733'.
+  created $adff cell `$procdff$4275' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_rf.\g_el[48].q' using process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$727'.
+  created $adff cell `$procdff$4280' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_rf.\g_el[47].q' using process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$721'.
+  created $adff cell `$procdff$4285' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_rf.\g_el[46].q' using process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$715'.
+  created $adff cell `$procdff$4290' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_rf.\g_el[45].q' using process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$709'.
+  created $adff cell `$procdff$4295' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_rf.\g_el[44].q' using process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$703'.
+  created $adff cell `$procdff$4300' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_rf.\g_el[43].q' using process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$697'.
+  created $adff cell `$procdff$4305' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_rf.\g_el[42].q' using process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$691'.
+  created $adff cell `$procdff$4310' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_rf.\g_el[41].q' using process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$685'.
+  created $adff cell `$procdff$4315' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_rf.\g_el[40].q' using process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$679'.
+  created $adff cell `$procdff$4320' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_rf.\g_el[39].q' using process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$673'.
+  created $adff cell `$procdff$4325' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_rf.\g_el[38].q' using process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$667'.
+  created $adff cell `$procdff$4330' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_rf.\g_el[37].q' using process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$661'.
+  created $adff cell `$procdff$4335' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_rf.\g_el[36].q' using process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$655'.
+  created $adff cell `$procdff$4340' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_rf.\g_el[35].q' using process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$649'.
+  created $adff cell `$procdff$4345' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_rf.\g_el[34].q' using process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$643'.
+  created $adff cell `$procdff$4350' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_rf.\g_el[33].q' using process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$637'.
+  created $adff cell `$procdff$4355' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_rf.\g_el[32].q' using process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$631'.
+  created $adff cell `$procdff$4360' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_rf.\g_el[31].q' using process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$625'.
+  created $adff cell `$procdff$4365' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_rf.\g_el[30].q' using process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$619'.
+  created $adff cell `$procdff$4370' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_rf.\g_el[29].q' using process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$613'.
+  created $adff cell `$procdff$4375' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_rf.\g_el[28].q' using process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$607'.
+  created $adff cell `$procdff$4380' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_rf.\g_el[27].q' using process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$601'.
+  created $adff cell `$procdff$4385' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_rf.\g_el[26].q' using process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$595'.
+  created $adff cell `$procdff$4390' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_rf.\g_el[25].q' using process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$589'.
+  created $adff cell `$procdff$4395' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_rf.\g_el[24].q' using process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$583'.
+  created $adff cell `$procdff$4400' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_rf.\g_el[23].q' using process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$577'.
+  created $adff cell `$procdff$4405' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_rf.\g_el[22].q' using process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$571'.
+  created $adff cell `$procdff$4410' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_rf.\g_el[21].q' using process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$565'.
+  created $adff cell `$procdff$4415' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_rf.\g_el[20].q' using process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$559'.
+  created $adff cell `$procdff$4420' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_rf.\g_el[19].q' using process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$553'.
+  created $adff cell `$procdff$4425' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_rf.\g_el[18].q' using process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$547'.
+  created $adff cell `$procdff$4430' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_rf.\g_el[17].q' using process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$541'.
+  created $adff cell `$procdff$4435' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_rf.\g_el[16].q' using process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$535'.
+  created $adff cell `$procdff$4440' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_rf.\g_el[15].q' using process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$529'.
+  created $adff cell `$procdff$4445' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_rf.\g_el[14].q' using process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$523'.
+  created $adff cell `$procdff$4450' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_rf.\g_el[13].q' using process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$517'.
+  created $adff cell `$procdff$4455' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_rf.\g_el[12].q' using process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$511'.
+  created $adff cell `$procdff$4460' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_rf.\g_el[11].q' using process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$505'.
+  created $adff cell `$procdff$4465' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_rf.\g_el[10].q' using process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$499'.
+  created $adff cell `$procdff$4470' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_rf.\g_el[9].q' using process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$493'.
+  created $adff cell `$procdff$4475' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_rf.\g_el[8].q' using process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$487'.
+  created $adff cell `$procdff$4480' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_rf.\g_el[7].q' using process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$481'.
+  created $adff cell `$procdff$4485' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_rf.\g_el[6].q' using process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$475'.
+  created $adff cell `$procdff$4490' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_rf.\g_el[5].q' using process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$469'.
+  created $adff cell `$procdff$4495' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_rf.\g_el[4].q' using process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$463'.
+  created $adff cell `$procdff$4500' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_rf.\g_el[3].q' using process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$457'.
+  created $adff cell `$procdff$4505' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_rf.\g_el[2].q' using process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$451'.
+  created $adff cell `$procdff$4510' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_rf.\g_el[1].q' using process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$445'.
+  created $adff cell `$procdff$4515' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_rf.\g_el[0].q' using process `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$439'.
+  created $adff cell `$procdff$4520' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_div28.\busy' using process `\nqx_s1_div28.$proc$nqx_s1_div28.sv:31$427'.
+  created $adff cell `$procdff$4525' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_div28.\step' using process `\nqx_s1_div28.$proc$nqx_s1_div28.sv:31$427'.
+  created $adff cell `$procdff$4530' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_div28.\num' using process `\nqx_s1_div28.$proc$nqx_s1_div28.sv:31$427'.
+  created $adff cell `$procdff$4535' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_div28.\quo' using process `\nqx_s1_div28.$proc$nqx_s1_div28.sv:31$427'.
+  created $adff cell `$procdff$4540' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_div28.\rem' using process `\nqx_s1_div28.$proc$nqx_s1_div28.sv:31$427'.
+  created $adff cell `$procdff$4545' with positive edge clock and positive level reset.
+Creating register for signal `\nqx_s1_div28.\cnt' using process `\nqx_s1_div28.$proc$nqx_s1_div28.sv:31$427'.
+  created $adff cell `$procdff$4550' with positive edge clock and positive level reset.
+Creating register for signal `$paramod\nqx_s1_cordic_iter\TAG_W=s32'00000000000000000000000000001110.\i' using process `$paramod\nqx_s1_cordic_iter\TAG_W=s32'00000000000000000000000000001110.$proc$nqx_s1_cordic_iter.sv:83$1601'.
+  created $adff cell `$procdff$4555' with positive edge clock and positive level reset.
+Creating register for signal `$paramod\nqx_s1_cordic_iter\TAG_W=s32'00000000000000000000000000001110.\y' using process `$paramod\nqx_s1_cordic_iter\TAG_W=s32'00000000000000000000000000001110.$proc$nqx_s1_cordic_iter.sv:83$1601'.
+  created $adff cell `$procdff$4560' with positive edge clock and positive level reset.
+Creating register for signal `$paramod\nqx_s1_cordic_iter\TAG_W=s32'00000000000000000000000000001110.\z' using process `$paramod\nqx_s1_cordic_iter\TAG_W=s32'00000000000000000000000000001110.$proc$nqx_s1_cordic_iter.sv:83$1601'.
+  created $adff cell `$procdff$4565' with positive edge clock and positive level reset.
+Creating register for signal `$paramod\nqx_s1_cordic_iter\TAG_W=s32'00000000000000000000000000001110.\out_valid' using process `$paramod\nqx_s1_cordic_iter\TAG_W=s32'00000000000000000000000000001110.$proc$nqx_s1_cordic_iter.sv:83$1601'.
+  created $adff cell `$procdff$4570' with positive edge clock and positive level reset.
+Creating register for signal `$paramod\nqx_s1_cordic_iter\TAG_W=s32'00000000000000000000000000001110.\out_x' using process `$paramod\nqx_s1_cordic_iter\TAG_W=s32'00000000000000000000000000001110.$proc$nqx_s1_cordic_iter.sv:83$1601'.
+  created $adff cell `$procdff$4575' with positive edge clock and positive level reset.
+Creating register for signal `$paramod\nqx_s1_cordic_iter\TAG_W=s32'00000000000000000000000000001110.\out_y' using process `$paramod\nqx_s1_cordic_iter\TAG_W=s32'00000000000000000000000000001110.$proc$nqx_s1_cordic_iter.sv:83$1601'.
+  created $adff cell `$procdff$4580' with positive edge clock and positive level reset.
+Creating register for signal `$paramod\nqx_s1_cordic_iter\TAG_W=s32'00000000000000000000000000001110.\out_z' using process `$paramod\nqx_s1_cordic_iter\TAG_W=s32'00000000000000000000000000001110.$proc$nqx_s1_cordic_iter.sv:83$1601'.
+  created $adff cell `$procdff$4585' with positive edge clock and positive level reset.
+Creating register for signal `$paramod\nqx_s1_cordic_iter\TAG_W=s32'00000000000000000000000000001110.\out_sat' using process `$paramod\nqx_s1_cordic_iter\TAG_W=s32'00000000000000000000000000001110.$proc$nqx_s1_cordic_iter.sv:83$1601'.
+  created $adff cell `$procdff$4590' with positive edge clock and positive level reset.
+Creating register for signal `$paramod\nqx_s1_cordic_iter\TAG_W=s32'00000000000000000000000000001110.\out_tag' using process `$paramod\nqx_s1_cordic_iter\TAG_W=s32'00000000000000000000000000001110.$proc$nqx_s1_cordic_iter.sv:83$1601'.
+  created $adff cell `$procdff$4595' with positive edge clock and positive level reset.
+Creating register for signal `$paramod\nqx_s1_cordic_iter\TAG_W=s32'00000000000000000000000000001110.\loaded' using process `$paramod\nqx_s1_cordic_iter\TAG_W=s32'00000000000000000000000000001110.$proc$nqx_s1_cordic_iter.sv:83$1601'.
+  created $adff cell `$procdff$4600' with positive edge clock and positive level reset.
+Creating register for signal `$paramod\nqx_s1_cordic_iter\TAG_W=s32'00000000000000000000000000001110.\fin' using process `$paramod\nqx_s1_cordic_iter\TAG_W=s32'00000000000000000000000000001110.$proc$nqx_s1_cordic_iter.sv:83$1601'.
+  created $adff cell `$procdff$4605' with positive edge clock and positive level reset.
+Creating register for signal `$paramod\nqx_s1_cordic_iter\TAG_W=s32'00000000000000000000000000001110.\x' using process `$paramod\nqx_s1_cordic_iter\TAG_W=s32'00000000000000000000000000001110.$proc$nqx_s1_cordic_iter.sv:83$1601'.
+  created $adff cell `$procdff$4610' with positive edge clock and positive level reset.
+Creating register for signal `$paramod\nqx_s1_cordic_iter\TAG_W=s32'00000000000000000000000000001110.\m' using process `$paramod\nqx_s1_cordic_iter\TAG_W=s32'00000000000000000000000000001110.$proc$nqx_s1_cordic_iter.sv:83$1601'.
+  created $adff cell `$procdff$4615' with positive edge clock and positive level reset.
+Creating register for signal `$paramod\nqx_s1_cordic_iter\TAG_W=s32'00000000000000000000000000001110.\t' using process `$paramod\nqx_s1_cordic_iter\TAG_W=s32'00000000000000000000000000001110.$proc$nqx_s1_cordic_iter.sv:83$1601'.
+  created $adff cell `$procdff$4620' with positive edge clock and positive level reset.
+Creating register for signal `\core_props.$past$core_props.sv:33$1375$0' using process `\core_props.$proc$core_props.sv:31$1390'.
+  created $dff cell `$procdff$4621' with positive edge clock.
+Creating register for signal `\core_props.$past$core_props.sv:33$1376$0' using process `\core_props.$proc$core_props.sv:31$1390'.
+  created $dff cell `$procdff$4622' with positive edge clock.
+Creating register for signal `\core_props.$past$core_props.sv:33$1377$0' using process `\core_props.$proc$core_props.sv:31$1390'.
+  created $dff cell `$procdff$4623' with positive edge clock.
+Creating register for signal `\core_props.$past$core_props.sv:28$1372$0' using process `\core_props.$proc$core_props.sv:28$1380'.
+  created $dff cell `$procdff$4624' with positive edge clock.
+Creating register for signal `\core_props.$past$core_props.sv:28$1373$0' using process `\core_props.$proc$core_props.sv:28$1380'.
+  created $dff cell `$procdff$4625' with positive edge clock.
+Creating register for signal `\core_props.$past$core_props.sv:29$1374$0' using process `\core_props.$proc$core_props.sv:28$1380'.
+  created $dff cell `$procdff$4626' with positive edge clock.
+Creating register for signal `\core_props.\past_ok' using process `\core_props.$proc$core_props.sv:15$1379'.
+  created $dff cell `$procdff$4627' with positive edge clock.
+Creating register for signal `\core_props.\rst_n' using process `\core_props.$proc$core_props.sv:13$1378'.
+  created $dff cell `$procdff$4628' with positive edge clock.
+
+12.2.10. Executing PROC_MEMWR pass (convert process memory writes to cells).
+
+12.2.11. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Found and cleaned up 2 empty switches in `\nqx_s1_core.$proc$nqx_s1_core.sv:167$1440'.
+Removing empty process `nqx_s1_core.$proc$nqx_s1_core.sv:167$1440'.
+Removing empty process `nqx_s1_core.$proc$nqx_s1_core.sv:241$1464'.
+Found and cleaned up 1 empty switch in `\nqx_s1_core.$proc$nqx_s1_core.sv:298$1486'.
+Removing empty process `nqx_s1_core.$proc$nqx_s1_core.sv:298$1486'.
+Found and cleaned up 4 empty switches in `\nqx_s1_core.$proc$nqx_s1_core.sv:321$1487'.
+Removing empty process `nqx_s1_core.$proc$nqx_s1_core.sv:321$1487'.
+Found and cleaned up 50 empty switches in `\nqx_s1_core.$proc$nqx_s1_core.sv:362$1497'.
+Removing empty process `nqx_s1_core.$proc$nqx_s1_core.sv:362$1497'.
+Found and cleaned up 2 empty switches in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1201'.
+Removing empty process `nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1201'.
+Found and cleaned up 2 empty switches in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1195'.
+Removing empty process `nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1195'.
+Found and cleaned up 2 empty switches in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1189'.
+Removing empty process `nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1189'.
+Found and cleaned up 2 empty switches in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1183'.
+Removing empty process `nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1183'.
+Found and cleaned up 2 empty switches in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1177'.
+Removing empty process `nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1177'.
+Found and cleaned up 2 empty switches in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1171'.
+Removing empty process `nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1171'.
+Found and cleaned up 2 empty switches in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1165'.
+Removing empty process `nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1165'.
+Found and cleaned up 2 empty switches in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1159'.
+Removing empty process `nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1159'.
+Found and cleaned up 2 empty switches in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1153'.
+Removing empty process `nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1153'.
+Found and cleaned up 2 empty switches in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1147'.
+Removing empty process `nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1147'.
+Found and cleaned up 2 empty switches in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1141'.
+Removing empty process `nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1141'.
+Found and cleaned up 2 empty switches in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1135'.
+Removing empty process `nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1135'.
+Found and cleaned up 2 empty switches in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1129'.
+Removing empty process `nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1129'.
+Found and cleaned up 2 empty switches in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1123'.
+Removing empty process `nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1123'.
+Found and cleaned up 2 empty switches in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1117'.
+Removing empty process `nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1117'.
+Found and cleaned up 2 empty switches in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1111'.
+Removing empty process `nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1111'.
+Found and cleaned up 2 empty switches in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1105'.
+Removing empty process `nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1105'.
+Found and cleaned up 2 empty switches in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1099'.
+Removing empty process `nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1099'.
+Found and cleaned up 2 empty switches in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1093'.
+Removing empty process `nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1093'.
+Found and cleaned up 2 empty switches in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1087'.
+Removing empty process `nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1087'.
+Found and cleaned up 2 empty switches in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1081'.
+Removing empty process `nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1081'.
+Found and cleaned up 2 empty switches in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1075'.
+Removing empty process `nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1075'.
+Found and cleaned up 2 empty switches in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1069'.
+Removing empty process `nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1069'.
+Found and cleaned up 2 empty switches in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1063'.
+Removing empty process `nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1063'.
+Found and cleaned up 2 empty switches in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1057'.
+Removing empty process `nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1057'.
+Found and cleaned up 2 empty switches in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1051'.
+Removing empty process `nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1051'.
+Found and cleaned up 2 empty switches in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1045'.
+Removing empty process `nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1045'.
+Found and cleaned up 2 empty switches in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1039'.
+Removing empty process `nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1039'.
+Found and cleaned up 2 empty switches in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1033'.
+Removing empty process `nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1033'.
+Found and cleaned up 2 empty switches in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1027'.
+Removing empty process `nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1027'.
+Found and cleaned up 2 empty switches in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1021'.
+Removing empty process `nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1021'.
+Found and cleaned up 2 empty switches in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1015'.
+Removing empty process `nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1015'.
+Found and cleaned up 2 empty switches in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1009'.
+Removing empty process `nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1009'.
+Found and cleaned up 2 empty switches in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1003'.
+Removing empty process `nqx_s1_rf.$proc$nqx_s1_rf.sv:31$1003'.
+Found and cleaned up 2 empty switches in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$997'.
+Removing empty process `nqx_s1_rf.$proc$nqx_s1_rf.sv:31$997'.
+Found and cleaned up 2 empty switches in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$991'.
+Removing empty process `nqx_s1_rf.$proc$nqx_s1_rf.sv:31$991'.
+Found and cleaned up 2 empty switches in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$985'.
+Removing empty process `nqx_s1_rf.$proc$nqx_s1_rf.sv:31$985'.
+Found and cleaned up 2 empty switches in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$979'.
+Removing empty process `nqx_s1_rf.$proc$nqx_s1_rf.sv:31$979'.
+Found and cleaned up 2 empty switches in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$973'.
+Removing empty process `nqx_s1_rf.$proc$nqx_s1_rf.sv:31$973'.
+Found and cleaned up 2 empty switches in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$967'.
+Removing empty process `nqx_s1_rf.$proc$nqx_s1_rf.sv:31$967'.
+Found and cleaned up 2 empty switches in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$961'.
+Removing empty process `nqx_s1_rf.$proc$nqx_s1_rf.sv:31$961'.
+Found and cleaned up 2 empty switches in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$955'.
+Removing empty process `nqx_s1_rf.$proc$nqx_s1_rf.sv:31$955'.
+Found and cleaned up 2 empty switches in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$949'.
+Removing empty process `nqx_s1_rf.$proc$nqx_s1_rf.sv:31$949'.
+Found and cleaned up 2 empty switches in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$943'.
+Removing empty process `nqx_s1_rf.$proc$nqx_s1_rf.sv:31$943'.
+Found and cleaned up 2 empty switches in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$937'.
+Removing empty process `nqx_s1_rf.$proc$nqx_s1_rf.sv:31$937'.
+Found and cleaned up 2 empty switches in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$931'.
+Removing empty process `nqx_s1_rf.$proc$nqx_s1_rf.sv:31$931'.
+Found and cleaned up 2 empty switches in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$925'.
+Removing empty process `nqx_s1_rf.$proc$nqx_s1_rf.sv:31$925'.
+Found and cleaned up 2 empty switches in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$919'.
+Removing empty process `nqx_s1_rf.$proc$nqx_s1_rf.sv:31$919'.
+Found and cleaned up 2 empty switches in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$913'.
+Removing empty process `nqx_s1_rf.$proc$nqx_s1_rf.sv:31$913'.
+Found and cleaned up 2 empty switches in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$907'.
+Removing empty process `nqx_s1_rf.$proc$nqx_s1_rf.sv:31$907'.
+Found and cleaned up 2 empty switches in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$901'.
+Removing empty process `nqx_s1_rf.$proc$nqx_s1_rf.sv:31$901'.
+Found and cleaned up 2 empty switches in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$895'.
+Removing empty process `nqx_s1_rf.$proc$nqx_s1_rf.sv:31$895'.
+Found and cleaned up 2 empty switches in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$889'.
+Removing empty process `nqx_s1_rf.$proc$nqx_s1_rf.sv:31$889'.
+Found and cleaned up 2 empty switches in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$883'.
+Removing empty process `nqx_s1_rf.$proc$nqx_s1_rf.sv:31$883'.
+Found and cleaned up 2 empty switches in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$877'.
+Removing empty process `nqx_s1_rf.$proc$nqx_s1_rf.sv:31$877'.
+Found and cleaned up 2 empty switches in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$871'.
+Removing empty process `nqx_s1_rf.$proc$nqx_s1_rf.sv:31$871'.
+Found and cleaned up 2 empty switches in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$865'.
+Removing empty process `nqx_s1_rf.$proc$nqx_s1_rf.sv:31$865'.
+Found and cleaned up 2 empty switches in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$859'.
+Removing empty process `nqx_s1_rf.$proc$nqx_s1_rf.sv:31$859'.
+Found and cleaned up 2 empty switches in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$853'.
+Removing empty process `nqx_s1_rf.$proc$nqx_s1_rf.sv:31$853'.
+Found and cleaned up 2 empty switches in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$847'.
+Removing empty process `nqx_s1_rf.$proc$nqx_s1_rf.sv:31$847'.
+Found and cleaned up 2 empty switches in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$841'.
+Removing empty process `nqx_s1_rf.$proc$nqx_s1_rf.sv:31$841'.
+Found and cleaned up 2 empty switches in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$835'.
+Removing empty process `nqx_s1_rf.$proc$nqx_s1_rf.sv:31$835'.
+Found and cleaned up 2 empty switches in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$829'.
+Removing empty process `nqx_s1_rf.$proc$nqx_s1_rf.sv:31$829'.
+Found and cleaned up 2 empty switches in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$823'.
+Removing empty process `nqx_s1_rf.$proc$nqx_s1_rf.sv:31$823'.
+Found and cleaned up 2 empty switches in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$817'.
+Removing empty process `nqx_s1_rf.$proc$nqx_s1_rf.sv:31$817'.
+Found and cleaned up 2 empty switches in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$811'.
+Removing empty process `nqx_s1_rf.$proc$nqx_s1_rf.sv:31$811'.
+Found and cleaned up 2 empty switches in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$805'.
+Removing empty process `nqx_s1_rf.$proc$nqx_s1_rf.sv:31$805'.
+Found and cleaned up 2 empty switches in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$799'.
+Removing empty process `nqx_s1_rf.$proc$nqx_s1_rf.sv:31$799'.
+Found and cleaned up 2 empty switches in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$793'.
+Removing empty process `nqx_s1_rf.$proc$nqx_s1_rf.sv:31$793'.
+Found and cleaned up 2 empty switches in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$787'.
+Removing empty process `nqx_s1_rf.$proc$nqx_s1_rf.sv:31$787'.
+Found and cleaned up 2 empty switches in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$781'.
+Removing empty process `nqx_s1_rf.$proc$nqx_s1_rf.sv:31$781'.
+Found and cleaned up 2 empty switches in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$775'.
+Removing empty process `nqx_s1_rf.$proc$nqx_s1_rf.sv:31$775'.
+Found and cleaned up 2 empty switches in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$769'.
+Removing empty process `nqx_s1_rf.$proc$nqx_s1_rf.sv:31$769'.
+Found and cleaned up 2 empty switches in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$763'.
+Removing empty process `nqx_s1_rf.$proc$nqx_s1_rf.sv:31$763'.
+Found and cleaned up 2 empty switches in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$757'.
+Removing empty process `nqx_s1_rf.$proc$nqx_s1_rf.sv:31$757'.
+Found and cleaned up 2 empty switches in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$751'.
+Removing empty process `nqx_s1_rf.$proc$nqx_s1_rf.sv:31$751'.
+Found and cleaned up 2 empty switches in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$745'.
+Removing empty process `nqx_s1_rf.$proc$nqx_s1_rf.sv:31$745'.
+Found and cleaned up 2 empty switches in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$739'.
+Removing empty process `nqx_s1_rf.$proc$nqx_s1_rf.sv:31$739'.
+Found and cleaned up 2 empty switches in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$733'.
+Removing empty process `nqx_s1_rf.$proc$nqx_s1_rf.sv:31$733'.
+Found and cleaned up 2 empty switches in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$727'.
+Removing empty process `nqx_s1_rf.$proc$nqx_s1_rf.sv:31$727'.
+Found and cleaned up 2 empty switches in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$721'.
+Removing empty process `nqx_s1_rf.$proc$nqx_s1_rf.sv:31$721'.
+Found and cleaned up 2 empty switches in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$715'.
+Removing empty process `nqx_s1_rf.$proc$nqx_s1_rf.sv:31$715'.
+Found and cleaned up 2 empty switches in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$709'.
+Removing empty process `nqx_s1_rf.$proc$nqx_s1_rf.sv:31$709'.
+Found and cleaned up 2 empty switches in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$703'.
+Removing empty process `nqx_s1_rf.$proc$nqx_s1_rf.sv:31$703'.
+Found and cleaned up 2 empty switches in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$697'.
+Removing empty process `nqx_s1_rf.$proc$nqx_s1_rf.sv:31$697'.
+Found and cleaned up 2 empty switches in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$691'.
+Removing empty process `nqx_s1_rf.$proc$nqx_s1_rf.sv:31$691'.
+Found and cleaned up 2 empty switches in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$685'.
+Removing empty process `nqx_s1_rf.$proc$nqx_s1_rf.sv:31$685'.
+Found and cleaned up 2 empty switches in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$679'.
+Removing empty process `nqx_s1_rf.$proc$nqx_s1_rf.sv:31$679'.
+Found and cleaned up 2 empty switches in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$673'.
+Removing empty process `nqx_s1_rf.$proc$nqx_s1_rf.sv:31$673'.
+Found and cleaned up 2 empty switches in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$667'.
+Removing empty process `nqx_s1_rf.$proc$nqx_s1_rf.sv:31$667'.
+Found and cleaned up 2 empty switches in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$661'.
+Removing empty process `nqx_s1_rf.$proc$nqx_s1_rf.sv:31$661'.
+Found and cleaned up 2 empty switches in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$655'.
+Removing empty process `nqx_s1_rf.$proc$nqx_s1_rf.sv:31$655'.
+Found and cleaned up 2 empty switches in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$649'.
+Removing empty process `nqx_s1_rf.$proc$nqx_s1_rf.sv:31$649'.
+Found and cleaned up 2 empty switches in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$643'.
+Removing empty process `nqx_s1_rf.$proc$nqx_s1_rf.sv:31$643'.
+Found and cleaned up 2 empty switches in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$637'.
+Removing empty process `nqx_s1_rf.$proc$nqx_s1_rf.sv:31$637'.
+Found and cleaned up 2 empty switches in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$631'.
+Removing empty process `nqx_s1_rf.$proc$nqx_s1_rf.sv:31$631'.
+Found and cleaned up 2 empty switches in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$625'.
+Removing empty process `nqx_s1_rf.$proc$nqx_s1_rf.sv:31$625'.
+Found and cleaned up 2 empty switches in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$619'.
+Removing empty process `nqx_s1_rf.$proc$nqx_s1_rf.sv:31$619'.
+Found and cleaned up 2 empty switches in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$613'.
+Removing empty process `nqx_s1_rf.$proc$nqx_s1_rf.sv:31$613'.
+Found and cleaned up 2 empty switches in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$607'.
+Removing empty process `nqx_s1_rf.$proc$nqx_s1_rf.sv:31$607'.
+Found and cleaned up 2 empty switches in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$601'.
+Removing empty process `nqx_s1_rf.$proc$nqx_s1_rf.sv:31$601'.
+Found and cleaned up 2 empty switches in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$595'.
+Removing empty process `nqx_s1_rf.$proc$nqx_s1_rf.sv:31$595'.
+Found and cleaned up 2 empty switches in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$589'.
+Removing empty process `nqx_s1_rf.$proc$nqx_s1_rf.sv:31$589'.
+Found and cleaned up 2 empty switches in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$583'.
+Removing empty process `nqx_s1_rf.$proc$nqx_s1_rf.sv:31$583'.
+Found and cleaned up 2 empty switches in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$577'.
+Removing empty process `nqx_s1_rf.$proc$nqx_s1_rf.sv:31$577'.
+Found and cleaned up 2 empty switches in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$571'.
+Removing empty process `nqx_s1_rf.$proc$nqx_s1_rf.sv:31$571'.
+Found and cleaned up 2 empty switches in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$565'.
+Removing empty process `nqx_s1_rf.$proc$nqx_s1_rf.sv:31$565'.
+Found and cleaned up 2 empty switches in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$559'.
+Removing empty process `nqx_s1_rf.$proc$nqx_s1_rf.sv:31$559'.
+Found and cleaned up 2 empty switches in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$553'.
+Removing empty process `nqx_s1_rf.$proc$nqx_s1_rf.sv:31$553'.
+Found and cleaned up 2 empty switches in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$547'.
+Removing empty process `nqx_s1_rf.$proc$nqx_s1_rf.sv:31$547'.
+Found and cleaned up 2 empty switches in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$541'.
+Removing empty process `nqx_s1_rf.$proc$nqx_s1_rf.sv:31$541'.
+Found and cleaned up 2 empty switches in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$535'.
+Removing empty process `nqx_s1_rf.$proc$nqx_s1_rf.sv:31$535'.
+Found and cleaned up 2 empty switches in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$529'.
+Removing empty process `nqx_s1_rf.$proc$nqx_s1_rf.sv:31$529'.
+Found and cleaned up 2 empty switches in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$523'.
+Removing empty process `nqx_s1_rf.$proc$nqx_s1_rf.sv:31$523'.
+Found and cleaned up 2 empty switches in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$517'.
+Removing empty process `nqx_s1_rf.$proc$nqx_s1_rf.sv:31$517'.
+Found and cleaned up 2 empty switches in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$511'.
+Removing empty process `nqx_s1_rf.$proc$nqx_s1_rf.sv:31$511'.
+Found and cleaned up 2 empty switches in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$505'.
+Removing empty process `nqx_s1_rf.$proc$nqx_s1_rf.sv:31$505'.
+Found and cleaned up 2 empty switches in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$499'.
+Removing empty process `nqx_s1_rf.$proc$nqx_s1_rf.sv:31$499'.
+Found and cleaned up 2 empty switches in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$493'.
+Removing empty process `nqx_s1_rf.$proc$nqx_s1_rf.sv:31$493'.
+Found and cleaned up 2 empty switches in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$487'.
+Removing empty process `nqx_s1_rf.$proc$nqx_s1_rf.sv:31$487'.
+Found and cleaned up 2 empty switches in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$481'.
+Removing empty process `nqx_s1_rf.$proc$nqx_s1_rf.sv:31$481'.
+Found and cleaned up 2 empty switches in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$475'.
+Removing empty process `nqx_s1_rf.$proc$nqx_s1_rf.sv:31$475'.
+Found and cleaned up 2 empty switches in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$469'.
+Removing empty process `nqx_s1_rf.$proc$nqx_s1_rf.sv:31$469'.
+Found and cleaned up 2 empty switches in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$463'.
+Removing empty process `nqx_s1_rf.$proc$nqx_s1_rf.sv:31$463'.
+Found and cleaned up 2 empty switches in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$457'.
+Removing empty process `nqx_s1_rf.$proc$nqx_s1_rf.sv:31$457'.
+Found and cleaned up 2 empty switches in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$451'.
+Removing empty process `nqx_s1_rf.$proc$nqx_s1_rf.sv:31$451'.
+Found and cleaned up 2 empty switches in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$445'.
+Removing empty process `nqx_s1_rf.$proc$nqx_s1_rf.sv:31$445'.
+Found and cleaned up 2 empty switches in `\nqx_s1_rf.$proc$nqx_s1_rf.sv:31$439'.
+Removing empty process `nqx_s1_rf.$proc$nqx_s1_rf.sv:31$439'.
+Found and cleaned up 3 empty switches in `\nqx_s1_div28.$proc$nqx_s1_div28.sv:31$427'.
+Removing empty process `nqx_s1_div28.$proc$nqx_s1_div28.sv:31$427'.
+Found and cleaned up 1 empty switch in `$paramod\nqx_s1_cordic_iter\TAG_W=s32'00000000000000000000000000001110.$proc$nqx_s1_cordic_iter.sv:65$1629'.
+Removing empty process `$paramod\nqx_s1_cordic_iter\TAG_W=s32'00000000000000000000000000001110.$proc$nqx_s1_cordic_iter.sv:65$1629'.
+Found and cleaned up 4 empty switches in `$paramod\nqx_s1_cordic_iter\TAG_W=s32'00000000000000000000000000001110.$proc$nqx_s1_cordic_iter.sv:83$1601'.
+Removing empty process `$paramod\nqx_s1_cordic_iter\TAG_W=s32'00000000000000000000000000001110.$proc$nqx_s1_cordic_iter.sv:83$1601'.
+Removing empty process `core_props.$proc$core_props.sv:14$1413'.
+Removing empty process `core_props.$proc$core_props.sv:12$1412'.
+Removing empty process `core_props.$proc$core_props.sv:40$1406'.
+Removing empty process `core_props.$proc$core_props.sv:39$1401'.
+Found and cleaned up 3 empty switches in `\core_props.$proc$core_props.sv:31$1390'.
+Removing empty process `core_props.$proc$core_props.sv:31$1390'.
+Found and cleaned up 1 empty switch in `\core_props.$proc$core_props.sv:28$1380'.
+Removing empty process `core_props.$proc$core_props.sv:28$1380'.
+Removing empty process `core_props.$proc$core_props.sv:15$1379'.
+Removing empty process `core_props.$proc$core_props.sv:13$1378'.
+Cleaned up 325 empty switches.
+
+12.2.12. Executing OPT_EXPR pass (perform const folding).
+Optimizing module nqx_s1_core.
+<suppressed ~111 debug messages>
+Optimizing module nqx_s1_rf.
+<suppressed ~258 debug messages>
+Optimizing module nqx_s1_div28.
+<suppressed ~13 debug messages>
+Optimizing module nqx_s1_qdec.
+<suppressed ~1 debug messages>
+Optimizing module nqx_s1_tcode.
+Optimizing module nqx_s1_rsign.
+<suppressed ~3 debug messages>
+Optimizing module nqx_s1_rcode.
+<suppressed ~6 debug messages>
+Optimizing module $paramod\nqx_s1_cordic_iter\TAG_W=s32'00000000000000000000000000001110.
+<suppressed ~28 debug messages>
+Optimizing module core_props.
+<suppressed ~1 debug messages>
+
+12.3. Executing FUTURE pass.
+
+12.4. Executing OPT_EXPR pass (perform const folding).
+Optimizing module nqx_s1_core.
+Optimizing module nqx_s1_rf.
+Optimizing module nqx_s1_div28.
+Optimizing module nqx_s1_qdec.
+Optimizing module nqx_s1_tcode.
+Optimizing module nqx_s1_rsign.
+Optimizing module nqx_s1_rcode.
+Optimizing module $paramod\nqx_s1_cordic_iter\TAG_W=s32'00000000000000000000000000001110.
+Optimizing module core_props.
+
+12.5. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \nqx_s1_core..
+Finding unused cells or wires in module \nqx_s1_rf..
+Finding unused cells or wires in module \nqx_s1_div28..
+Finding unused cells or wires in module \nqx_s1_qdec..
+Finding unused cells or wires in module \nqx_s1_tcode..
+Finding unused cells or wires in module \nqx_s1_rsign..
+Finding unused cells or wires in module \nqx_s1_rcode..
+Finding unused cells or wires in module $paramod\nqx_s1_cordic_iter\TAG_W=s32'00000000000000000000000000001110..
+Finding unused cells or wires in module \core_props..
+Removed 344 unused cells and 1378 unused wires.
+<suppressed ~355 debug messages>
+
+12.6. Executing CHECK pass (checking for obvious problems).
+Checking module nqx_s1_core...
+Checking module nqx_s1_rf...
+Checking module nqx_s1_div28...
+Checking module nqx_s1_qdec...
+Checking module nqx_s1_tcode...
+Checking module nqx_s1_rsign...
+Checking module nqx_s1_rcode...
+Checking module $paramod\nqx_s1_cordic_iter\TAG_W=s32'00000000000000000000000000001110...
+Checking module core_props...
+Found and reported 0 problems.
+
+12.7. Executing OPT pass (performing simple optimizations).
+
+12.7.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module nqx_s1_core.
+Optimizing module nqx_s1_rf.
+Optimizing module nqx_s1_div28.
+Optimizing module nqx_s1_qdec.
+Optimizing module nqx_s1_tcode.
+Optimizing module nqx_s1_rsign.
+Optimizing module nqx_s1_rcode.
+Optimizing module $paramod\nqx_s1_cordic_iter\TAG_W=s32'00000000000000000000000000001110.
+Optimizing module core_props.
+
+12.7.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\nqx_s1_core'.
+Computing hashes of 607 cells of `\nqx_s1_core'.
+Finding duplicate cells in `\nqx_s1_core'.
+Computing hashes of 443 cells of `\nqx_s1_core'.
+Finding duplicate cells in `\nqx_s1_core'.
+Computing hashes of 442 cells of `\nqx_s1_core'.
+Finding duplicate cells in `\nqx_s1_core'.
+<suppressed ~495 debug messages>
+Finding identical cells in module `\nqx_s1_rf'.
+Computing hashes of 902 cells of `\nqx_s1_rf'.
+Finding duplicate cells in `\nqx_s1_rf'.
+Finding identical cells in module `\nqx_s1_div28'.
+Computing hashes of 25 cells of `\nqx_s1_div28'.
+Finding duplicate cells in `\nqx_s1_div28'.
+Finding identical cells in module `\nqx_s1_qdec'.
+Computing hashes of 12 cells of `\nqx_s1_qdec'.
+Finding duplicate cells in `\nqx_s1_qdec'.
+Finding identical cells in module `\nqx_s1_tcode'.
+Computing hashes of 3 cells of `\nqx_s1_tcode'.
+Finding duplicate cells in `\nqx_s1_tcode'.
+Finding identical cells in module `\nqx_s1_rsign'.
+Computing hashes of 7 cells of `\nqx_s1_rsign'.
+Finding duplicate cells in `\nqx_s1_rsign'.
+Finding identical cells in module `\nqx_s1_rcode'.
+Computing hashes of 20 cells of `\nqx_s1_rcode'.
+Finding duplicate cells in `\nqx_s1_rcode'.
+Finding identical cells in module `$paramod\nqx_s1_cordic_iter\TAG_W=s32'00000000000000000000000000001110'.
+Computing hashes of 97 cells of `$paramod\nqx_s1_cordic_iter\TAG_W=s32'00000000000000000000000000001110'.
+Finding duplicate cells in `$paramod\nqx_s1_cordic_iter\TAG_W=s32'00000000000000000000000000001110'.
+Finding identical cells in module `\core_props'.
+Computing hashes of 35 cells of `\core_props'.
+Finding duplicate cells in `\core_props'.
+Removed a total of 165 cells.
+
+12.7.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \nqx_s1_core..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+      Replacing known input bits on port A of cell $procmux$2831: \first -> 1'0
+  Analyzing evaluation results.
+    dead port 2/2 on $mux $procmux$1885.
+    dead port 2/2 on $mux $procmux$1883.
+    dead port 2/2 on $mux $procmux$1863.
+    dead port 2/2 on $mux $procmux$1861.
+    dead port 2/2 on $mux $procmux$1859.
+    dead port 2/2 on $mux $procmux$1834.
+    dead port 2/2 on $mux $procmux$1832.
+    dead port 1/2 on $mux $procmux$1830.
+    dead port 1/2 on $mux $procmux$1780.
+    dead port 1/2 on $mux $procmux$1774.
+    dead port 1/2 on $mux $procmux$1768.
+    dead port 1/2 on $mux $procmux$1762.
+    dead port 1/2 on $mux $procmux$1756.
+    dead port 1/2 on $mux $procmux$1750.
+    dead port 1/2 on $mux $procmux$1744.
+    dead port 1/2 on $mux $procmux$1741.
+    dead port 1/2 on $mux $procmux$1735.
+    dead port 1/2 on $mux $procmux$1732.
+    dead port 1/2 on $mux $procmux$1726.
+    dead port 1/2 on $mux $procmux$1723.
+    dead port 1/2 on $mux $procmux$1717.
+    dead port 1/2 on $mux $procmux$1714.
+    dead port 1/2 on $mux $procmux$1708.
+    dead port 1/2 on $mux $procmux$1705.
+    dead port 1/2 on $mux $procmux$1699.
+    dead port 1/2 on $mux $procmux$1696.
+    dead port 1/2 on $mux $procmux$1660.
+    dead port 1/2 on $mux $procmux$1654.
+    dead port 1/2 on $mux $procmux$1648.
+    dead port 1/2 on $mux $procmux$1642.
+Running muxtree optimizer on module \nqx_s1_rf..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \nqx_s1_div28..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+      Replacing known input bits on port A of cell $procmux$3559: \busy -> 1'0
+      Replacing known input bits on port A of cell $procmux$3557: \busy -> 1'1
+  Analyzing evaluation results.
+Running muxtree optimizer on module \nqx_s1_qdec..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \nqx_s1_tcode..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \nqx_s1_rsign..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \nqx_s1_rcode..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module $paramod\nqx_s1_cordic_iter\TAG_W=s32'00000000000000000000000000001110..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+      Replacing known input bits on port A of cell $procmux$3598: \loaded -> 1'0
+      Replacing known input bits on port A of cell $procmux$3596: \loaded -> 1'1
+      Replacing known input bits on port A of cell $procmux$3585: \fin -> 1'0
+  Analyzing evaluation results.
+Running muxtree optimizer on module \core_props..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 30 multiplexer ports.
+<suppressed ~866 debug messages>
+
+12.7.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \nqx_s1_core.
+    New ctrl vector for $pmux cell $procmux$2220: $auto$opt_reduce.cc:137:opt_pmux$4630
+    New ctrl vector for $pmux cell $procmux$2755: { $procmux$2756_CMP $procmux$2757_CMP $procmux$2758_CMP $auto$opt_reduce.cc:137:opt_pmux$4634 $auto$opt_reduce.cc:137:opt_pmux$4632 }
+    New ctrl vector for $pmux cell $procmux$1996: $auto$opt_reduce.cc:137:opt_pmux$4636
+    New ctrl vector for $pmux cell $procmux$2723: { $procmux$2724_CMP $auto$opt_reduce.cc:137:opt_pmux$4638 $procmux$2727_CMP $procmux$2728_CTRL $procmux$2729_CMP }
+    New ctrl vector for $pmux cell $procmux$1916: { $auto$opt_reduce.cc:137:opt_pmux$4642 $auto$opt_reduce.cc:137:opt_pmux$4640 $procmux$2764_CMP $procmux$2765_CMP $procmux$2766_CMP $procmux$2767_CMP $procmux$2768_CMP }
+    New ctrl vector for $pmux cell $procmux$2636: { $auto$opt_reduce.cc:137:opt_pmux$4644 $procmux$2761_CMP }
+    New ctrl vector for $pmux cell $procmux$2562: $auto$opt_reduce.cc:137:opt_pmux$4646
+  Optimizing cells in module \nqx_s1_core.
+  Optimizing cells in module \nqx_s1_rf.
+  Optimizing cells in module \nqx_s1_div28.
+  Optimizing cells in module \nqx_s1_qdec.
+  Optimizing cells in module \nqx_s1_tcode.
+  Optimizing cells in module \nqx_s1_rsign.
+  Optimizing cells in module \nqx_s1_rcode.
+  Optimizing cells in module $paramod\nqx_s1_cordic_iter\TAG_W=s32'00000000000000000000000000001110.
+  Optimizing cells in module $paramod\nqx_s1_cordic_iter\TAG_W=s32'00000000000000000000000000001110.
+  Optimizing cells in module \core_props.
+Performed a total of 9 changes.
+
+12.7.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\nqx_s1_core'.
+Computing hashes of 420 cells of `\nqx_s1_core'.
+Finding duplicate cells in `\nqx_s1_core'.
+Computing hashes of 412 cells of `\nqx_s1_core'.
+Finding duplicate cells in `\nqx_s1_core'.
+<suppressed ~24 debug messages>
+Finding identical cells in module `\nqx_s1_rf'.
+Computing hashes of 902 cells of `\nqx_s1_rf'.
+Finding duplicate cells in `\nqx_s1_rf'.
+Finding identical cells in module `\nqx_s1_div28'.
+Computing hashes of 25 cells of `\nqx_s1_div28'.
+Finding duplicate cells in `\nqx_s1_div28'.
+Finding identical cells in module `\nqx_s1_qdec'.
+Computing hashes of 12 cells of `\nqx_s1_qdec'.
+Finding duplicate cells in `\nqx_s1_qdec'.
+Finding identical cells in module `\nqx_s1_tcode'.
+Computing hashes of 3 cells of `\nqx_s1_tcode'.
+Finding duplicate cells in `\nqx_s1_tcode'.
+Finding identical cells in module `\nqx_s1_rsign'.
+Computing hashes of 7 cells of `\nqx_s1_rsign'.
+Finding duplicate cells in `\nqx_s1_rsign'.
+Finding identical cells in module `\nqx_s1_rcode'.
+Computing hashes of 20 cells of `\nqx_s1_rcode'.
+Finding duplicate cells in `\nqx_s1_rcode'.
+Finding identical cells in module `$paramod\nqx_s1_cordic_iter\TAG_W=s32'00000000000000000000000000001110'.
+Computing hashes of 96 cells of `$paramod\nqx_s1_cordic_iter\TAG_W=s32'00000000000000000000000000001110'.
+Finding duplicate cells in `$paramod\nqx_s1_cordic_iter\TAG_W=s32'00000000000000000000000000001110'.
+Finding identical cells in module `\core_props'.
+Computing hashes of 35 cells of `\core_props'.
+Finding duplicate cells in `\core_props'.
+Removed a total of 8 cells.
+
+12.7.6. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \nqx_s1_core..
+Finding unused cells or wires in module \nqx_s1_rf..
+Finding unused cells or wires in module \nqx_s1_div28..
+Finding unused cells or wires in module \nqx_s1_qdec..
+Finding unused cells or wires in module \nqx_s1_tcode..
+Finding unused cells or wires in module \nqx_s1_rsign..
+Finding unused cells or wires in module \nqx_s1_rcode..
+Finding unused cells or wires in module $paramod\nqx_s1_cordic_iter\TAG_W=s32'00000000000000000000000000001110..
+Finding unused cells or wires in module \core_props..
+Removed 0 unused cells and 204 unused wires.
+<suppressed ~2 debug messages>
+
+12.7.7. Executing OPT_EXPR pass (perform const folding).
+Optimizing module nqx_s1_core.
+Optimizing module nqx_s1_rf.
+Optimizing module nqx_s1_div28.
+Optimizing module nqx_s1_qdec.
+Optimizing module nqx_s1_tcode.
+Optimizing module nqx_s1_rsign.
+Optimizing module nqx_s1_rcode.
+Optimizing module $paramod\nqx_s1_cordic_iter\TAG_W=s32'00000000000000000000000000001110.
+Optimizing module core_props.
+
+12.7.8. Rerunning OPT passes. (Maybe there is more to do..)
+
+12.7.9. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \nqx_s1_core..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \nqx_s1_rf..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \nqx_s1_div28..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \nqx_s1_qdec..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \nqx_s1_tcode..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \nqx_s1_rsign..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \nqx_s1_rcode..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module $paramod\nqx_s1_cordic_iter\TAG_W=s32'00000000000000000000000000001110..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \core_props..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~820 debug messages>
+
+12.7.10. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \nqx_s1_core.
+    New ctrl vector for $pmux cell $procmux$2336: $auto$opt_reduce.cc:137:opt_pmux$4648
+    New ctrl vector for $pmux cell $procmux$2866: { $auto$opt_reduce.cc:137:opt_pmux$4650 $procmux$2340_CMP $procmux$1803_CMP $eq$nqx_s1_core.sv:147$1426_Y $procmux$2068_CMP $eq$nqx_s1_core.sv:146$1420_Y }
+    New ctrl vector for $pmux cell $procmux$2470: $auto$opt_reduce.cc:137:opt_pmux$4652
+  Optimizing cells in module \nqx_s1_core.
+  Optimizing cells in module \nqx_s1_rf.
+  Optimizing cells in module \nqx_s1_div28.
+  Optimizing cells in module \nqx_s1_qdec.
+  Optimizing cells in module \nqx_s1_tcode.
+  Optimizing cells in module \nqx_s1_rsign.
+  Optimizing cells in module \nqx_s1_rcode.
+  Optimizing cells in module $paramod\nqx_s1_cordic_iter\TAG_W=s32'00000000000000000000000000001110.
+  Optimizing cells in module \core_props.
+Performed a total of 3 changes.
+
+12.7.11. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\nqx_s1_core'.
+Computing hashes of 415 cells of `\nqx_s1_core'.
+Finding duplicate cells in `\nqx_s1_core'.
+Finding identical cells in module `\nqx_s1_rf'.
+Computing hashes of 902 cells of `\nqx_s1_rf'.
+Finding duplicate cells in `\nqx_s1_rf'.
+Finding identical cells in module `\nqx_s1_div28'.
+Computing hashes of 25 cells of `\nqx_s1_div28'.
+Finding duplicate cells in `\nqx_s1_div28'.
+Finding identical cells in module `\nqx_s1_qdec'.
+Computing hashes of 12 cells of `\nqx_s1_qdec'.
+Finding duplicate cells in `\nqx_s1_qdec'.
+Finding identical cells in module `\nqx_s1_tcode'.
+Computing hashes of 3 cells of `\nqx_s1_tcode'.
+Finding duplicate cells in `\nqx_s1_tcode'.
+Finding identical cells in module `\nqx_s1_rsign'.
+Computing hashes of 7 cells of `\nqx_s1_rsign'.
+Finding duplicate cells in `\nqx_s1_rsign'.
+Finding identical cells in module `\nqx_s1_rcode'.
+Computing hashes of 20 cells of `\nqx_s1_rcode'.
+Finding duplicate cells in `\nqx_s1_rcode'.
+Finding identical cells in module `$paramod\nqx_s1_cordic_iter\TAG_W=s32'00000000000000000000000000001110'.
+Computing hashes of 96 cells of `$paramod\nqx_s1_cordic_iter\TAG_W=s32'00000000000000000000000000001110'.
+Finding duplicate cells in `$paramod\nqx_s1_cordic_iter\TAG_W=s32'00000000000000000000000000001110'.
+Finding identical cells in module `\core_props'.
+Computing hashes of 35 cells of `\core_props'.
+Finding duplicate cells in `\core_props'.
+Removed a total of 0 cells.
+
+12.7.12. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \nqx_s1_core..
+Finding unused cells or wires in module \nqx_s1_rf..
+Finding unused cells or wires in module \nqx_s1_div28..
+Finding unused cells or wires in module \nqx_s1_qdec..
+Finding unused cells or wires in module \nqx_s1_tcode..
+Finding unused cells or wires in module \nqx_s1_rsign..
+Finding unused cells or wires in module \nqx_s1_rcode..
+Finding unused cells or wires in module $paramod\nqx_s1_cordic_iter\TAG_W=s32'00000000000000000000000000001110..
+Finding unused cells or wires in module \core_props..
+
+12.7.13. Executing OPT_EXPR pass (perform const folding).
+Optimizing module nqx_s1_core.
+Optimizing module nqx_s1_rf.
+Optimizing module nqx_s1_div28.
+Optimizing module nqx_s1_qdec.
+Optimizing module nqx_s1_tcode.
+Optimizing module nqx_s1_rsign.
+Optimizing module nqx_s1_rcode.
+Optimizing module $paramod\nqx_s1_cordic_iter\TAG_W=s32'00000000000000000000000000001110.
+Optimizing module core_props.
+
+12.7.14. Rerunning OPT passes. (Maybe there is more to do..)
+
+12.7.15. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \nqx_s1_core..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \nqx_s1_rf..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \nqx_s1_div28..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \nqx_s1_qdec..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \nqx_s1_tcode..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \nqx_s1_rsign..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \nqx_s1_rcode..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module $paramod\nqx_s1_cordic_iter\TAG_W=s32'00000000000000000000000000001110..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \core_props..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~805 debug messages>
+
+12.7.16. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \nqx_s1_core.
+  Optimizing cells in module \nqx_s1_rf.
+  Optimizing cells in module \nqx_s1_div28.
+  Optimizing cells in module \nqx_s1_qdec.
+  Optimizing cells in module \nqx_s1_tcode.
+  Optimizing cells in module \nqx_s1_rsign.
+  Optimizing cells in module \nqx_s1_rcode.
+  Optimizing cells in module $paramod\nqx_s1_cordic_iter\TAG_W=s32'00000000000000000000000000001110.
+  Optimizing cells in module \core_props.
+Performed a total of 0 changes.
+
+12.7.17. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\nqx_s1_core'.
+Computing hashes of 415 cells of `\nqx_s1_core'.
+Finding duplicate cells in `\nqx_s1_core'.
+Finding identical cells in module `\nqx_s1_rf'.
+Computing hashes of 902 cells of `\nqx_s1_rf'.
+Finding duplicate cells in `\nqx_s1_rf'.
+Finding identical cells in module `\nqx_s1_div28'.
+Computing hashes of 25 cells of `\nqx_s1_div28'.
+Finding duplicate cells in `\nqx_s1_div28'.
+Finding identical cells in module `\nqx_s1_qdec'.
+Computing hashes of 12 cells of `\nqx_s1_qdec'.
+Finding duplicate cells in `\nqx_s1_qdec'.
+Finding identical cells in module `\nqx_s1_tcode'.
+Computing hashes of 3 cells of `\nqx_s1_tcode'.
+Finding duplicate cells in `\nqx_s1_tcode'.
+Finding identical cells in module `\nqx_s1_rsign'.
+Computing hashes of 7 cells of `\nqx_s1_rsign'.
+Finding duplicate cells in `\nqx_s1_rsign'.
+Finding identical cells in module `\nqx_s1_rcode'.
+Computing hashes of 20 cells of `\nqx_s1_rcode'.
+Finding duplicate cells in `\nqx_s1_rcode'.
+Finding identical cells in module `$paramod\nqx_s1_cordic_iter\TAG_W=s32'00000000000000000000000000001110'.
+Computing hashes of 96 cells of `$paramod\nqx_s1_cordic_iter\TAG_W=s32'00000000000000000000000000001110'.
+Finding duplicate cells in `$paramod\nqx_s1_cordic_iter\TAG_W=s32'00000000000000000000000000001110'.
+Finding identical cells in module `\core_props'.
+Computing hashes of 35 cells of `\core_props'.
+Finding duplicate cells in `\core_props'.
+Removed a total of 0 cells.
+
+12.7.18. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \nqx_s1_core..
+Finding unused cells or wires in module \nqx_s1_rf..
+Finding unused cells or wires in module \nqx_s1_div28..
+Finding unused cells or wires in module \nqx_s1_qdec..
+Finding unused cells or wires in module \nqx_s1_tcode..
+Finding unused cells or wires in module \nqx_s1_rsign..
+Finding unused cells or wires in module \nqx_s1_rcode..
+Finding unused cells or wires in module $paramod\nqx_s1_cordic_iter\TAG_W=s32'00000000000000000000000000001110..
+Finding unused cells or wires in module \core_props..
+
+12.7.19. Executing OPT_EXPR pass (perform const folding).
+Optimizing module nqx_s1_core.
+Optimizing module nqx_s1_rf.
+Optimizing module nqx_s1_div28.
+Optimizing module nqx_s1_qdec.
+Optimizing module nqx_s1_tcode.
+Optimizing module nqx_s1_rsign.
+Optimizing module nqx_s1_rcode.
+Optimizing module $paramod\nqx_s1_cordic_iter\TAG_W=s32'00000000000000000000000000001110.
+Optimizing module core_props.
+
+12.7.20. Finished fast OPT passes. (There is nothing left to do.)
+
+12.8. Executing WREDUCE pass (reducing word size of cells).
+Removed top 1 bits (of 2) from port B of cell nqx_s1_core.$eq$nqx_s1_core.sv:157$1437 ($eq).
+Removed top 1 bits (of 7) from port B of cell nqx_s1_core.$add$nqx_s1_core.sv:175$1448 ($add).
+Removed top 19 bits (of 20) from port B of cell nqx_s1_core.$add$nqx_s1_core.sv:198$1451 ($add).
+Removed top 5 bits (of 6) from port B of cell nqx_s1_core.$add$nqx_s1_core.sv:245$1466 ($add).
+Removed top 5 bits (of 6) from port B of cell nqx_s1_core.$sub$nqx_s1_core.sv:245$1467 ($sub).
+Removed top 1 bits (of 24) from port B of cell nqx_s1_core.$gt$nqx_s1_core.sv:264$1469 ($gt).
+Removed top 1 bits (of 24) from port B of cell nqx_s1_core.$gt$nqx_s1_core.sv:264$1470 ($gt).
+Removed top 7 bits (of 32) from port A of cell nqx_s1_core.$add$nqx_s1_core.sv:286$1480 ($add).
+Removed top 28 bits (of 32) from port B of cell nqx_s1_core.$add$nqx_s1_core.sv:286$1480 ($add).
+Removed top 7 bits (of 32) from port Y of cell nqx_s1_core.$add$nqx_s1_core.sv:286$1480 ($add).
+Removed top 16 bits (of 32) from port B of cell nqx_s1_core.$gt$nqx_s1_core.sv:291$1482 ($gt).
+Removed top 16 bits (of 32) from port B of cell nqx_s1_core.$lt$nqx_s1_core.sv:292$1483 ($lt).
+Removed top 6 bits (of 8) from port B of cell nqx_s1_core.$gt$nqx_s1_core.sv:467$1516 ($gt).
+Removed top 1 bits (of 3) from port B of cell nqx_s1_core.$eq$nqx_s1_core.sv:487$1518 ($eq).
+Removed top 2 bits (of 3) from port B of cell nqx_s1_core.$eq$nqx_s1_core.sv:520$1520 ($eq).
+Removed top 1 bits (of 5) from mux cell nqx_s1_core.$ternary$nqx_s1_core.sv:534$1522 ($mux).
+Removed top 1 bits (of 2) from port B of cell nqx_s1_core.$eq$nqx_s1_core.sv:79$1532 ($eq).
+Removed top 28 bits (of 32) from port A of cell nqx_s1_core.$mul$nqx_s1_core.sv:580$1544 ($mul).
+Removed top 25 bits (of 32) from port Y of cell nqx_s1_core.$mul$nqx_s1_core.sv:580$1544 ($mul).
+Removed top 25 bits (of 32) from port A of cell nqx_s1_core.$add$nqx_s1_core.sv:580$1545 ($add).
+Removed top 31 bits (of 32) from port B of cell nqx_s1_core.$add$nqx_s1_core.sv:580$1545 ($add).
+Removed top 24 bits (of 32) from port Y of cell nqx_s1_core.$add$nqx_s1_core.sv:580$1545 ($add).
+Removed top 23 bits (of 32) from port B of cell nqx_s1_core.$shiftx$nqx_s1_core.sv:580$1546 ($shiftx).
+Removed top 2 bits (of 3) from port B of cell nqx_s1_core.$eq$nqx_s1_core.sv:582$1548 ($eq).
+Removed top 1 bits (of 3) from port B of cell nqx_s1_core.$eq$nqx_s1_core.sv:582$1551 ($eq).
+Removed top 23 bits (of 32) from port B of cell nqx_s1_core.$shiftx$nqx_s1_core.sv:606$1566 ($shiftx).
+Removed top 1 bits (of 25) from port A of cell nqx_s1_core.$sub$nqx_s1_core.sv:613$1569 ($sub).
+Removed top 1 bits (of 7) from port B of cell nqx_s1_core.$eq$nqx_s1_core.sv:627$1571 ($eq).
+Removed top 3 bits (of 8) from port B of cell nqx_s1_core.$procmux$1676_CMP0 ($eq).
+Removed top 3 bits (of 8) from port B of cell nqx_s1_core.$procmux$1677_CMP0 ($eq).
+Removed top 3 bits (of 8) from port B of cell nqx_s1_core.$procmux$1678_CMP0 ($eq).
+Removed top 3 bits (of 8) from port B of cell nqx_s1_core.$procmux$1679_CMP0 ($eq).
+Removed top 3 bits (of 8) from port B of cell nqx_s1_core.$procmux$1680_CMP0 ($eq).
+Removed top 4 bits (of 8) from port B of cell nqx_s1_core.$procmux$1682_CMP0 ($eq).
+Removed top 4 bits (of 8) from port B of cell nqx_s1_core.$procmux$1683_CMP0 ($eq).
+Removed top 6 bits (of 8) from port B of cell nqx_s1_core.$procmux$1689_CMP0 ($eq).
+Removed top 7 bits (of 8) from port B of cell nqx_s1_core.$procmux$1690_CMP0 ($eq).
+Removed top 1 bits (of 3) from port B of cell nqx_s1_core.$procmux$1855_CMP0 ($eq).
+Removed top 1 bits (of 3) from port B of cell nqx_s1_core.$procmux$1856_CMP0 ($eq).
+Removed top 2 bits (of 3) from port B of cell nqx_s1_core.$procmux$1857_CMP0 ($eq).
+Removed top 4 bits (of 8) from port B of cell nqx_s1_core.$procmux$2131_CMP0 ($eq).
+Removed top 5 bits (of 8) from port B of cell nqx_s1_core.$procmux$2206_CMP0 ($eq).
+Removed top 5 bits (of 8) from port B of cell nqx_s1_core.$procmux$2260_CMP0 ($eq).
+Removed top 5 bits (of 8) from port B of cell nqx_s1_core.$procmux$2289_CMP0 ($eq).
+Removed top 5 bits (of 8) from port B of cell nqx_s1_core.$procmux$2319_CMP0 ($eq).
+Removed top 1 bits (of 5) from mux cell nqx_s1_core.$procmux$2682 ($mux).
+Removed top 1 bits (of 5) from port B of cell nqx_s1_core.$procmux$2686_CMP0 ($eq).
+Removed top 1 bits (of 5) from port B of cell nqx_s1_core.$procmux$2687_CMP0 ($eq).
+Removed top 1 bits (of 5) from port B of cell nqx_s1_core.$procmux$2696_CMP0 ($eq).
+Removed top 1 bits (of 5) from port B of cell nqx_s1_core.$procmux$2701_CMP0 ($eq).
+Removed top 2 bits (of 5) from mux cell nqx_s1_core.$procmux$2719 ($mux).
+Removed top 2 bits (of 5) from port B of cell nqx_s1_core.$procmux$2721_CMP0 ($eq).
+Removed top 1 bits (of 3) from port B of cell nqx_s1_core.$procmux$2727_CMP0 ($eq).
+Removed top 2 bits (of 3) from port B of cell nqx_s1_core.$procmux$2728_CMP0 ($eq).
+Removed top 1 bits (of 3) from port B of cell nqx_s1_core.$procmux$2728_CMP1 ($eq).
+Removed top 2 bits (of 5) from port B of cell nqx_s1_core.$procmux$2735_CMP0 ($eq).
+Removed top 2 bits (of 5) from port B of cell nqx_s1_core.$procmux$2739_CMP0 ($eq).
+Removed top 2 bits (of 5) from mux cell nqx_s1_core.$procmux$2749 ($mux).
+Removed top 4 bits (of 5) from port B of cell nqx_s1_core.$procmux$2753_CMP0 ($eq).
+Removed top 1 bits (of 8) from port B of cell nqx_s1_core.$procmux$2756_CMP0 ($eq).
+Removed top 1 bits (of 8) from port B of cell nqx_s1_core.$procmux$2757_CMP0 ($eq).
+Removed top 1 bits (of 8) from port B of cell nqx_s1_core.$procmux$2758_CMP0 ($eq).
+Removed top 1 bits (of 8) from port B of cell nqx_s1_core.$procmux$2759_CMP0 ($eq).
+Removed top 1 bits (of 8) from port B of cell nqx_s1_core.$procmux$2760_CMP0 ($eq).
+Removed top 3 bits (of 8) from port B of cell nqx_s1_core.$procmux$2761_CMP0 ($eq).
+Removed top 3 bits (of 8) from port B of cell nqx_s1_core.$procmux$2762_CMP0 ($eq).
+Removed top 2 bits (of 8) from port B of cell nqx_s1_core.$procmux$2763_CMP0 ($eq).
+Removed top 2 bits (of 8) from port B of cell nqx_s1_core.$procmux$2764_CMP0 ($eq).
+Removed top 2 bits (of 8) from port B of cell nqx_s1_core.$procmux$2765_CMP0 ($eq).
+Removed top 2 bits (of 8) from port B of cell nqx_s1_core.$procmux$2766_CMP0 ($eq).
+Removed top 6 bits (of 8) from port B of cell nqx_s1_core.$procmux$2767_CMP0 ($eq).
+Removed top 6 bits (of 8) from port B of cell nqx_s1_core.$procmux$2768_CMP0 ($eq).
+Removed top 7 bits (of 8) from port B of cell nqx_s1_core.$procmux$2769_CMP0 ($eq).
+Removed top 1 bits (of 5) from port B of cell nqx_s1_core.$procmux$2782_CMP0 ($eq).
+Removed top 6 bits (of 8) from port B of cell nqx_s1_core.$procmux$2808_CMP0 ($eq).
+Removed top 1 bits (of 5) from port B of cell nqx_s1_core.$procmux$2870_CMP0 ($eq).
+Removed top 1 bits (of 5) from port B of cell nqx_s1_core.$procmux$2876_CMP0 ($eq).
+Removed top 2 bits (of 3) from mux cell nqx_s1_core.$procmux$2878 ($mux).
+Removed top 1 bits (of 5) from port B of cell nqx_s1_core.$procmux$2882_CMP0 ($eq).
+Removed top 2 bits (of 5) from port B of cell nqx_s1_core.$procmux$2883_CMP0 ($eq).
+Removed top 3 bits (of 5) from port B of cell nqx_s1_core.$procmux$2886_CMP0 ($eq).
+Removed top 3 bits (of 5) from port B of cell nqx_s1_core.$procmux$2889_CMP0 ($eq).
+Removed top 2 bits (of 3) from wire nqx_s1_core.$procmux$2878_Y.
+Removed top 2 bits (of 5) from wire nqx_s1_core.$procmux$2719_Y.
+Removed top 2 bits (of 5) from wire nqx_s1_core.$procmux$2749_Y.
+Removed top 1 bits (of 5) from wire nqx_s1_core.$procmux$2682_Y.
+Removed top 1 bits (of 5) from wire nqx_s1_core.$ternary$nqx_s1_core.sv:534$1522_Y.
+Removed top 25 bits (of 32) from wire nqx_s1_core.$mul$nqx_s1_core.sv:580$1544_Y.
+Removed top 24 bits (of 32) from wire nqx_s1_core.$add$nqx_s1_core.sv:580$1545_Y.
+Removed top 27 bits (of 32) from port B of cell nqx_s1_rf.$mul$nqx_s1_rf.sv:43$433 ($mul).
+Removed top 20 bits (of 32) from port Y of cell nqx_s1_rf.$mul$nqx_s1_rf.sv:43$433 ($mul).
+Removed top 20 bits (of 32) from port A of cell nqx_s1_rf.$add$nqx_s1_rf.sv:43$434 ($add).
+Removed top 31 bits (of 32) from port B of cell nqx_s1_rf.$add$nqx_s1_rf.sv:43$434 ($add).
+Removed top 19 bits (of 32) from port Y of cell nqx_s1_rf.$add$nqx_s1_rf.sv:43$434 ($add).
+Removed top 18 bits (of 32) from port B of cell nqx_s1_rf.$shiftx$nqx_s1_rf.sv:43$435 ($shiftx).
+Removed top 27 bits (of 32) from port B of cell nqx_s1_rf.$mul$nqx_s1_rf.sv:44$436 ($mul).
+Removed top 20 bits (of 32) from port Y of cell nqx_s1_rf.$mul$nqx_s1_rf.sv:44$436 ($mul).
+Removed top 20 bits (of 32) from port A of cell nqx_s1_rf.$add$nqx_s1_rf.sv:44$437 ($add).
+Removed top 31 bits (of 32) from port B of cell nqx_s1_rf.$add$nqx_s1_rf.sv:44$437 ($add).
+Removed top 19 bits (of 32) from port Y of cell nqx_s1_rf.$add$nqx_s1_rf.sv:44$437 ($add).
+Removed top 18 bits (of 32) from port B of cell nqx_s1_rf.$shiftx$nqx_s1_rf.sv:44$438 ($shiftx).
+Removed top 6 bits (of 7) from port B of cell nqx_s1_rf.$eq$nqx_s1_rf.sv:34$447 ($eq).
+Removed top 6 bits (of 7) from port B of cell nqx_s1_rf.$eq$nqx_s1_rf.sv:36$449 ($eq).
+Removed top 5 bits (of 7) from port B of cell nqx_s1_rf.$eq$nqx_s1_rf.sv:34$453 ($eq).
+Removed top 5 bits (of 7) from port B of cell nqx_s1_rf.$eq$nqx_s1_rf.sv:36$455 ($eq).
+Removed top 5 bits (of 7) from port B of cell nqx_s1_rf.$eq$nqx_s1_rf.sv:34$459 ($eq).
+Removed top 5 bits (of 7) from port B of cell nqx_s1_rf.$eq$nqx_s1_rf.sv:36$461 ($eq).
+Removed top 4 bits (of 7) from port B of cell nqx_s1_rf.$eq$nqx_s1_rf.sv:34$465 ($eq).
+Removed top 4 bits (of 7) from port B of cell nqx_s1_rf.$eq$nqx_s1_rf.sv:36$467 ($eq).
+Removed top 4 bits (of 7) from port B of cell nqx_s1_rf.$eq$nqx_s1_rf.sv:34$471 ($eq).
+Removed top 4 bits (of 7) from port B of cell nqx_s1_rf.$eq$nqx_s1_rf.sv:36$473 ($eq).
+Removed top 4 bits (of 7) from port B of cell nqx_s1_rf.$eq$nqx_s1_rf.sv:34$477 ($eq).
+Removed top 4 bits (of 7) from port B of cell nqx_s1_rf.$eq$nqx_s1_rf.sv:36$479 ($eq).
+Removed top 4 bits (of 7) from port B of cell nqx_s1_rf.$eq$nqx_s1_rf.sv:34$483 ($eq).
+Removed top 4 bits (of 7) from port B of cell nqx_s1_rf.$eq$nqx_s1_rf.sv:36$485 ($eq).
+Removed top 3 bits (of 7) from port B of cell nqx_s1_rf.$eq$nqx_s1_rf.sv:34$489 ($eq).
+Removed top 3 bits (of 7) from port B of cell nqx_s1_rf.$eq$nqx_s1_rf.sv:36$491 ($eq).
+Removed top 3 bits (of 7) from port B of cell nqx_s1_rf.$eq$nqx_s1_rf.sv:34$495 ($eq).
+Removed top 3 bits (of 7) from port B of cell nqx_s1_rf.$eq$nqx_s1_rf.sv:36$497 ($eq).
+Removed top 3 bits (of 7) from port B of cell nqx_s1_rf.$eq$nqx_s1_rf.sv:34$501 ($eq).
+Removed top 3 bits (of 7) from port B of cell nqx_s1_rf.$eq$nqx_s1_rf.sv:36$503 ($eq).
+Removed top 3 bits (of 7) from port B of cell nqx_s1_rf.$eq$nqx_s1_rf.sv:34$507 ($eq).
+Removed top 3 bits (of 7) from port B of cell nqx_s1_rf.$eq$nqx_s1_rf.sv:36$509 ($eq).
+Removed top 3 bits (of 7) from port B of cell nqx_s1_rf.$eq$nqx_s1_rf.sv:34$513 ($eq).
+Removed top 3 bits (of 7) from port B of cell nqx_s1_rf.$eq$nqx_s1_rf.sv:36$515 ($eq).
+Removed top 3 bits (of 7) from port B of cell nqx_s1_rf.$eq$nqx_s1_rf.sv:34$519 ($eq).
+Removed top 3 bits (of 7) from port B of cell nqx_s1_rf.$eq$nqx_s1_rf.sv:36$521 ($eq).
+Removed top 3 bits (of 7) from port B of cell nqx_s1_rf.$eq$nqx_s1_rf.sv:34$525 ($eq).
+Removed top 3 bits (of 7) from port B of cell nqx_s1_rf.$eq$nqx_s1_rf.sv:36$527 ($eq).
+Removed top 3 bits (of 7) from port B of cell nqx_s1_rf.$eq$nqx_s1_rf.sv:34$531 ($eq).
+Removed top 3 bits (of 7) from port B of cell nqx_s1_rf.$eq$nqx_s1_rf.sv:36$533 ($eq).
+Removed top 2 bits (of 7) from port B of cell nqx_s1_rf.$eq$nqx_s1_rf.sv:34$537 ($eq).
+Removed top 2 bits (of 7) from port B of cell nqx_s1_rf.$eq$nqx_s1_rf.sv:36$539 ($eq).
+Removed top 2 bits (of 7) from port B of cell nqx_s1_rf.$eq$nqx_s1_rf.sv:34$543 ($eq).
+Removed top 2 bits (of 7) from port B of cell nqx_s1_rf.$eq$nqx_s1_rf.sv:36$545 ($eq).
+Removed top 2 bits (of 7) from port B of cell nqx_s1_rf.$eq$nqx_s1_rf.sv:34$549 ($eq).
+Removed top 2 bits (of 7) from port B of cell nqx_s1_rf.$eq$nqx_s1_rf.sv:36$551 ($eq).
+Removed top 2 bits (of 7) from port B of cell nqx_s1_rf.$eq$nqx_s1_rf.sv:34$555 ($eq).
+Removed top 2 bits (of 7) from port B of cell nqx_s1_rf.$eq$nqx_s1_rf.sv:36$557 ($eq).
+Removed top 2 bits (of 7) from port B of cell nqx_s1_rf.$eq$nqx_s1_rf.sv:34$561 ($eq).
+Removed top 2 bits (of 7) from port B of cell nqx_s1_rf.$eq$nqx_s1_rf.sv:36$563 ($eq).
+Removed top 2 bits (of 7) from port B of cell nqx_s1_rf.$eq$nqx_s1_rf.sv:34$567 ($eq).
+Removed top 2 bits (of 7) from port B of cell nqx_s1_rf.$eq$nqx_s1_rf.sv:36$569 ($eq).
+Removed top 2 bits (of 7) from port B of cell nqx_s1_rf.$eq$nqx_s1_rf.sv:34$573 ($eq).
+Removed top 2 bits (of 7) from port B of cell nqx_s1_rf.$eq$nqx_s1_rf.sv:36$575 ($eq).
+Removed top 2 bits (of 7) from port B of cell nqx_s1_rf.$eq$nqx_s1_rf.sv:34$579 ($eq).
+Removed top 2 bits (of 7) from port B of cell nqx_s1_rf.$eq$nqx_s1_rf.sv:36$581 ($eq).
+Removed top 2 bits (of 7) from port B of cell nqx_s1_rf.$eq$nqx_s1_rf.sv:34$585 ($eq).
+Removed top 2 bits (of 7) from port B of cell nqx_s1_rf.$eq$nqx_s1_rf.sv:36$587 ($eq).
+Removed top 2 bits (of 7) from port B of cell nqx_s1_rf.$eq$nqx_s1_rf.sv:34$591 ($eq).
+Removed top 2 bits (of 7) from port B of cell nqx_s1_rf.$eq$nqx_s1_rf.sv:36$593 ($eq).
+Removed top 2 bits (of 7) from port B of cell nqx_s1_rf.$eq$nqx_s1_rf.sv:34$597 ($eq).
+Removed top 2 bits (of 7) from port B of cell nqx_s1_rf.$eq$nqx_s1_rf.sv:36$599 ($eq).
+Removed top 2 bits (of 7) from port B of cell nqx_s1_rf.$eq$nqx_s1_rf.sv:34$603 ($eq).
+Removed top 2 bits (of 7) from port B of cell nqx_s1_rf.$eq$nqx_s1_rf.sv:36$605 ($eq).
+Removed top 2 bits (of 7) from port B of cell nqx_s1_rf.$eq$nqx_s1_rf.sv:34$609 ($eq).
+Removed top 2 bits (of 7) from port B of cell nqx_s1_rf.$eq$nqx_s1_rf.sv:36$611 ($eq).
+Removed top 2 bits (of 7) from port B of cell nqx_s1_rf.$eq$nqx_s1_rf.sv:34$615 ($eq).
+Removed top 2 bits (of 7) from port B of cell nqx_s1_rf.$eq$nqx_s1_rf.sv:36$617 ($eq).
+Removed top 2 bits (of 7) from port B of cell nqx_s1_rf.$eq$nqx_s1_rf.sv:34$621 ($eq).
+Removed top 2 bits (of 7) from port B of cell nqx_s1_rf.$eq$nqx_s1_rf.sv:36$623 ($eq).
+Removed top 2 bits (of 7) from port B of cell nqx_s1_rf.$eq$nqx_s1_rf.sv:34$627 ($eq).
+Removed top 2 bits (of 7) from port B of cell nqx_s1_rf.$eq$nqx_s1_rf.sv:36$629 ($eq).
+Removed top 1 bits (of 7) from port B of cell nqx_s1_rf.$eq$nqx_s1_rf.sv:34$633 ($eq).
+Removed top 1 bits (of 7) from port B of cell nqx_s1_rf.$eq$nqx_s1_rf.sv:36$635 ($eq).
+Removed top 1 bits (of 7) from port B of cell nqx_s1_rf.$eq$nqx_s1_rf.sv:34$639 ($eq).
+Removed top 1 bits (of 7) from port B of cell nqx_s1_rf.$eq$nqx_s1_rf.sv:36$641 ($eq).
+Removed top 1 bits (of 7) from port B of cell nqx_s1_rf.$eq$nqx_s1_rf.sv:34$645 ($eq).
+Removed top 1 bits (of 7) from port B of cell nqx_s1_rf.$eq$nqx_s1_rf.sv:36$647 ($eq).
+Removed top 1 bits (of 7) from port B of cell nqx_s1_rf.$eq$nqx_s1_rf.sv:34$651 ($eq).
+Removed top 1 bits (of 7) from port B of cell nqx_s1_rf.$eq$nqx_s1_rf.sv:36$653 ($eq).
+Removed top 1 bits (of 7) from port B of cell nqx_s1_rf.$eq$nqx_s1_rf.sv:34$657 ($eq).
+Removed top 1 bits (of 7) from port B of cell nqx_s1_rf.$eq$nqx_s1_rf.sv:36$659 ($eq).
+Removed top 1 bits (of 7) from port B of cell nqx_s1_rf.$eq$nqx_s1_rf.sv:34$663 ($eq).
+Removed top 1 bits (of 7) from port B of cell nqx_s1_rf.$eq$nqx_s1_rf.sv:36$665 ($eq).
+Removed top 1 bits (of 7) from port B of cell nqx_s1_rf.$eq$nqx_s1_rf.sv:34$669 ($eq).
+Removed top 1 bits (of 7) from port B of cell nqx_s1_rf.$eq$nqx_s1_rf.sv:36$671 ($eq).
+Removed top 1 bits (of 7) from port B of cell nqx_s1_rf.$eq$nqx_s1_rf.sv:34$675 ($eq).
+Removed top 1 bits (of 7) from port B of cell nqx_s1_rf.$eq$nqx_s1_rf.sv:36$677 ($eq).
+Removed top 1 bits (of 7) from port B of cell nqx_s1_rf.$eq$nqx_s1_rf.sv:34$681 ($eq).
+Removed top 1 bits (of 7) from port B of cell nqx_s1_rf.$eq$nqx_s1_rf.sv:36$683 ($eq).
+Removed top 1 bits (of 7) from port B of cell nqx_s1_rf.$eq$nqx_s1_rf.sv:34$687 ($eq).
+Removed top 1 bits (of 7) from port B of cell nqx_s1_rf.$eq$nqx_s1_rf.sv:36$689 ($eq).
+Removed top 1 bits (of 7) from port B of cell nqx_s1_rf.$eq$nqx_s1_rf.sv:34$693 ($eq).
+Removed top 1 bits (of 7) from port B of cell nqx_s1_rf.$eq$nqx_s1_rf.sv:36$695 ($eq).
+Removed top 1 bits (of 7) from port B of cell nqx_s1_rf.$eq$nqx_s1_rf.sv:34$699 ($eq).
+Removed top 1 bits (of 7) from port B of cell nqx_s1_rf.$eq$nqx_s1_rf.sv:36$701 ($eq).
+Removed top 1 bits (of 7) from port B of cell nqx_s1_rf.$eq$nqx_s1_rf.sv:34$705 ($eq).
+Removed top 1 bits (of 7) from port B of cell nqx_s1_rf.$eq$nqx_s1_rf.sv:36$707 ($eq).
+Removed top 1 bits (of 7) from port B of cell nqx_s1_rf.$eq$nqx_s1_rf.sv:34$711 ($eq).
+Removed top 1 bits (of 7) from port B of cell nqx_s1_rf.$eq$nqx_s1_rf.sv:36$713 ($eq).
+Removed top 1 bits (of 7) from port B of cell nqx_s1_rf.$eq$nqx_s1_rf.sv:34$717 ($eq).
+Removed top 1 bits (of 7) from port B of cell nqx_s1_rf.$eq$nqx_s1_rf.sv:36$719 ($eq).
+Removed top 1 bits (of 7) from port B of cell nqx_s1_rf.$eq$nqx_s1_rf.sv:34$723 ($eq).
+Removed top 1 bits (of 7) from port B of cell nqx_s1_rf.$eq$nqx_s1_rf.sv:36$725 ($eq).
+Removed top 1 bits (of 7) from port B of cell nqx_s1_rf.$eq$nqx_s1_rf.sv:34$729 ($eq).
+Removed top 1 bits (of 7) from port B of cell nqx_s1_rf.$eq$nqx_s1_rf.sv:36$731 ($eq).
+Removed top 1 bits (of 7) from port B of cell nqx_s1_rf.$eq$nqx_s1_rf.sv:34$735 ($eq).
+Removed top 1 bits (of 7) from port B of cell nqx_s1_rf.$eq$nqx_s1_rf.sv:36$737 ($eq).
+Removed top 1 bits (of 7) from port B of cell nqx_s1_rf.$eq$nqx_s1_rf.sv:34$741 ($eq).
+Removed top 1 bits (of 7) from port B of cell nqx_s1_rf.$eq$nqx_s1_rf.sv:36$743 ($eq).
+Removed top 1 bits (of 7) from port B of cell nqx_s1_rf.$eq$nqx_s1_rf.sv:34$747 ($eq).
+Removed top 1 bits (of 7) from port B of cell nqx_s1_rf.$eq$nqx_s1_rf.sv:36$749 ($eq).
+Removed top 1 bits (of 7) from port B of cell nqx_s1_rf.$eq$nqx_s1_rf.sv:34$753 ($eq).
+Removed top 1 bits (of 7) from port B of cell nqx_s1_rf.$eq$nqx_s1_rf.sv:36$755 ($eq).
+Removed top 1 bits (of 7) from port B of cell nqx_s1_rf.$eq$nqx_s1_rf.sv:34$759 ($eq).
+Removed top 1 bits (of 7) from port B of cell nqx_s1_rf.$eq$nqx_s1_rf.sv:36$761 ($eq).
+Removed top 1 bits (of 7) from port B of cell nqx_s1_rf.$eq$nqx_s1_rf.sv:34$765 ($eq).
+Removed top 1 bits (of 7) from port B of cell nqx_s1_rf.$eq$nqx_s1_rf.sv:36$767 ($eq).
+Removed top 1 bits (of 7) from port B of cell nqx_s1_rf.$eq$nqx_s1_rf.sv:34$771 ($eq).
+Removed top 1 bits (of 7) from port B of cell nqx_s1_rf.$eq$nqx_s1_rf.sv:36$773 ($eq).
+Removed top 1 bits (of 7) from port B of cell nqx_s1_rf.$eq$nqx_s1_rf.sv:34$777 ($eq).
+Removed top 1 bits (of 7) from port B of cell nqx_s1_rf.$eq$nqx_s1_rf.sv:36$779 ($eq).
+Removed top 1 bits (of 7) from port B of cell nqx_s1_rf.$eq$nqx_s1_rf.sv:34$783 ($eq).
+Removed top 1 bits (of 7) from port B of cell nqx_s1_rf.$eq$nqx_s1_rf.sv:36$785 ($eq).
+Removed top 1 bits (of 7) from port B of cell nqx_s1_rf.$eq$nqx_s1_rf.sv:34$789 ($eq).
+Removed top 1 bits (of 7) from port B of cell nqx_s1_rf.$eq$nqx_s1_rf.sv:36$791 ($eq).
+Removed top 1 bits (of 7) from port B of cell nqx_s1_rf.$eq$nqx_s1_rf.sv:34$795 ($eq).
+Removed top 1 bits (of 7) from port B of cell nqx_s1_rf.$eq$nqx_s1_rf.sv:36$797 ($eq).
+Removed top 1 bits (of 7) from port B of cell nqx_s1_rf.$eq$nqx_s1_rf.sv:34$801 ($eq).
+Removed top 1 bits (of 7) from port B of cell nqx_s1_rf.$eq$nqx_s1_rf.sv:36$803 ($eq).
+Removed top 1 bits (of 7) from port B of cell nqx_s1_rf.$eq$nqx_s1_rf.sv:34$807 ($eq).
+Removed top 1 bits (of 7) from port B of cell nqx_s1_rf.$eq$nqx_s1_rf.sv:36$809 ($eq).
+Removed top 1 bits (of 7) from port B of cell nqx_s1_rf.$eq$nqx_s1_rf.sv:34$813 ($eq).
+Removed top 1 bits (of 7) from port B of cell nqx_s1_rf.$eq$nqx_s1_rf.sv:36$815 ($eq).
+Removed top 1 bits (of 7) from port B of cell nqx_s1_rf.$eq$nqx_s1_rf.sv:34$819 ($eq).
+Removed top 1 bits (of 7) from port B of cell nqx_s1_rf.$eq$nqx_s1_rf.sv:36$821 ($eq).
+Removed top 19 bits (of 32) from wire nqx_s1_rf.$add$nqx_s1_rf.sv:44$437_Y.
+Removed top 20 bits (of 32) from wire nqx_s1_rf.$mul$nqx_s1_rf.sv:44$436_Y.
+Removed top 19 bits (of 32) from wire nqx_s1_rf.$add$nqx_s1_rf.sv:43$434_Y.
+Removed top 20 bits (of 32) from wire nqx_s1_rf.$mul$nqx_s1_rf.sv:43$433_Y.
+Removed top 1 bits (of 6) from port B of cell nqx_s1_div28.$ge$nqx_s1_div28.sv:28$425 ($ge).
+Removed top 5 bits (of 6) from port B of cell nqx_s1_div28.$eq$nqx_s1_div28.sv:50$432 ($eq).
+Removed top 5 bits (of 34) from port B of cell nqx_s1_qdec.$mul$nqx_s1_qdec.sv:30$415 ($mul).
+Removed top 25 bits (of 34) from port B of cell nqx_s1_qdec.$add$nqx_s1_qdec.sv:30$416 ($add).
+Converting cell nqx_s1_qdec.$add$nqx_s1_qdec.sv:35$417 ($add) from unsigned to signed.
+Removed top 2 bits (of 27) from port A of cell nqx_s1_qdec.$add$nqx_s1_qdec.sv:35$417 ($add).
+Removed top 1 bits (of 27) from port B of cell nqx_s1_qdec.$add$nqx_s1_qdec.sv:35$417 ($add).
+Removed top 3 bits (of 27) from port B of cell nqx_s1_qdec.$gt$nqx_s1_qdec.sv:38$418 ($gt).
+Removed top 4 bits (of 20) from port B of cell nqx_s1_qdec.$add$nqx_s1_qdec.sv:44$421 ($add).
+Removed top 4 bits (of 20) from port B of cell nqx_s1_qdec.$sub$nqx_s1_qdec.sv:44$422 ($sub).
+Removed top 2 bits (of 3) from port B of cell nqx_s1_tcode.$add$nqx_s1_tcode.sv:13$409 ($add).
+Removed top 3 bits (of 28) from port B of cell nqx_s1_rsign.$sub$nqx_s1_rsign.sv:15$400 ($sub).
+Removed top 4 bits (of 28) from mux cell nqx_s1_rsign.$ternary$nqx_s1_rsign.sv:17$401 ($mux).
+Removed top 3 bits (of 28) from mux cell nqx_s1_rsign.$ternary$nqx_s1_rsign.sv:17$403 ($mux).
+Removed top 4 bits (of 28) from port A of cell nqx_s1_rsign.$add$nqx_s1_rsign.sv:17$404 ($add).
+Removed top 3 bits (of 28) from port B of cell nqx_s1_rsign.$add$nqx_s1_rsign.sv:17$404 ($add).
+Removed top 2 bits (of 28) from port Y of cell nqx_s1_rsign.$add$nqx_s1_rsign.sv:17$404 ($add).
+Removed top 2 bits (of 28) from mux cell nqx_s1_rsign.$ternary$nqx_s1_rsign.sv:18$406 ($mux).
+Removed top 2 bits (of 28) from port A of cell nqx_s1_rsign.$add$nqx_s1_rsign.sv:17$407 ($add).
+Removed top 2 bits (of 28) from port B of cell nqx_s1_rsign.$add$nqx_s1_rsign.sv:17$407 ($add).
+Removed top 1 bits (of 28) from port Y of cell nqx_s1_rsign.$add$nqx_s1_rsign.sv:17$407 ($add).
+Removed top 2 bits (of 28) from wire nqx_s1_rsign.$ternary$nqx_s1_rsign.sv:18$406_Y.
+Removed top 4 bits (of 28) from wire nqx_s1_rsign.$ternary$nqx_s1_rsign.sv:17$401_Y.
+Removed top 2 bits (of 28) from wire nqx_s1_rsign.$add$nqx_s1_rsign.sv:17$404_Y.
+Removed top 3 bits (of 28) from wire nqx_s1_rsign.$ternary$nqx_s1_rsign.sv:17$403_Y.
+Removed top 1 bits (of 28) from wire nqx_s1_rsign.qr.
+Removed top 3 bits (of 29) from port B of cell nqx_s1_rcode.$sub$nqx_s1_rcode.sv:15$375 ($sub).
+Removed top 3 bits (of 29) from port A of cell nqx_s1_rcode.$add$nqx_s1_rcode.sv:23$380 ($add).
+Removed top 4 bits (of 29) from port B of cell nqx_s1_rcode.$add$nqx_s1_rcode.sv:23$380 ($add).
+Converting cell nqx_s1_rcode.$add$nqx_s1_rcode.sv:23$380 ($add) from signed to unsigned.
+Removed top 2 bits (of 29) from port Y of cell nqx_s1_rcode.$add$nqx_s1_rcode.sv:23$380 ($add).
+Removed top 1 bits (of 26) from port A of cell nqx_s1_rcode.$add$nqx_s1_rcode.sv:23$380 ($add).
+Removed top 1 bits (of 25) from port B of cell nqx_s1_rcode.$add$nqx_s1_rcode.sv:23$380 ($add).
+Removed top 1 bits (of 27) from port Y of cell nqx_s1_rcode.$add$nqx_s1_rcode.sv:23$380 ($add).
+Removed top 2 bits (of 29) from port A of cell nqx_s1_rcode.$add$nqx_s1_rcode.sv:24$381 ($add).
+Removed top 4 bits (of 29) from port B of cell nqx_s1_rcode.$add$nqx_s1_rcode.sv:24$381 ($add).
+Converting cell nqx_s1_rcode.$add$nqx_s1_rcode.sv:24$381 ($add) from signed to unsigned.
+Removed top 1 bits (of 29) from port Y of cell nqx_s1_rcode.$add$nqx_s1_rcode.sv:24$381 ($add).
+Removed top 1 bits (of 27) from port A of cell nqx_s1_rcode.$add$nqx_s1_rcode.sv:24$381 ($add).
+Removed top 1 bits (of 25) from port B of cell nqx_s1_rcode.$add$nqx_s1_rcode.sv:24$381 ($add).
+Removed top 1 bits (of 28) from port Y of cell nqx_s1_rcode.$add$nqx_s1_rcode.sv:24$381 ($add).
+Removed top 1 bits (of 29) from port A of cell nqx_s1_rcode.$sub$nqx_s1_rcode.sv:25$382 ($sub).
+Removed top 4 bits (of 29) from port B of cell nqx_s1_rcode.$sub$nqx_s1_rcode.sv:25$382 ($sub).
+Converting cell nqx_s1_rcode.$sub$nqx_s1_rcode.sv:25$382 ($sub) from signed to unsigned.
+Removed top 1 bits (of 28) from port A of cell nqx_s1_rcode.$sub$nqx_s1_rcode.sv:25$382 ($sub).
+Removed top 1 bits (of 25) from port B of cell nqx_s1_rcode.$sub$nqx_s1_rcode.sv:25$382 ($sub).
+Removed top 1 bits (of 29) from port Y of cell nqx_s1_rcode.$sub$nqx_s1_rcode.sv:25$382 ($sub).
+Removed top 1 bits (of 29) from port A of cell nqx_s1_rcode.$add$nqx_s1_rcode.sv:26$383 ($add).
+Removed top 4 bits (of 29) from port B of cell nqx_s1_rcode.$add$nqx_s1_rcode.sv:26$383 ($add).
+Converting cell nqx_s1_rcode.$add$nqx_s1_rcode.sv:26$383 ($add) from signed to unsigned.
+Removed top 1 bits (of 28) from port A of cell nqx_s1_rcode.$add$nqx_s1_rcode.sv:26$383 ($add).
+Removed top 1 bits (of 25) from port B of cell nqx_s1_rcode.$add$nqx_s1_rcode.sv:26$383 ($add).
+Removed top 1 bits (of 29) from port Y of cell nqx_s1_rcode.$add$nqx_s1_rcode.sv:26$383 ($add).
+Removed top 1 bits (of 29) from port A of cell nqx_s1_rcode.$add$nqx_s1_rcode.sv:27$384 ($add).
+Removed top 2 bits (of 29) from port B of cell nqx_s1_rcode.$add$nqx_s1_rcode.sv:27$384 ($add).
+Converting cell nqx_s1_rcode.$add$nqx_s1_rcode.sv:27$384 ($add) from signed to unsigned.
+Removed top 1 bits (of 28) from port A of cell nqx_s1_rcode.$add$nqx_s1_rcode.sv:27$384 ($add).
+Removed top 1 bits (of 27) from port B of cell nqx_s1_rcode.$add$nqx_s1_rcode.sv:27$384 ($add).
+Removed top 1 bits (of 29) from port Y of cell nqx_s1_rcode.$add$nqx_s1_rcode.sv:27$384 ($add).
+Removed top 2 bits (of 29) from port B of cell nqx_s1_rcode.$sub$nqx_s1_rcode.sv:28$385 ($sub).
+Converting cell nqx_s1_rcode.$sub$nqx_s1_rcode.sv:28$385 ($sub) from signed to unsigned.
+Removed top 1 bits (of 29) from port A of cell nqx_s1_rcode.$sub$nqx_s1_rcode.sv:28$385 ($sub).
+Removed top 1 bits (of 27) from port B of cell nqx_s1_rcode.$sub$nqx_s1_rcode.sv:28$385 ($sub).
+Removed top 4 bits (of 29) from port B of cell nqx_s1_rcode.$gt$nqx_s1_rcode.sv:30$386 ($gt).
+Removed top 2 bits (of 29) from port B of cell nqx_s1_rcode.$gt$nqx_s1_rcode.sv:30$387 ($gt).
+Removed top 1 bits (of 29) from port B of cell nqx_s1_rcode.$gt$nqx_s1_rcode.sv:30$388 ($gt).
+Removed top 1 bits (of 29) from port B of cell nqx_s1_rcode.$gt$nqx_s1_rcode.sv:30$389 ($gt).
+Removed top 2 bits (of 3) from port A of cell nqx_s1_rcode.$add$nqx_s1_rcode.sv:32$393 ($add).
+Removed top 2 bits (of 3) from port B of cell nqx_s1_rcode.$add$nqx_s1_rcode.sv:32$393 ($add).
+Removed top 1 bits (of 3) from port Y of cell nqx_s1_rcode.$add$nqx_s1_rcode.sv:32$393 ($add).
+Removed top 1 bits (of 3) from port A of cell nqx_s1_rcode.$add$nqx_s1_rcode.sv:32$394 ($add).
+Removed top 2 bits (of 3) from port B of cell nqx_s1_rcode.$add$nqx_s1_rcode.sv:32$394 ($add).
+Removed top 2 bits (of 3) from port B of cell nqx_s1_rcode.$add$nqx_s1_rcode.sv:32$395 ($add).
+Removed top 2 bits (of 3) from port B of cell nqx_s1_rcode.$add$nqx_s1_rcode.sv:32$396 ($add).
+Removed top 2 bits (of 3) from port B of cell nqx_s1_rcode.$add$nqx_s1_rcode.sv:32$397 ($add).
+Removed top 2 bits (of 3) from port B of cell nqx_s1_rcode.$add$nqx_s1_rcode.sv:32$398 ($add).
+Removed top 1 bits (of 3) from wire nqx_s1_rcode.$add$nqx_s1_rcode.sv:32$393_Y.
+Removed top 1 bits (of 29) from wire nqx_s1_rcode.t11.
+Removed top 1 bits (of 29) from wire nqx_s1_rcode.t9.
+Removed top 2 bits (of 29) from wire nqx_s1_rcode.t5.
+Removed top 3 bits (of 29) from wire nqx_s1_rcode.t3.
+Removed top 1 bits (of 29) from wire nqx_s1_rcode.r16.
+Removed top 2 bits (of 29) from wire nqx_s1_rcode.r8.
+Removed top 3 bits (of 29) from wire nqx_s1_rcode.r4.
+Removed top 4 bits (of 29) from wire nqx_s1_rcode.r2.
+Removed top 27 address bits (of 32) from memory init port $paramod\nqx_s1_cordic_iter\TAG_W=s32'00000000000000000000000000001110.$auto$mem.cc:351:emit$1637 ($auto$proc_rom.cc:155:do_switch$1635).
+Removed top 26 bits (of 47) from port B of cell $paramod\nqx_s1_cordic_iter\TAG_W=s32'00000000000000000000000000001110.$add$nqx_s1_cordic_iter.sv:71$1594 ($add).
+Removed top 26 bits (of 47) from port B of cell $paramod\nqx_s1_cordic_iter\TAG_W=s32'00000000000000000000000000001110.$add$nqx_s1_cordic_iter.sv:72$1596 ($add).
+Removed top 3 bits (of 27) from port B of cell $paramod\nqx_s1_cordic_iter\TAG_W=s32'00000000000000000000000000001110.$gt$nqx_s1_cordic_iter.sv:78$1597 ($gt).
+Removed top 3 bits (of 27) from port B of cell $paramod\nqx_s1_cordic_iter\TAG_W=s32'00000000000000000000000000001110.$lt$nqx_s1_cordic_iter.sv:79$1598 ($lt).
+Removed top 3 bits (of 27) from port B of cell $paramod\nqx_s1_cordic_iter\TAG_W=s32'00000000000000000000000000001110.$gt$nqx_s1_cordic_iter.sv:80$1599 ($gt).
+Removed top 3 bits (of 27) from port B of cell $paramod\nqx_s1_cordic_iter\TAG_W=s32'00000000000000000000000000001110.$lt$nqx_s1_cordic_iter.sv:81$1600 ($lt).
+Removed top 2 bits (of 28) from port A of cell $paramod\nqx_s1_cordic_iter\TAG_W=s32'00000000000000000000000000001110.$neg$nqx_s1_cordic_iter.sv:102$1604 ($neg).
+Removed top 2 bits (of 28) from port A of cell $paramod\nqx_s1_cordic_iter\TAG_W=s32'00000000000000000000000000001110.$neg$nqx_s1_cordic_iter.sv:103$1606 ($neg).
+
+12.9. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \nqx_s1_core..
+Finding unused cells or wires in module \nqx_s1_rf..
+Finding unused cells or wires in module \nqx_s1_div28..
+Finding unused cells or wires in module \nqx_s1_qdec..
+Finding unused cells or wires in module \nqx_s1_tcode..
+Finding unused cells or wires in module \nqx_s1_rsign..
+Finding unused cells or wires in module \nqx_s1_rcode..
+Finding unused cells or wires in module $paramod\nqx_s1_cordic_iter\TAG_W=s32'00000000000000000000000000001110..
+Finding unused cells or wires in module \core_props..
+Removed 0 unused cells and 26 unused wires.
+<suppressed ~4 debug messages>
+
+12.10. Executing MEMORY_COLLECT pass (generating $mem cells).
+
+12.11. Executing OPT pass (performing simple optimizations).
+
+12.11.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module nqx_s1_core.
+Optimizing module nqx_s1_rf.
+Optimizing module nqx_s1_div28.
+Optimizing module nqx_s1_qdec.
+Optimizing module nqx_s1_tcode.
+Optimizing module nqx_s1_rsign.
+Optimizing module nqx_s1_rcode.
+Optimizing module $paramod\nqx_s1_cordic_iter\TAG_W=s32'00000000000000000000000000001110.
+Optimizing module core_props.
+
+12.11.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\nqx_s1_core'.
+Computing hashes of 415 cells of `\nqx_s1_core'.
+Finding duplicate cells in `\nqx_s1_core'.
+Finding identical cells in module `\nqx_s1_rf'.
+Computing hashes of 902 cells of `\nqx_s1_rf'.
+Finding duplicate cells in `\nqx_s1_rf'.
+Finding identical cells in module `\nqx_s1_div28'.
+Computing hashes of 25 cells of `\nqx_s1_div28'.
+Finding duplicate cells in `\nqx_s1_div28'.
+Finding identical cells in module `\nqx_s1_qdec'.
+Computing hashes of 12 cells of `\nqx_s1_qdec'.
+Finding duplicate cells in `\nqx_s1_qdec'.
+Finding identical cells in module `\nqx_s1_tcode'.
+Computing hashes of 3 cells of `\nqx_s1_tcode'.
+Finding duplicate cells in `\nqx_s1_tcode'.
+Finding identical cells in module `\nqx_s1_rsign'.
+Computing hashes of 7 cells of `\nqx_s1_rsign'.
+Finding duplicate cells in `\nqx_s1_rsign'.
+Finding identical cells in module `\nqx_s1_rcode'.
+Computing hashes of 20 cells of `\nqx_s1_rcode'.
+Finding duplicate cells in `\nqx_s1_rcode'.
+Finding identical cells in module `$paramod\nqx_s1_cordic_iter\TAG_W=s32'00000000000000000000000000001110'.
+Computing hashes of 95 cells of `$paramod\nqx_s1_cordic_iter\TAG_W=s32'00000000000000000000000000001110'.
+Finding duplicate cells in `$paramod\nqx_s1_cordic_iter\TAG_W=s32'00000000000000000000000000001110'.
+Finding identical cells in module `\core_props'.
+Computing hashes of 35 cells of `\core_props'.
+Finding duplicate cells in `\core_props'.
+Removed a total of 0 cells.
+
+12.11.3. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \nqx_s1_core..
+Finding unused cells or wires in module \nqx_s1_rf..
+Finding unused cells or wires in module \nqx_s1_div28..
+Finding unused cells or wires in module \nqx_s1_qdec..
+Finding unused cells or wires in module \nqx_s1_tcode..
+Finding unused cells or wires in module \nqx_s1_rsign..
+Finding unused cells or wires in module \nqx_s1_rcode..
+Finding unused cells or wires in module $paramod\nqx_s1_cordic_iter\TAG_W=s32'00000000000000000000000000001110..
+Finding unused cells or wires in module \core_props..
+
+12.11.4. Finished fast OPT passes.
+
+12.12. Executing SORT pass.
+
+12.13. Printing statistics.
+
+=== $paramod\nqx_s1_cordic_iter\TAG_W=s32'00000000000000000000000000001110 ===
+
+        +----------Local Count, excluding submodules.
+        | 
+      112 wires
+     1697 wire bits
+       46 public wires
+      696 public wire bits
+       16 ports
+      172 port bits
+       95 cells
+        6   $add
+       14   $adff
+        1   $and
+        1   $eq
+        2   $gt
+        2   $logic_and
+        2   $logic_not
+        2   $logic_or
+        2   $lt
+        1   $mem_v2
+        2   $mul
+       46   $mux
+        2   $neg
+        2   $not
+        3   $or
+        2   $sshr
+        3   $sub
+        2   $xor
+
+=== core_props ===
+
+        +----------Local Count, excluding submodules.
+        | 
+       37 wires
+       65 wire bits
+       10 public wires
+       24 public wire bits
+        4 ports
+       11 port bits
+       34 cells
+        5   $check
+        8   $dff
+        2   $eq
+       10   $logic_and
+        4   $logic_not
+        5   $mux
+        1 submodules
+        1   nqx_s1_core
+
+=== nqx_s1_core ===
+
+        +----------Local Count, excluding submodules.
+        | 
+      446 wires
+     4165 wire bits
+      112 public wires
+     1525 public wire bits
+        9 ports
+       23 port bits
+      408 cells
+       16   $add
+       39   $adff
+       71   $eq
+        6   $gt
+       13   $logic_and
+       12   $logic_not
+       12   $logic_or
+        2   $lt
+        1   $mul
+      188   $mux
+        1   $ne
+        1   $neg
+        1   $not
+       23   $pmux
+        3   $reduce_bool
+       12   $reduce_or
+        2   $shiftx
+        5   $sub
+        7 submodules
+        1   $paramod\nqx_s1_cordic_iter\TAG_W=s32'00000000000000000000000000001110
+        1   nqx_s1_div28
+        1   nqx_s1_qdec
+        1   nqx_s1_rcode
+        1   nqx_s1_rf
+        1   nqx_s1_rsign
+        1   nqx_s1_tcode
+
+=== nqx_s1_div28 ===
+
+        +----------Local Count, excluding submodules.
+        | 
+       30 wires
+      392 wire bits
+       13 public wires
+      143 public wire bits
+        6 ports
+       56 port bits
+       25 cells
+        6   $adff
+        1   $eq
+        1   $ge
+       15   $mux
+        2   $sub
+
+=== nqx_s1_qdec ===
+
+        +----------Local Count, excluding submodules.
+        | 
+       24 wires
+      401 wire bits
+       19 public wires
+      301 public wire bits
+        7 ports
+      106 port bits
+       12 cells
+        4   $add
+        1   $gt
+        1   $mul
+        5   $mux
+        1   $sub
+
+=== nqx_s1_rcode ===
+
+        +----------Local Count, excluding submodules.
+        | 
+       23 wires
+      462 wire bits
+       18 public wires
+      448 public wire bits
+        3 ports
+       52 port bits
+       20 cells
+       10   $add
+        7   $gt
+        3   $sub
+
+=== nqx_s1_rf ===
+
+        +----------Local Count, excluding submodules.
+        | 
+      913 wires
+    13018 wire bits
+      141 public wires
+     6272 public wire bits
+       12 ports
+      128 port bits
+      902 cells
+        2   $add
+      128   $adff
+      254   $eq
+      256   $logic_and
+        2   $logic_not
+        2   $mul
+      256   $mux
+        2   $shiftx
+
+=== nqx_s1_rsign ===
+
+        +----------Local Count, excluding submodules.
+        | 
+       12 wires
+      274 wire bits
+        8 public wires
+      164 public wire bits
+        4 ports
+       53 port bits
+        7 cells
+        2   $add
+        1   $ge
+        3   $mux
+        1   $sub
+
+=== nqx_s1_tcode ===
+
+        +----------Local Count, excluding submodules.
+        | 
+        5 wires
+       47 wire bits
+        5 public wires
+       47 public wire bits
+        3 ports
+       24 port bits
+        3 cells
+        1   $add
+        1   $not
+        1   $sub
+
+=== design hierarchy ===
+
+        +----------Count including submodules.
+        | 
+     1506 core_props
+      408 nqx_s1_core
+       95   $paramod\nqx_s1_cordic_iter\TAG_W=s32'00000000000000000000000000001110
+       25   nqx_s1_div28
+       12   nqx_s1_qdec
+       20   nqx_s1_rcode
+      902   nqx_s1_rf
+        7   nqx_s1_rsign
+        3   nqx_s1_tcode
+
+        +----------Count including submodules.
+        | 
+     1602 wires
+    20521 wire bits
+      372 public wires
+     9620 public wire bits
+       64 ports
+      625 port bits
+        - memories
+        - memory bits
+        - processes
+     1506 cells
+       41   $add
+      187   $adff
+        1   $and
+        5   $check
+        8   $dff
+      329   $eq
+        2   $ge
+       16   $gt
+      281   $logic_and
+       20   $logic_not
+       14   $logic_or
+        4   $lt
+        1   $mem_v2
+        6   $mul
+      518   $mux
+        1   $ne
+        3   $neg
+        4   $not
+        3   $or
+       23   $pmux
+        3   $reduce_bool
+       12   $reduce_or
+        4   $shiftx
+        2   $sshr
+       16   $sub
+        2   $xor
+        1 submodules
+        1   nqx_s1_core
+
+12.14. Executing CHECK pass (checking for obvious problems).
+Checking module $paramod\nqx_s1_cordic_iter\TAG_W=s32'00000000000000000000000000001110...
+Checking module core_props...
+Checking module nqx_s1_core...
+Checking module nqx_s1_div28...
+Checking module nqx_s1_qdec...
+Checking module nqx_s1_rcode...
+Checking module nqx_s1_rf...
+Checking module nqx_s1_rsign...
+Checking module nqx_s1_tcode...
+Found and reported 0 problems.
+
+13. Executing HIERARCHY pass (managing design hierarchy).
+Attribute `top' found on module `core_props'. Setting top module to core_props.
+
+13.1. Analyzing design hierarchy..
+Top module:  \core_props
+Used module:     \nqx_s1_core
+Used module:         $paramod\nqx_s1_cordic_iter\TAG_W=s32'00000000000000000000000000001110
+Used module:         \nqx_s1_div28
+Used module:         \nqx_s1_qdec
+Used module:         \nqx_s1_rcode
+Used module:         \nqx_s1_rf
+Used module:         \nqx_s1_rsign
+Used module:         \nqx_s1_tcode
+
+13.2. Analyzing design hierarchy..
+Top module:  \core_props
+Used module:     \nqx_s1_core
+Used module:         $paramod\nqx_s1_cordic_iter\TAG_W=s32'00000000000000000000000000001110
+Used module:         \nqx_s1_div28
+Used module:         \nqx_s1_qdec
+Used module:         \nqx_s1_rcode
+Used module:         \nqx_s1_rf
+Used module:         \nqx_s1_rsign
+Used module:         \nqx_s1_tcode
+Removed 0 unused modules.
+Module core_props directly or indirectly contains formal properties -> setting "keep" attribute.
+
+14. Executing jny backend.
+
+15. Executing RTLIL backend.
+Output filename: ../model/design.il
+
+End of script. Logfile hash: d72b95e0c0, time: 1.25s, user: 0.84s, system: 0.05s, MEM: 50.05 MB peak
+Yosys 0.69+post (git sha1 v0.69, Release, GNU /nix/store/z4c6k0mrlkwl3s4w9ysxc8vq1wylm3ms-gcc-wrapper-15.3.0/bin/g++ 15.3.0)
+Time spent: 30% 6x opt_clean (0 sec), 14% 12x read_verilog (0 sec), ...

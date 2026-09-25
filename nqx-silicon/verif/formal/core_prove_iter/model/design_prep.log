@@ -1,0 +1,342 @@
+
+ /----------------------------------------------------------------------------\
+ |  yosys -- Yosys Open SYnthesis Suite                                       |
+ |  Copyright (C) 2012 - 2026  Claire Xenia Wolf <claire@yosyshq.com>         |
+ |  Distributed under an ISC-like license, type "license" to see terms        |
+ \----------------------------------------------------------------------------/
+ Yosys 0.69+post (git sha1 v0.69, Release, GNU /nix/store/z4c6k0mrlkwl3s4w9ysxc8vq1wylm3ms-gcc-wrapper-15.3.0/bin/g++ 15.3.0)
+
+-- Executing script file `design_prep.ys' --
+
+1. Executing RTLIL frontend.
+Input filename: design.il
+
+2. Executing SCC pass (detecting logic loops).
+Found 0 SCCs in module $paramod\nqx_s1_cordic_iter\TAG_W=s32'00000000000000000000000000001110.
+Found 0 SCCs in module core_props.
+Found 0 SCCs in module nqx_s1_core.
+Found 0 SCCs in module nqx_s1_div28.
+Found 0 SCCs in module nqx_s1_qdec.
+Found 0 SCCs in module nqx_s1_rcode.
+Found 0 SCCs in module nqx_s1_rf.
+Found 0 SCCs in module nqx_s1_rsign.
+Found 0 SCCs in module nqx_s1_tcode.
+Found 0 SCCs.
+
+3. Executing SIMPLEMAP pass (map simple cells to gate primitives).
+
+4. Executing MEMORY_NORDFF pass (extracting $dff cells from memories).
+
+5. Executing ASYNC2SYNC pass.
+Replacing $paramod\nqx_s1_cordic_iter\TAG_W=s32'00000000000000000000000000001110.$procdff$4555 ($adff): ARST=\rst_n, D=$0\i[4:0], Q=\i
+Replacing $paramod\nqx_s1_cordic_iter\TAG_W=s32'00000000000000000000000000001110.$procdff$4560 ($adff): ARST=\rst_n, D=$0\y[27:0], Q=\y
+Replacing $paramod\nqx_s1_cordic_iter\TAG_W=s32'00000000000000000000000000001110.$procdff$4565 ($adff): ARST=\rst_n, D=$0\z[19:0], Q=\z
+Replacing $paramod\nqx_s1_cordic_iter\TAG_W=s32'00000000000000000000000000001110.$procdff$4570 ($adff): ARST=\rst_n, D=$0\out_valid[0:0], Q=\out_valid
+Replacing $paramod\nqx_s1_cordic_iter\TAG_W=s32'00000000000000000000000000001110.$procdff$4575 ($adff): ARST=\rst_n, D=$0\out_x[23:0], Q=\out_x
+Replacing $paramod\nqx_s1_cordic_iter\TAG_W=s32'00000000000000000000000000001110.$procdff$4580 ($adff): ARST=\rst_n, D=$0\out_y[23:0], Q=\out_y
+Replacing $paramod\nqx_s1_cordic_iter\TAG_W=s32'00000000000000000000000000001110.$procdff$4585 ($adff): ARST=\rst_n, D=$0\out_z[19:0], Q=\out_z
+Replacing $paramod\nqx_s1_cordic_iter\TAG_W=s32'00000000000000000000000000001110.$procdff$4590 ($adff): ARST=\rst_n, D=$0\out_sat[0:0], Q=\out_sat
+Replacing $paramod\nqx_s1_cordic_iter\TAG_W=s32'00000000000000000000000000001110.$procdff$4595 ($adff): ARST=\rst_n, D=$0\out_tag[13:0], Q=\out_tag
+Replacing $paramod\nqx_s1_cordic_iter\TAG_W=s32'00000000000000000000000000001110.$procdff$4600 ($adff): ARST=\rst_n, D=$0\loaded[0:0], Q=\loaded
+Replacing $paramod\nqx_s1_cordic_iter\TAG_W=s32'00000000000000000000000000001110.$procdff$4605 ($adff): ARST=\rst_n, D=$0\fin[0:0], Q=\fin
+Replacing $paramod\nqx_s1_cordic_iter\TAG_W=s32'00000000000000000000000000001110.$procdff$4610 ($adff): ARST=\rst_n, D=$0\x[27:0], Q=\x
+Replacing $paramod\nqx_s1_cordic_iter\TAG_W=s32'00000000000000000000000000001110.$procdff$4615 ($adff): ARST=\rst_n, D=$0\m[0:0], Q=\m
+Replacing $paramod\nqx_s1_cordic_iter\TAG_W=s32'00000000000000000000000000001110.$procdff$4620 ($adff): ARST=\rst_n, D=$0\t[13:0], Q=\t
+Replacing nqx_s1_core.$procdff$3675 ($adff): ARST=\rst_n, D=$0\inflight[5:0], Q=\inflight
+Replacing nqx_s1_core.$procdff$3680 ($adff): ARST=\rst_n, D=$0\b[2:0], Q=\b
+Replacing nqx_s1_core.$procdff$3685 ($adff): ARST=\rst_n, D=$0\first[0:0], Q=\first
+Replacing nqx_s1_core.$procdff$3690 ($adff): ARST=\rst_n, D=$0\pk[7:0], Q=\pk
+Replacing nqx_s1_core.$procdff$3695 ($adff): ARST=\rst_n, D=$0\rmin[23:0], Q=\rmin
+Replacing nqx_s1_core.$procdff$3700 ($adff): ARST=\rst_n, D=$0\refine[0:0], Q=\refine
+Replacing nqx_s1_core.$procdff$3705 ($adff): ARST=\rst_n, D=$0\qt[19:0], Q=\qt
+Replacing nqx_s1_core.$procdff$3710 ($adff): ARST=\rst_n, D=$0\state[4:0], Q=\state
+Replacing nqx_s1_core.$procdff$3715 ($adff): ARST=\rst_n, D=$0\uop[2:0], Q=\uop
+Replacing nqx_s1_core.$procdff$3720 ($adff): ARST=\rst_n, D=$0\layer[1:0], Q=\layer
+Replacing nqx_s1_core.$procdff$3725 ($adff): ARST=\rst_n, D=$0\inv[0:0], Q=\inv
+Replacing nqx_s1_core.$procdff$3730 ($adff): ARST=\rst_n, D=$0\macro[1:0], Q=\macro
+Replacing nqx_s1_core.$procdff$3735 ($adff): ARST=\rst_n, D=$0\mstep[2:0], Q=\mstep
+Replacing nqx_s1_core.$procdff$3740 ($adff): ARST=\rst_n, D=$0\k[6:0], Q=\k
+Replacing nqx_s1_core.$procdff$3745 ($adff): ARST=\rst_n, D=$0\lo[7:0], Q=\lo
+Replacing nqx_s1_core.$procdff$3750 ($adff): ARST=\rst_n, D=$0\acc[31:0], Q=\acc
+Replacing nqx_s1_core.$procdff$3755 ($adff): ARST=\rst_n, D=$0\caddr[7:0], Q=\caddr
+Replacing nqx_s1_core.$procdff$3760 ($adff): ARST=\rst_n, D=$0\wshift[31:0], Q=\wshift
+Replacing nqx_s1_core.$procdff$3765 ($adff): ARST=\rst_n, D=$0\oshift[31:0], Q=\oshift
+Replacing nqx_s1_core.$procdff$3770 ($adff): ARST=\rst_n, D=$0\ocnt[2:0], Q=\ocnt
+Replacing nqx_s1_core.$procdff$3775 ($adff): ARST=\rst_n, D=$0\obuf[7:0], Q=\obuf
+Replacing nqx_s1_core.$procdff$3780 ($adff): ARST=\rst_n, D=$0\obuf_v[0:0], Q=\obuf_v
+Replacing nqx_s1_core.$procdff$3785 ($adff): ARST=\rst_n, D=$0\inc0[31:0], Q=\inc0
+Replacing nqx_s1_core.$procdff$3790 ($adff): ARST=\rst_n, D=$0\inc1[31:0], Q=\inc1
+Replacing nqx_s1_core.$procdff$3795 ($adff): ARST=\rst_n, D=$0\inc2[31:0], Q=\inc2
+Replacing nqx_s1_core.$procdff$3800 ($adff): ARST=\rst_n, D=$0\st_illegal[0:0], Q=\st_illegal
+Replacing nqx_s1_core.$procdff$3805 ($adff): ARST=\rst_n, D=$0\st_sat[0:0], Q=\st_sat
+Replacing nqx_s1_core.$procdff$3810 ($adff): ARST=\rst_n, D=$0\rmax[23:0], Q=\rmax
+Replacing nqx_s1_core.$procdff$3815 ($adff): ARST=\rst_n, D=$0\scratch[31:0], Q=\scratch
+Replacing nqx_s1_core.$procdff$3820 ($adff): ARST=\rst_n, D=$0\cnt_cycles[31:0], Q=\cnt_cycles
+Replacing nqx_s1_core.$procdff$3825 ($adff): ARST=\rst_n, D=$0\cnt_busy[31:0], Q=\cnt_busy
+Replacing nqx_s1_core.$procdff$3830 ($adff): ARST=\rst_n, D=$0\cnt_cordic[31:0], Q=\cnt_cordic
+Replacing nqx_s1_core.$procdff$3835 ($adff): ARST=\rst_n, D=$0\cnt_enc[31:0], Q=\cnt_enc
+Replacing nqx_s1_core.$procdff$3840 ($adff): ARST=\rst_n, D=$0\cnt_dec[31:0], Q=\cnt_dec
+Replacing nqx_s1_core.$procdff$3845 ($adff): ARST=\rst_n, D=$0\qd[24:0], Q=\qd
+Replacing nqx_s1_core.$procdff$3850 ($adff): ARST=\rst_n, D=$0\qq[2:0], Q=\qq
+Replacing nqx_s1_core.$procdff$3855 ($adff): ARST=\rst_n, D=$0\qrng[23:0], Q=\qrng
+Replacing nqx_s1_core.$procdff$3860 ($adff): ARST=\rst_n, D=$0\hdr[47:0], Q=\hdr
+Replacing nqx_s1_core.$procdff$3865 ($adff): ARST=\rst_n, D=$0\drmin[23:0], Q=\drmin
+Replacing nqx_s1_div28.$procdff$4525 ($adff): ARST=\rst_n, D=$0\busy[0:0], Q=\busy
+Replacing nqx_s1_div28.$procdff$4530 ($adff): ARST=\rst_n, D=$0\step[27:0], Q=\step
+Replacing nqx_s1_div28.$procdff$4535 ($adff): ARST=\rst_n, D=$0\num[31:0], Q=\num
+Replacing nqx_s1_div28.$procdff$4540 ($adff): ARST=\rst_n, D=$0\quo[31:0], Q=\quo
+Replacing nqx_s1_div28.$procdff$4545 ($adff): ARST=\rst_n, D=$0\rem[4:0], Q=\rem
+Replacing nqx_s1_div28.$procdff$4550 ($adff): ARST=\rst_n, D=$0\cnt[5:0], Q=\cnt
+Replacing nqx_s1_rf.$procdff$3885 ($adff): ARST=\rst_n, D=$0\g_el[127].q[23:0], Q=\g_el[127].q
+Replacing nqx_s1_rf.$procdff$3890 ($adff): ARST=\rst_n, D=$0\g_el[126].q[23:0], Q=\g_el[126].q
+Replacing nqx_s1_rf.$procdff$3895 ($adff): ARST=\rst_n, D=$0\g_el[125].q[23:0], Q=\g_el[125].q
+Replacing nqx_s1_rf.$procdff$3900 ($adff): ARST=\rst_n, D=$0\g_el[124].q[23:0], Q=\g_el[124].q
+Replacing nqx_s1_rf.$procdff$3905 ($adff): ARST=\rst_n, D=$0\g_el[123].q[23:0], Q=\g_el[123].q
+Replacing nqx_s1_rf.$procdff$3910 ($adff): ARST=\rst_n, D=$0\g_el[122].q[23:0], Q=\g_el[122].q
+Replacing nqx_s1_rf.$procdff$3915 ($adff): ARST=\rst_n, D=$0\g_el[121].q[23:0], Q=\g_el[121].q
+Replacing nqx_s1_rf.$procdff$3920 ($adff): ARST=\rst_n, D=$0\g_el[120].q[23:0], Q=\g_el[120].q
+Replacing nqx_s1_rf.$procdff$3925 ($adff): ARST=\rst_n, D=$0\g_el[119].q[23:0], Q=\g_el[119].q
+Replacing nqx_s1_rf.$procdff$3930 ($adff): ARST=\rst_n, D=$0\g_el[118].q[23:0], Q=\g_el[118].q
+Replacing nqx_s1_rf.$procdff$3935 ($adff): ARST=\rst_n, D=$0\g_el[117].q[23:0], Q=\g_el[117].q
+Replacing nqx_s1_rf.$procdff$3940 ($adff): ARST=\rst_n, D=$0\g_el[116].q[23:0], Q=\g_el[116].q
+Replacing nqx_s1_rf.$procdff$3945 ($adff): ARST=\rst_n, D=$0\g_el[115].q[23:0], Q=\g_el[115].q
+Replacing nqx_s1_rf.$procdff$3950 ($adff): ARST=\rst_n, D=$0\g_el[114].q[23:0], Q=\g_el[114].q
+Replacing nqx_s1_rf.$procdff$3955 ($adff): ARST=\rst_n, D=$0\g_el[113].q[23:0], Q=\g_el[113].q
+Replacing nqx_s1_rf.$procdff$3960 ($adff): ARST=\rst_n, D=$0\g_el[112].q[23:0], Q=\g_el[112].q
+Replacing nqx_s1_rf.$procdff$3965 ($adff): ARST=\rst_n, D=$0\g_el[111].q[23:0], Q=\g_el[111].q
+Replacing nqx_s1_rf.$procdff$3970 ($adff): ARST=\rst_n, D=$0\g_el[110].q[23:0], Q=\g_el[110].q
+Replacing nqx_s1_rf.$procdff$3975 ($adff): ARST=\rst_n, D=$0\g_el[109].q[23:0], Q=\g_el[109].q
+Replacing nqx_s1_rf.$procdff$3980 ($adff): ARST=\rst_n, D=$0\g_el[108].q[23:0], Q=\g_el[108].q
+Replacing nqx_s1_rf.$procdff$3985 ($adff): ARST=\rst_n, D=$0\g_el[107].q[23:0], Q=\g_el[107].q
+Replacing nqx_s1_rf.$procdff$3990 ($adff): ARST=\rst_n, D=$0\g_el[106].q[23:0], Q=\g_el[106].q
+Replacing nqx_s1_rf.$procdff$3995 ($adff): ARST=\rst_n, D=$0\g_el[105].q[23:0], Q=\g_el[105].q
+Replacing nqx_s1_rf.$procdff$4000 ($adff): ARST=\rst_n, D=$0\g_el[104].q[23:0], Q=\g_el[104].q
+Replacing nqx_s1_rf.$procdff$4005 ($adff): ARST=\rst_n, D=$0\g_el[103].q[23:0], Q=\g_el[103].q
+Replacing nqx_s1_rf.$procdff$4010 ($adff): ARST=\rst_n, D=$0\g_el[102].q[23:0], Q=\g_el[102].q
+Replacing nqx_s1_rf.$procdff$4015 ($adff): ARST=\rst_n, D=$0\g_el[101].q[23:0], Q=\g_el[101].q
+Replacing nqx_s1_rf.$procdff$4020 ($adff): ARST=\rst_n, D=$0\g_el[100].q[23:0], Q=\g_el[100].q
+Replacing nqx_s1_rf.$procdff$4025 ($adff): ARST=\rst_n, D=$0\g_el[99].q[23:0], Q=\g_el[99].q
+Replacing nqx_s1_rf.$procdff$4030 ($adff): ARST=\rst_n, D=$0\g_el[98].q[23:0], Q=\g_el[98].q
+Replacing nqx_s1_rf.$procdff$4035 ($adff): ARST=\rst_n, D=$0\g_el[97].q[23:0], Q=\g_el[97].q
+Replacing nqx_s1_rf.$procdff$4040 ($adff): ARST=\rst_n, D=$0\g_el[96].q[23:0], Q=\g_el[96].q
+Replacing nqx_s1_rf.$procdff$4045 ($adff): ARST=\rst_n, D=$0\g_el[95].q[23:0], Q=\g_el[95].q
+Replacing nqx_s1_rf.$procdff$4050 ($adff): ARST=\rst_n, D=$0\g_el[94].q[23:0], Q=\g_el[94].q
+Replacing nqx_s1_rf.$procdff$4055 ($adff): ARST=\rst_n, D=$0\g_el[93].q[23:0], Q=\g_el[93].q
+Replacing nqx_s1_rf.$procdff$4060 ($adff): ARST=\rst_n, D=$0\g_el[92].q[23:0], Q=\g_el[92].q
+Replacing nqx_s1_rf.$procdff$4065 ($adff): ARST=\rst_n, D=$0\g_el[91].q[23:0], Q=\g_el[91].q
+Replacing nqx_s1_rf.$procdff$4070 ($adff): ARST=\rst_n, D=$0\g_el[90].q[23:0], Q=\g_el[90].q
+Replacing nqx_s1_rf.$procdff$4075 ($adff): ARST=\rst_n, D=$0\g_el[89].q[23:0], Q=\g_el[89].q
+Replacing nqx_s1_rf.$procdff$4080 ($adff): ARST=\rst_n, D=$0\g_el[88].q[23:0], Q=\g_el[88].q
+Replacing nqx_s1_rf.$procdff$4085 ($adff): ARST=\rst_n, D=$0\g_el[87].q[23:0], Q=\g_el[87].q
+Replacing nqx_s1_rf.$procdff$4090 ($adff): ARST=\rst_n, D=$0\g_el[86].q[23:0], Q=\g_el[86].q
+Replacing nqx_s1_rf.$procdff$4095 ($adff): ARST=\rst_n, D=$0\g_el[85].q[23:0], Q=\g_el[85].q
+Replacing nqx_s1_rf.$procdff$4100 ($adff): ARST=\rst_n, D=$0\g_el[84].q[23:0], Q=\g_el[84].q
+Replacing nqx_s1_rf.$procdff$4105 ($adff): ARST=\rst_n, D=$0\g_el[83].q[23:0], Q=\g_el[83].q
+Replacing nqx_s1_rf.$procdff$4110 ($adff): ARST=\rst_n, D=$0\g_el[82].q[23:0], Q=\g_el[82].q
+Replacing nqx_s1_rf.$procdff$4115 ($adff): ARST=\rst_n, D=$0\g_el[81].q[23:0], Q=\g_el[81].q
+Replacing nqx_s1_rf.$procdff$4120 ($adff): ARST=\rst_n, D=$0\g_el[80].q[23:0], Q=\g_el[80].q
+Replacing nqx_s1_rf.$procdff$4125 ($adff): ARST=\rst_n, D=$0\g_el[79].q[23:0], Q=\g_el[79].q
+Replacing nqx_s1_rf.$procdff$4130 ($adff): ARST=\rst_n, D=$0\g_el[78].q[23:0], Q=\g_el[78].q
+Replacing nqx_s1_rf.$procdff$4135 ($adff): ARST=\rst_n, D=$0\g_el[77].q[23:0], Q=\g_el[77].q
+Replacing nqx_s1_rf.$procdff$4140 ($adff): ARST=\rst_n, D=$0\g_el[76].q[23:0], Q=\g_el[76].q
+Replacing nqx_s1_rf.$procdff$4145 ($adff): ARST=\rst_n, D=$0\g_el[75].q[23:0], Q=\g_el[75].q
+Replacing nqx_s1_rf.$procdff$4150 ($adff): ARST=\rst_n, D=$0\g_el[74].q[23:0], Q=\g_el[74].q
+Replacing nqx_s1_rf.$procdff$4155 ($adff): ARST=\rst_n, D=$0\g_el[73].q[23:0], Q=\g_el[73].q
+Replacing nqx_s1_rf.$procdff$4160 ($adff): ARST=\rst_n, D=$0\g_el[72].q[23:0], Q=\g_el[72].q
+Replacing nqx_s1_rf.$procdff$4165 ($adff): ARST=\rst_n, D=$0\g_el[71].q[23:0], Q=\g_el[71].q
+Replacing nqx_s1_rf.$procdff$4170 ($adff): ARST=\rst_n, D=$0\g_el[70].q[23:0], Q=\g_el[70].q
+Replacing nqx_s1_rf.$procdff$4175 ($adff): ARST=\rst_n, D=$0\g_el[69].q[23:0], Q=\g_el[69].q
+Replacing nqx_s1_rf.$procdff$4180 ($adff): ARST=\rst_n, D=$0\g_el[68].q[23:0], Q=\g_el[68].q
+Replacing nqx_s1_rf.$procdff$4185 ($adff): ARST=\rst_n, D=$0\g_el[67].q[23:0], Q=\g_el[67].q
+Replacing nqx_s1_rf.$procdff$4190 ($adff): ARST=\rst_n, D=$0\g_el[66].q[23:0], Q=\g_el[66].q
+Replacing nqx_s1_rf.$procdff$4195 ($adff): ARST=\rst_n, D=$0\g_el[65].q[23:0], Q=\g_el[65].q
+Replacing nqx_s1_rf.$procdff$4200 ($adff): ARST=\rst_n, D=$0\g_el[64].q[23:0], Q=\g_el[64].q
+Replacing nqx_s1_rf.$procdff$4205 ($adff): ARST=\rst_n, D=$0\g_el[63].q[23:0], Q=\g_el[63].q
+Replacing nqx_s1_rf.$procdff$4210 ($adff): ARST=\rst_n, D=$0\g_el[62].q[23:0], Q=\g_el[62].q
+Replacing nqx_s1_rf.$procdff$4215 ($adff): ARST=\rst_n, D=$0\g_el[61].q[23:0], Q=\g_el[61].q
+Replacing nqx_s1_rf.$procdff$4220 ($adff): ARST=\rst_n, D=$0\g_el[60].q[23:0], Q=\g_el[60].q
+Replacing nqx_s1_rf.$procdff$4225 ($adff): ARST=\rst_n, D=$0\g_el[59].q[23:0], Q=\g_el[59].q
+Replacing nqx_s1_rf.$procdff$4230 ($adff): ARST=\rst_n, D=$0\g_el[58].q[23:0], Q=\g_el[58].q
+Replacing nqx_s1_rf.$procdff$4235 ($adff): ARST=\rst_n, D=$0\g_el[57].q[23:0], Q=\g_el[57].q
+Replacing nqx_s1_rf.$procdff$4240 ($adff): ARST=\rst_n, D=$0\g_el[56].q[23:0], Q=\g_el[56].q
+Replacing nqx_s1_rf.$procdff$4245 ($adff): ARST=\rst_n, D=$0\g_el[55].q[23:0], Q=\g_el[55].q
+Replacing nqx_s1_rf.$procdff$4250 ($adff): ARST=\rst_n, D=$0\g_el[54].q[23:0], Q=\g_el[54].q
+Replacing nqx_s1_rf.$procdff$4255 ($adff): ARST=\rst_n, D=$0\g_el[53].q[23:0], Q=\g_el[53].q
+Replacing nqx_s1_rf.$procdff$4260 ($adff): ARST=\rst_n, D=$0\g_el[52].q[23:0], Q=\g_el[52].q
+Replacing nqx_s1_rf.$procdff$4265 ($adff): ARST=\rst_n, D=$0\g_el[51].q[23:0], Q=\g_el[51].q
+Replacing nqx_s1_rf.$procdff$4270 ($adff): ARST=\rst_n, D=$0\g_el[50].q[23:0], Q=\g_el[50].q
+Replacing nqx_s1_rf.$procdff$4275 ($adff): ARST=\rst_n, D=$0\g_el[49].q[23:0], Q=\g_el[49].q
+Replacing nqx_s1_rf.$procdff$4280 ($adff): ARST=\rst_n, D=$0\g_el[48].q[23:0], Q=\g_el[48].q
+Replacing nqx_s1_rf.$procdff$4285 ($adff): ARST=\rst_n, D=$0\g_el[47].q[23:0], Q=\g_el[47].q
+Replacing nqx_s1_rf.$procdff$4290 ($adff): ARST=\rst_n, D=$0\g_el[46].q[23:0], Q=\g_el[46].q
+Replacing nqx_s1_rf.$procdff$4295 ($adff): ARST=\rst_n, D=$0\g_el[45].q[23:0], Q=\g_el[45].q
+Replacing nqx_s1_rf.$procdff$4300 ($adff): ARST=\rst_n, D=$0\g_el[44].q[23:0], Q=\g_el[44].q
+Replacing nqx_s1_rf.$procdff$4305 ($adff): ARST=\rst_n, D=$0\g_el[43].q[23:0], Q=\g_el[43].q
+Replacing nqx_s1_rf.$procdff$4310 ($adff): ARST=\rst_n, D=$0\g_el[42].q[23:0], Q=\g_el[42].q
+Replacing nqx_s1_rf.$procdff$4315 ($adff): ARST=\rst_n, D=$0\g_el[41].q[23:0], Q=\g_el[41].q
+Replacing nqx_s1_rf.$procdff$4320 ($adff): ARST=\rst_n, D=$0\g_el[40].q[23:0], Q=\g_el[40].q
+Replacing nqx_s1_rf.$procdff$4325 ($adff): ARST=\rst_n, D=$0\g_el[39].q[23:0], Q=\g_el[39].q
+Replacing nqx_s1_rf.$procdff$4330 ($adff): ARST=\rst_n, D=$0\g_el[38].q[23:0], Q=\g_el[38].q
+Replacing nqx_s1_rf.$procdff$4335 ($adff): ARST=\rst_n, D=$0\g_el[37].q[23:0], Q=\g_el[37].q
+Replacing nqx_s1_rf.$procdff$4340 ($adff): ARST=\rst_n, D=$0\g_el[36].q[23:0], Q=\g_el[36].q
+Replacing nqx_s1_rf.$procdff$4345 ($adff): ARST=\rst_n, D=$0\g_el[35].q[23:0], Q=\g_el[35].q
+Replacing nqx_s1_rf.$procdff$4350 ($adff): ARST=\rst_n, D=$0\g_el[34].q[23:0], Q=\g_el[34].q
+Replacing nqx_s1_rf.$procdff$4355 ($adff): ARST=\rst_n, D=$0\g_el[33].q[23:0], Q=\g_el[33].q
+Replacing nqx_s1_rf.$procdff$4360 ($adff): ARST=\rst_n, D=$0\g_el[32].q[23:0], Q=\g_el[32].q
+Replacing nqx_s1_rf.$procdff$4365 ($adff): ARST=\rst_n, D=$0\g_el[31].q[23:0], Q=\g_el[31].q
+Replacing nqx_s1_rf.$procdff$4370 ($adff): ARST=\rst_n, D=$0\g_el[30].q[23:0], Q=\g_el[30].q
+Replacing nqx_s1_rf.$procdff$4375 ($adff): ARST=\rst_n, D=$0\g_el[29].q[23:0], Q=\g_el[29].q
+Replacing nqx_s1_rf.$procdff$4380 ($adff): ARST=\rst_n, D=$0\g_el[28].q[23:0], Q=\g_el[28].q
+Replacing nqx_s1_rf.$procdff$4385 ($adff): ARST=\rst_n, D=$0\g_el[27].q[23:0], Q=\g_el[27].q
+Replacing nqx_s1_rf.$procdff$4390 ($adff): ARST=\rst_n, D=$0\g_el[26].q[23:0], Q=\g_el[26].q
+Replacing nqx_s1_rf.$procdff$4395 ($adff): ARST=\rst_n, D=$0\g_el[25].q[23:0], Q=\g_el[25].q
+Replacing nqx_s1_rf.$procdff$4400 ($adff): ARST=\rst_n, D=$0\g_el[24].q[23:0], Q=\g_el[24].q
+Replacing nqx_s1_rf.$procdff$4405 ($adff): ARST=\rst_n, D=$0\g_el[23].q[23:0], Q=\g_el[23].q
+Replacing nqx_s1_rf.$procdff$4410 ($adff): ARST=\rst_n, D=$0\g_el[22].q[23:0], Q=\g_el[22].q
+Replacing nqx_s1_rf.$procdff$4415 ($adff): ARST=\rst_n, D=$0\g_el[21].q[23:0], Q=\g_el[21].q
+Replacing nqx_s1_rf.$procdff$4420 ($adff): ARST=\rst_n, D=$0\g_el[20].q[23:0], Q=\g_el[20].q
+Replacing nqx_s1_rf.$procdff$4425 ($adff): ARST=\rst_n, D=$0\g_el[19].q[23:0], Q=\g_el[19].q
+Replacing nqx_s1_rf.$procdff$4430 ($adff): ARST=\rst_n, D=$0\g_el[18].q[23:0], Q=\g_el[18].q
+Replacing nqx_s1_rf.$procdff$4435 ($adff): ARST=\rst_n, D=$0\g_el[17].q[23:0], Q=\g_el[17].q
+Replacing nqx_s1_rf.$procdff$4440 ($adff): ARST=\rst_n, D=$0\g_el[16].q[23:0], Q=\g_el[16].q
+Replacing nqx_s1_rf.$procdff$4445 ($adff): ARST=\rst_n, D=$0\g_el[15].q[23:0], Q=\g_el[15].q
+Replacing nqx_s1_rf.$procdff$4450 ($adff): ARST=\rst_n, D=$0\g_el[14].q[23:0], Q=\g_el[14].q
+Replacing nqx_s1_rf.$procdff$4455 ($adff): ARST=\rst_n, D=$0\g_el[13].q[23:0], Q=\g_el[13].q
+Replacing nqx_s1_rf.$procdff$4460 ($adff): ARST=\rst_n, D=$0\g_el[12].q[23:0], Q=\g_el[12].q
+Replacing nqx_s1_rf.$procdff$4465 ($adff): ARST=\rst_n, D=$0\g_el[11].q[23:0], Q=\g_el[11].q
+Replacing nqx_s1_rf.$procdff$4470 ($adff): ARST=\rst_n, D=$0\g_el[10].q[23:0], Q=\g_el[10].q
+Replacing nqx_s1_rf.$procdff$4475 ($adff): ARST=\rst_n, D=$0\g_el[9].q[23:0], Q=\g_el[9].q
+Replacing nqx_s1_rf.$procdff$4480 ($adff): ARST=\rst_n, D=$0\g_el[8].q[23:0], Q=\g_el[8].q
+Replacing nqx_s1_rf.$procdff$4485 ($adff): ARST=\rst_n, D=$0\g_el[7].q[23:0], Q=\g_el[7].q
+Replacing nqx_s1_rf.$procdff$4490 ($adff): ARST=\rst_n, D=$0\g_el[6].q[23:0], Q=\g_el[6].q
+Replacing nqx_s1_rf.$procdff$4495 ($adff): ARST=\rst_n, D=$0\g_el[5].q[23:0], Q=\g_el[5].q
+Replacing nqx_s1_rf.$procdff$4500 ($adff): ARST=\rst_n, D=$0\g_el[4].q[23:0], Q=\g_el[4].q
+Replacing nqx_s1_rf.$procdff$4505 ($adff): ARST=\rst_n, D=$0\g_el[3].q[23:0], Q=\g_el[3].q
+Replacing nqx_s1_rf.$procdff$4510 ($adff): ARST=\rst_n, D=$0\g_el[2].q[23:0], Q=\g_el[2].q
+Replacing nqx_s1_rf.$procdff$4515 ($adff): ARST=\rst_n, D=$0\g_el[1].q[23:0], Q=\g_el[1].q
+Replacing nqx_s1_rf.$procdff$4520 ($adff): ARST=\rst_n, D=$0\g_el[0].q[23:0], Q=\g_el[0].q
+
+6. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module $paramod\nqx_s1_cordic_iter\TAG_W=s32'00000000000000000000000000001110..
+Finding unused cells or wires in module \core_props..
+Finding unused cells or wires in module \nqx_s1_core..
+Finding unused cells or wires in module \nqx_s1_div28..
+Finding unused cells or wires in module \nqx_s1_qdec..
+Finding unused cells or wires in module \nqx_s1_rcode..
+Finding unused cells or wires in module \nqx_s1_rf..
+Finding unused cells or wires in module \nqx_s1_rsign..
+Finding unused cells or wires in module \nqx_s1_tcode..
+Removed 15 unused cells and 15 unused wires.
+<suppressed ~16 debug messages>
+
+7. Executing FORMALFF pass.
+
+8. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module $paramod\nqx_s1_cordic_iter\TAG_W=s32'00000000000000000000000000001110..
+Finding unused cells or wires in module \core_props..
+Finding unused cells or wires in module \nqx_s1_core..
+Finding unused cells or wires in module \nqx_s1_div28..
+Finding unused cells or wires in module \nqx_s1_qdec..
+Finding unused cells or wires in module \nqx_s1_rcode..
+Finding unused cells or wires in module \nqx_s1_rf..
+Finding unused cells or wires in module \nqx_s1_rsign..
+Finding unused cells or wires in module \nqx_s1_tcode..
+Removed 16 unused cells and 16 unused wires.
+<suppressed ~21 debug messages>
+
+9. Executing CHECK pass (checking for obvious problems).
+Checking module $paramod\nqx_s1_cordic_iter\TAG_W=s32'00000000000000000000000000001110...
+Checking module core_props...
+Checking module nqx_s1_core...
+Checking module nqx_s1_div28...
+Checking module nqx_s1_qdec...
+Checking module nqx_s1_rcode...
+Checking module nqx_s1_rf...
+Checking module nqx_s1_rsign...
+Checking module nqx_s1_tcode...
+Found and reported 0 problems.
+
+10. Executing SETUNDEF pass (replace undef values with defined constants).
+
+11. Executing OPT pass (performing simple optimizations).
+
+11.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module $paramod\nqx_s1_cordic_iter\TAG_W=s32'00000000000000000000000000001110.
+<suppressed ~2 debug messages>
+Optimizing module core_props.
+Optimizing module nqx_s1_core.
+<suppressed ~3 debug messages>
+Optimizing module nqx_s1_div28.
+Optimizing module nqx_s1_qdec.
+Optimizing module nqx_s1_rcode.
+Optimizing module nqx_s1_rf.
+<suppressed ~4 debug messages>
+Optimizing module nqx_s1_rsign.
+Optimizing module nqx_s1_tcode.
+
+11.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `$paramod\nqx_s1_cordic_iter\TAG_W=s32'00000000000000000000000000001110'.
+Computing hashes of 124 cells of `$paramod\nqx_s1_cordic_iter\TAG_W=s32'00000000000000000000000000001110'.
+Finding duplicate cells in `$paramod\nqx_s1_cordic_iter\TAG_W=s32'00000000000000000000000000001110'.
+Finding identical cells in module `\core_props'.
+Computing hashes of 30 cells of `\core_props'.
+Finding duplicate cells in `\core_props'.
+Finding identical cells in module `\nqx_s1_core'.
+Computing hashes of 492 cells of `\nqx_s1_core'.
+Finding duplicate cells in `\nqx_s1_core'.
+Finding identical cells in module `\nqx_s1_div28'.
+Computing hashes of 37 cells of `\nqx_s1_div28'.
+Finding duplicate cells in `\nqx_s1_div28'.
+Finding identical cells in module `\nqx_s1_qdec'.
+Computing hashes of 12 cells of `\nqx_s1_qdec'.
+Finding duplicate cells in `\nqx_s1_qdec'.
+Finding identical cells in module `\nqx_s1_rcode'.
+Computing hashes of 20 cells of `\nqx_s1_rcode'.
+Finding duplicate cells in `\nqx_s1_rcode'.
+Finding identical cells in module `\nqx_s1_rf'.
+Computing hashes of 1158 cells of `\nqx_s1_rf'.
+Finding duplicate cells in `\nqx_s1_rf'.
+Finding identical cells in module `\nqx_s1_rsign'.
+Computing hashes of 7 cells of `\nqx_s1_rsign'.
+Finding duplicate cells in `\nqx_s1_rsign'.
+Finding identical cells in module `\nqx_s1_tcode'.
+Computing hashes of 3 cells of `\nqx_s1_tcode'.
+Finding duplicate cells in `\nqx_s1_tcode'.
+Removed a total of 0 cells.
+
+11.3. Executing OPT_DFF pass (perform DFF optimizations).
+
+11.4. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module $paramod\nqx_s1_cordic_iter\TAG_W=s32'00000000000000000000000000001110..
+Finding unused cells or wires in module \core_props..
+Finding unused cells or wires in module \nqx_s1_core..
+Finding unused cells or wires in module \nqx_s1_div28..
+Finding unused cells or wires in module \nqx_s1_qdec..
+Finding unused cells or wires in module \nqx_s1_rcode..
+Finding unused cells or wires in module \nqx_s1_rf..
+Finding unused cells or wires in module \nqx_s1_rsign..
+Finding unused cells or wires in module \nqx_s1_tcode..
+Removed 1 unused cells and 6 unused wires.
+<suppressed ~8 debug messages>
+
+11.5. Finished fast OPT passes.
+
+12. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module $paramod\nqx_s1_cordic_iter\TAG_W=s32'00000000000000000000000000001110..
+Finding unused cells or wires in module \core_props..
+Finding unused cells or wires in module \nqx_s1_core..
+Finding unused cells or wires in module \nqx_s1_div28..
+Finding unused cells or wires in module \nqx_s1_qdec..
+Finding unused cells or wires in module \nqx_s1_rcode..
+Finding unused cells or wires in module \nqx_s1_rf..
+Finding unused cells or wires in module \nqx_s1_rsign..
+Finding unused cells or wires in module \nqx_s1_tcode..
+Removed 0 unused cells and 193 unused wires.
+<suppressed ~5 debug messages>
+
+13. Executing RTLIL backend.
+Output filename: ../model/design_prep.il
+
+End of script. Logfile hash: 82156cc154, time: 0.52s, user: 0.37s, system: 0.05s, MEM: 48.48 MB peak
+Yosys 0.69+post (git sha1 v0.69, Release, GNU /nix/store/z4c6k0mrlkwl3s4w9ysxc8vq1wylm3ms-gcc-wrapper-15.3.0/bin/g++ 15.3.0)
+Time spent: 53% 4x opt_clean (0 sec), 13% 1x check (0 sec), ...

@@ -130,7 +130,7 @@ def cmd_verify(args: argparse.Namespace) -> int:
 
     if args.vs_reference:
         try:
-            sys.path.insert(0, "/tmp/naut")
+            sys.path.insert(0, "/tmp/naut/reference")
             import torch
             from nautilus_triton import NautilusConfig, NautilusQuantPyTorch
             ref = NautilusQuantPyTorch(NautilusConfig(dim=args.dim, bits=args.bits))
