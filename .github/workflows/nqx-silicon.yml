@@ -40,7 +40,11 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+      # Authenticated release lookup: unauthenticated calls share the runner
+      # IP's API rate limit and failed the job before any test ran.
       - uses: YosysHQ/setup-oss-cad-suite@v3
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
       - name: python packages
         run: $pythonLocation/bin/python -m pip install numpy pytest "cocotb==2.0.1"
       - name: verilator lint (-Wall)
