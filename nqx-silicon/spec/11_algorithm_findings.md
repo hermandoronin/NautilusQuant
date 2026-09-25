@@ -3,7 +3,7 @@
 **Document status:** Revision 1.0, 2026-09-24.
 
 Turning the reference into fixed-point hardware exposed four properties of
-the NautilusQuant v2 rotation (`NautilusQuant_Model.md`,
+the NautilusQuant v2 rotation (`docs/v1/model.md`,
 `nqx-core/nqx/lut.py`). They matter for anyone who reuses the algorithm, in
 silicon or software.
 
@@ -75,6 +75,5 @@ Consequences for the project:
    direction. The defensible hardware argument is zero rotation state and
    bit-exact determinism, not better quality.
 3. **Validate on real KV caches.** All numbers here use synthetic data.
-   Llama/Qwen KV tensors (for example via `validate_real_kv.py` in the
-   repository root) should decide F1's fix and F4's trade-off before an
+   Llama/Qwen KV tensors (for example via `reference/validate_real_kv.py`) should decide F1's fix and F4's trade-off before an
    expensive production tape-out.

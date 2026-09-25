@@ -20,6 +20,10 @@ golden-ratio KV-cache accelerator.**
 
 </div>
 
+> **Version 1 of the project.** This emulator and its RTL skeleton came before the chip.
+> The implemented, verified and signed-off design is [NQX-S1 in `nqx-silicon/`](../nqx-silicon/);
+> the project overview is the [root README](../README.md).
+
 ---
 
 ## TL;DR

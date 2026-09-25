@@ -83,7 +83,7 @@ emulator.
 - ❌ Quantization below 4 effective bits (radius + angle)
 - ❌ Non-NVIDIA / non-AMD GPU support in `server/backends.py`
 - ❌ Distributed inference (multi-GPU sharding)
-- ❌ Visualization / 3D (that lives in the parent repo's `quantsim3d.html`)
+- ❌ Visualization / 3D (that lives in the parent repo's `labs/quantsim3d.html`)
 
 ## 7. Working rules (for AI agents and humans)
 

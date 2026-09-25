@@ -76,10 +76,15 @@ jobs:
           extra_nix_config: |
             extra-substituters = https://nix-cache.fossi-foundation.org
             extra-trusted-public-keys = nix-cache.fossi-foundation.org:3+K59iFwXqKsL7BNu6Guy0v+uTlwsxYQxjspXzqLYQs=
+      # The committed sign-off used LibreLane 3.0.14. The wafer.space shell
+      # pins a 3.1 development build, which rejects KLAYOUT_FILLER_DEFINES,
+      # so the IHP chip gets LibreLane's own environment at that tag.
+      - name: LibreLane 3.0.14 environment
+        run: git clone --depth 1 --branch 3.0.14 https://github.com/librelane/librelane "$RUNNER_TEMP/librelane"
       - name: LibreLane chip flow
         run: |
           cd nqx-silicon/flow/ihp-sg13g2
-          nix-shell ../wafer-space-gf180/shell.nix --run "make gds"
+          nix-shell "$RUNNER_TEMP/librelane/shell.nix" --run "make gds"
       - name: sign-off summary (DRC, density, antenna, LVS per rule)
         if: always()
         run: |

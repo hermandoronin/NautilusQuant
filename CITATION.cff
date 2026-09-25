@@ -1,0 +1,18 @@
+cff-version: 1.2.0
+message: "If you use this work, please cite it as below."
+title: "NautilusQuant and NQX-S1: deterministic KV-cache compression, from algorithm to signed-off silicon layout"
+type: software
+authors:
+  - family-names: Doronin
+    given-names: Herman
+repository-code: "https://github.com/hermandoronin/NautilusQuant"
+license: MIT
+date-released: "2026-09-25"
+keywords:
+  - KV-cache compression
+  - quantization
+  - Givens rotation
+  - CORDIC
+  - ASIC
+  - open-source silicon
+  - IHP SG13G2
